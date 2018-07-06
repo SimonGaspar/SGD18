@@ -436,7 +436,7 @@ GameObject:
   - component: {fileID: 1050452698}
   - component: {fileID: 1050452701}
   - component: {fileID: 1050452700}
-  - component: {fileID: 1050452703}
+  - component: {fileID: 1050452704}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -537,7 +537,7 @@ CapsuleCollider2D:
   m_Offset: {x: 0.010247614, y: 0}
   m_Size: {x: 1.0123773, y: 1}
   m_Direction: 0
---- !u!114 &1050452703
+--- !u!114 &1050452704
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -545,13 +545,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1050452697}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f7b19221a003454f8590c8b278b9db8, type: 3}
+  m_Script: {fileID: 11500000, guid: 644eb2318ee32544ca68f53f5ffabe64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _gravityModifier: 1
   _minGroundNormalY: 0.65
-  jumpTakeOffSpeed: 2
-  maxSpeed: 3
+  _jumpTakeOffSpeed: 7
+  _maxSpeed: 7
 --- !u!1 &1233478094
 GameObject:
   m_ObjectHideFlags: 0
@@ -608,7 +608,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ea9b7bd75cb8064c84ab6ed692f3c6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GAME_RESOLUTION: 1.7777778
 --- !u!4 &1624935625
 Transform:
   m_ObjectHideFlags: 0

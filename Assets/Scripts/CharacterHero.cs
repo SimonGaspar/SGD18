@@ -1,53 +1,48 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PhysicsObject : MonoBehaviour
-{
+public class CharacterHero : PhysicsObject{
 
-    [SerializeField] private float _gravityModifier = 1f;
-    [SerializeField] private float _minGroundNormalY = .65f;
-    [SerializeField] private float _jumpTakeOffSpeed = 7f;
-    [SerializeField] private float _maxSpeed = 7f;
+    CharacterAttributes _attributes = new CharacterAttributes();
+    List<CharacterAttributes> _animalForm = new List<CharacterAttributes>();
+    CharacterAttributes _currentForm = null;
+    int _indexOfForm = -1;
 
-    protected bool _grounded;
-    protected Rigidbody2D _rb2d = null;
-    protected Vector2 _velocity = Vector2.zero;
-    protected ContactFilter2D _contactFilter;
-    protected RaycastHit2D[] _hitBuffer = new RaycastHit2D[16];
-    protected List<RaycastHit2D> _hitBufferList = new List<RaycastHit2D>(16);
-    protected const float _minMoveDistance = 0.001f;
-    protected const float _shellRadius = 0.01f;
-    protected Vector2 _groundNormal;
-    protected Vector2 _targetVelocity;
-
-    private void OnEnable()
+    public CharacterHero()
     {
-        _rb2d = GetComponent<Rigidbody2D>();
+        _animalForm.Add(_attributes);
+        _animalForm.Add(new CharacterFox());
+        _currentForm = _attributes;
     }
 
-    private void Start()
+    protected override void ComputeVelocity()
     {
-        _contactFilter.useTriggers = false;
-        _contactFilter.SetLayerMask(Physics2D.GetLayerCollisionMask(gameObject.layer));
-        _contactFilter.useLayerMask = true;
+        Vector2 move = Vector2.zero;
+        move.x = Input.GetAxis("Horizontal");
+
+        if (Input.GetButtonDown("Jump"))
+        {
+            _velocity.y = _currentForm.JumpTakeOffSpeed;
+        }
+        _targetVelocity = move * _currentForm.MaxSpeed;
     }
 
-    protected virtual void ComputeVelocity()
+    protected override void Update()
     {
-
-    }
-    protected virtual void Update()
-    {
+        if (_animalForm.Count > 0)
+            ChangeForm();
+        
         _targetVelocity = Vector2.zero;
         ComputeVelocity();
     }
 
-    protected virtual void FixedUpdate()
+    protected override void FixedUpdate()
     {
         _grounded = false;
 
-        _velocity += _gravityModifier * Physics2D.gravity * Time.deltaTime;
+        _velocity += _currentForm.GravityModifier * Physics2D.gravity * Time.deltaTime;
         _velocity.x = _targetVelocity.x;
 
         Vector2 moveAlongGround = new Vector2(_groundNormal.y, -_groundNormal.x);
@@ -63,7 +58,8 @@ public class PhysicsObject : MonoBehaviour
         Movement(move, true);
     }
 
-    protected virtual void Movement(Vector2 move, bool yMovement) {
+    protected override void Movement(Vector2 move, bool yMovement)
+    {
         float distance = move.magnitude;
         if (distance > _minMoveDistance)
         {
@@ -77,7 +73,7 @@ public class PhysicsObject : MonoBehaviour
             for (int i = 0; i < _hitBufferList.Count; i++)
             {
                 Vector2 currentNormal = _hitBufferList[i].normal;
-                if (currentNormal.y > _minGroundNormalY)
+                if (currentNormal.y > _currentForm.MinGroundNormalY)
                 {
                     _grounded = true;
                     if (yMovement)
@@ -95,6 +91,22 @@ public class PhysicsObject : MonoBehaviour
                 distance = modifiedDistance < distance ? modifiedDistance : distance;
             }
             _rb2d.position += move.normalized * distance;
+        }
+    }
+
+    private void ChangeForm() {
+        if (Input.GetButtonDown("ChangeNext"))
+        {
+            _indexOfForm = _animalForm.IndexOf(_currentForm) >= _animalForm.Count - 1 ? -1 : _animalForm.IndexOf(_currentForm);
+            _currentForm = _animalForm[++_indexOfForm];
+        }
+        else
+        {
+            if (Input.GetButtonDown("ChangePrevious"))
+            {
+                _indexOfForm = _animalForm.IndexOf(_currentForm) <= 0 ? _animalForm.Count : _animalForm.IndexOf(_currentForm);
+                _currentForm = _animalForm[--_indexOfForm];
+            }
         }
     }
 }
