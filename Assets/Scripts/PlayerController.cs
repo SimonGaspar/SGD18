@@ -19,13 +19,9 @@ public class PlayerController : PhysicsObject
         Vector2 move = Vector2.zero;
         move.x = Input.GetAxis("Horizontal");
 
-        if (Input.GetButtonDown("Jump") && _grounded)
+        if (Input.GetButtonDown("Jump"))
         {
             _velocity.y = jumpTakeOffSpeed;
-        }
-        else if (Input.GetButtonUp("Jump"))
-        {
-            if (_velocity.y > 0) _velocity.y = _velocity.y * .5f;
         }
         _targetVelocity = move * maxSpeed;
     }
