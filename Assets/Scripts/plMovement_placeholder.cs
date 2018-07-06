@@ -32,11 +32,6 @@ public class plMovement_placeholder : MonoBehaviour
 
 
 
-		if (horizontal == 0)
-			targetVel.x = (horizontal < 0) ? -1 : 1;
-		else
-			targetVel.x = 0;
-
 
 		targetVel.x = movementSpeed * horizontal;
 

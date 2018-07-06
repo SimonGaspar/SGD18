@@ -64,17 +64,20 @@ public class CameraMovement : MonoBehaviour
 		
 	}
 
-	void LateUpdate()
+	void FixedUpdate()
 	{
 		float newOffsetX = (isLookingLeft) ? -offsetX : offsetX;
+	
 
 
 		targetOffsetX = Mathf.Lerp(targetOffsetX, newOffsetX, smoothOffsetAmmount);
+
+		
+
 		Vector3 offset = new Vector3(targetOffsetX, offsetY, -10f); //z not to block everything
 
 		Vector3 currentPos = cam.transform.position;
 		Vector3 targetPos = followTarget.position + offset;
-
 		transform.position = Vector3.Lerp(currentPos, targetPos, smoothAmmount);
 	}
 
