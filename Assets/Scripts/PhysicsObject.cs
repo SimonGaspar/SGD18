@@ -9,6 +9,7 @@ public class PhysicsObject : MonoBehaviour
     [SerializeField] private float _minGroundNormalY = .65f;
     [SerializeField] private float _jumpTakeOffSpeed = 7f;
     [SerializeField] private float _maxSpeed = 7f;
+    [SerializeField] private bool _canFly = false;
 
     protected bool _grounded;
     protected Rigidbody2D _rb2d = null;

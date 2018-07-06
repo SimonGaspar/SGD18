@@ -22,12 +22,12 @@ public class CharacterHero : PhysicsObject{
         Vector2 move = Vector2.zero;
         move.x = Input.GetAxis("Horizontal");
 
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") && (_grounded || _currentForm.CanFly))
         {
             _velocity.y = _currentForm.JumpTakeOffSpeed;
         }
         _targetVelocity = move * _currentForm.MaxSpeed;
-    }
+}
 
     protected override void Update()
     {

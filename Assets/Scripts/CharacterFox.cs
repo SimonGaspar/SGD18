@@ -9,5 +9,6 @@ public class CharacterFox : CharacterAttributes{
         MinGroundNormalY = 1f;
         JumpTakeOffSpeed = 14f;
         MaxSpeed = 14f;
+        CanFly = true;
     }
 }
