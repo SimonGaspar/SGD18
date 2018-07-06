@@ -11,7 +11,7 @@ public class PlayerController : PhysicsObject
     // Use this for initialization
     void Start()
     {
-
+        Debug.Log(SettingsManager.Instance.GAME_RESOLUTION);
     }
 
     protected override void ComputeVelocity()
