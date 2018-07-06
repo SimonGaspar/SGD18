@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CAmeraMovement : MonoBehaviour
+public class CameraMovement : MonoBehaviour
 {
 
 	Camera cam;
@@ -13,8 +13,17 @@ public class CAmeraMovement : MonoBehaviour
 	[SerializeField]
 	float offsetY;
 
+	[SerializeField]
+	[Range(0, 1)]
+	float smoothAmmount;
+	[SerializeField]
+	[Range(0, 1)]
+	float smoothOffsetAmmount;
+
+
+
 	float horizontal;
-	bool isLookingLeft =true;
+	bool isLookingLeft = true;
 
 	[SerializeField]
 	Transform followTarget;
@@ -23,8 +32,8 @@ public class CAmeraMovement : MonoBehaviour
 
 	void Start()
 	{
-		offsetX = defOffsetX;
-		offsetY = defOffsetY;
+		defOffsetX = offsetX;
+		defOffsetY = offsetY;
 		cam = GetComponent<Camera>();
 		if (cam == null)
 		{
@@ -41,7 +50,7 @@ public class CAmeraMovement : MonoBehaviour
 	private void Update()
 	{
 		horizontal = Input.GetAxisRaw("Horizontal");
-		if (horizontal == 1) 
+		if (horizontal == 1)
 		{
 
 			isLookingLeft = false;
@@ -51,23 +60,23 @@ public class CAmeraMovement : MonoBehaviour
 
 			isLookingLeft = true;
 		}
-		
 
 		
-	//	isLookingLeft = (Input.GetAxisRaw("Horizontal") ==1)? true  : false);
 	}
-	
+
 	void LateUpdate()
 	{
-		
-		targetOffsetX = (isLookingLeft)? -offsetX : offsetX;
-		Vector3 offset = new Vector3(targetOffsetX, offsetY,-10f); //z not to block everything
+		float newOffsetX = (isLookingLeft) ? -offsetX : offsetX;
+
+
+		targetOffsetX = Mathf.Lerp(targetOffsetX, newOffsetX, smoothOffsetAmmount);
+		Vector3 offset = new Vector3(targetOffsetX, offsetY, -10f); //z not to block everything
 
 		Vector3 currentPos = cam.transform.position;
-		Vector3 targetPos = followTarget.position+offset;
+		Vector3 targetPos = followTarget.position + offset;
 
-		transform.position = Vector3.Lerp(currentPos, targetPos, 0.3f);
+		transform.position = Vector3.Lerp(currentPos, targetPos, smoothAmmount);
 	}
 
-	
+
 }
