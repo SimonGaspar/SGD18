@@ -7,9 +7,6 @@ public class PhysicsObject : MonoBehaviour
 
     [SerializeField] private float _gravityModifier = 1f;
     [SerializeField] private float _minGroundNormalY = .65f;
-    [SerializeField] private float _jumpTakeOffSpeed = 7f;
-    [SerializeField] private float _maxSpeed = 7f;
-    [SerializeField] private bool _canFly = false;
 
     protected bool _grounded;
     protected Rigidbody2D _rb2d = null;
@@ -64,7 +61,8 @@ public class PhysicsObject : MonoBehaviour
         Movement(move, true);
     }
 
-    protected virtual void Movement(Vector2 move, bool yMovement) {
+    protected virtual void Movement(Vector2 move, bool yMovement)
+    {
         float distance = move.magnitude;
         if (distance > _minMoveDistance)
         {

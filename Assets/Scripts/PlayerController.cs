@@ -5,13 +5,24 @@ using UnityEngine;
 public class PlayerController : PhysicsObject
 {
 
-    [SerializeField] private float jumpTakeOffSpeed = 7f;
-    [SerializeField] private float maxSpeed = 7f;
-    [SerializeField] private bool canFly = false;
+    private float jumpTakeOffSpeed = 7f;
+    private float maxSpeed = 7f;
+    private bool canFly = false;
+
+    [HideInInspector] public Animal Animal;
+    private SpriteRenderer _spriteRenderer;
     // Use this for initialization
     void Start()
     {
-        Debug.Log(SettingsManager.Instance.GAME_RESOLUTION);
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    public void UpdateStats()
+    {
+        jumpTakeOffSpeed = Animal.JumpTakeOffSpeed;
+        maxSpeed = Animal.MaxSpeed;
+        canFly = Animal.CanFly;
+        _spriteRenderer.color = Animal.Color;
     }
 
     protected override void ComputeVelocity()
