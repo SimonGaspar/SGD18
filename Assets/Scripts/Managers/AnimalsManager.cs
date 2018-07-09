@@ -9,24 +9,8 @@ using UnityEngine;
  * To work correctly, this Script has to be attached to game object in current scene !
  */
 
-public class AnimalsManager : MonoBehaviour
+public class AnimalsManager : Singleton<AnimalsManager>
 {
-    // Singleton stuff
-    private static AnimalsManager _instance;
-
-    public static AnimalsManager Instance { get { return _instance; } }
-
-    private void Awake()
-    {
-        if (_instance != null && _instance != this)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            _instance = this;
-        }
-    }
     // Variables
     enum AnimalForm { None, Human, Eagle };
 
@@ -38,7 +22,7 @@ public class AnimalsManager : MonoBehaviour
     private GameObject _currentPlayerForm;
     private Vector3 _positionBeforeDestroy;
 
-    private AnimalForm _currentAnimalIdentifie = AnimalForm.None;
+    private AnimalForm _currentAnimalIdentifier;
 
     private void Start()
     {
@@ -48,6 +32,8 @@ public class AnimalsManager : MonoBehaviour
         _playerSpawnPosition = _playerSpawnObject.transform.position;
         _positionBeforeDestroy = _playerSpawnPosition;
         SpawnHuman();
+
+        Debug.Log(SettingsManager.Instance.GAME_RESOLUTION);
     }
 
     public void DestroyCurrentForm()

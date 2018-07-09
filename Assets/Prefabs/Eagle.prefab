@@ -93,7 +93,7 @@ MonoBehaviour:
   _minGroundNormalY: 0.65
   _shellRadius: 0.01
   jumpTakeOffSpeed: 4
-  maxSpeed: 10
+  maxSpeed: 5
   canFly: 1
   canWalk: 0
   Animal: {fileID: 0}
@@ -133,7 +133,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 6fe7c65bc4e386a4fbfee3544419520f, type: 3}
-  m_Color: {r: 0, g: 0.03999734, b: 1, a: 1}
+  m_Color: {r: 0.4743681, g: 0.4750033, b: 0.49056602, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
