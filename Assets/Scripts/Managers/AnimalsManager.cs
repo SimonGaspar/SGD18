@@ -38,7 +38,7 @@ public class AnimalsManager : MonoBehaviour
     private GameObject _currentPlayerForm;
     private Vector3 _positionBeforeDestroy;
 
-    private AnimalForm _currentAnimalIdentifier;
+    private AnimalForm _currentAnimalIdentifie = AnimalForm.None;
 
     private void Start()
     {
