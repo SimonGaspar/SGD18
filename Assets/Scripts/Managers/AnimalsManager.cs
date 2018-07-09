@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Assertions;
 using UnityEngine.UI;
@@ -26,40 +27,63 @@ public class AnimalsManager : MonoBehaviour
             _instance = this;
         }
     }
+    // Variables
+    enum AnimalForm { None, Human, Eagle };
+
+    [SerializeField] private GameObject _humanForm;
+    [SerializeField] private GameObject[] _equippedAnimalsPrefabs = new GameObject[2];
+    [SerializeField] private Transform _playerSpawnObject;
+    private Vector3 _playerSpawnPosition;
+
+    private GameObject _currentPlayerForm;
+    private Vector3 _positionBeforeDestroy;
+
+    private AnimalForm _currentAnimalIdentifier;
 
     private void Start()
     {
-        Assert.IsNotNull(_player);
-        _playerController = _player.GetComponent<PlayerController>();
-        _playerController.Animal = _humanForm;
-        _playerController.UpdateStats();
+        Assert.IsNotNull(_humanForm);
+        Assert.IsNotNull(_playerSpawnObject);
+
+        _playerSpawnPosition = _playerSpawnObject.transform.position;
+        _positionBeforeDestroy = _playerSpawnPosition;
+        SpawnHuman();
     }
 
-    public void SwapToAnimalNumber(int animalIndex)
+    public void DestroyCurrentForm()
     {
-        Debug.Log("Swapping to " + animalIndex);
-        if (animalIndex < _animals.Length && _animals[animalIndex] != null)
+        if (_currentPlayerForm != null)
         {
-            _playerController.Animal = _animals[animalIndex];
-            _playerController.UpdateStats();
+            _positionBeforeDestroy = _currentPlayerForm.transform.position;
+            Destroy(_currentPlayerForm);
         }
     }
-
-    public void SwapToHuman()
+    public void SpawnHuman()
     {
-        _playerController.Animal = _humanForm;
-        _playerController.UpdateStats();
+        if (_currentAnimalIdentifier == AnimalForm.Human) return;
+        DestroyCurrentForm();
+        _currentPlayerForm = Instantiate(_humanForm, _positionBeforeDestroy, Quaternion.identity);
+        _currentAnimalIdentifier = AnimalForm.Human;
+    }
+
+    public void SwapToAnimalNumber(int index)
+    {
+        GameObject chosenAnimalPrefab = null;
+        if (index < _equippedAnimalsPrefabs.Length)
+            chosenAnimalPrefab = _equippedAnimalsPrefabs[index];
+        if (chosenAnimalPrefab != null)
+        {
+            AnimalForm chosenAnimalForm = (AnimalForm)Enum.Parse(typeof(AnimalForm), chosenAnimalPrefab.name);
+            if (_currentAnimalIdentifier == chosenAnimalForm) return;
+            DestroyCurrentForm();
+            _currentPlayerForm = Instantiate(chosenAnimalPrefab, _positionBeforeDestroy, Quaternion.identity);
+            _currentAnimalIdentifier = chosenAnimalForm;
+        }
     }
     private void Update()
     {
 
     }
-    // Variables
-    [SerializeField] private GameObject _player;
-    private PlayerController _playerController;
-    [SerializeField] private Animal _humanForm;
-    [SerializeField] private Animal[] _animals = new Animal[2];
-    [SerializeField] private Animal _currentAnimal;
     // Global functions
 
 }

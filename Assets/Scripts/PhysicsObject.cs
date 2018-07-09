@@ -15,7 +15,7 @@ public class PhysicsObject : MonoBehaviour
     protected RaycastHit2D[] _hitBuffer = new RaycastHit2D[16];
     protected List<RaycastHit2D> _hitBufferList = new List<RaycastHit2D>(16);
     protected const float _minMoveDistance = 0.001f;
-    protected const float _shellRadius = 0.01f;
+    [SerializeField] protected float _shellRadius = 0.1f;
     protected Vector2 _groundNormal;
     protected Vector2 _targetVelocity;
 
@@ -67,6 +67,7 @@ public class PhysicsObject : MonoBehaviour
         if (distance > _minMoveDistance)
         {
             int count = _rb2d.Cast(move, _contactFilter, _hitBuffer, distance + _shellRadius);
+
             _hitBufferList.Clear();
             for (int i = 0; i < count; i++)
             {
@@ -76,6 +77,7 @@ public class PhysicsObject : MonoBehaviour
             for (int i = 0; i < _hitBufferList.Count; i++)
             {
                 Vector2 currentNormal = _hitBufferList[i].normal;
+
                 if (currentNormal.y > _minGroundNormalY)
                 {
                     _grounded = true;
@@ -91,7 +93,7 @@ public class PhysicsObject : MonoBehaviour
                     _velocity = _velocity - projection * currentNormal;
                 }
                 float modifiedDistance = _hitBufferList[i].distance - _shellRadius;
-                distance = modifiedDistance < distance ? modifiedDistance : distance;
+                distance = Mathf.Min(modifiedDistance, distance);
             }
             _rb2d.position += move.normalized * distance;
         }
