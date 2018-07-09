@@ -32,8 +32,6 @@ public class AnimalsManager : Singleton<AnimalsManager>
         _playerSpawnPosition = _playerSpawnObject.transform.position;
         _positionBeforeDestroy = _playerSpawnPosition;
         SpawnHuman();
-
-        Debug.Log(SettingsManager.Instance.GAME_RESOLUTION);
     }
 
     public void DestroyCurrentForm()

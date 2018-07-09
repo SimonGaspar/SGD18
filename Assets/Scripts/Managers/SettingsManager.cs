@@ -2,10 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-/*
- * To work correctly, this Script has to be attached to game object in current scene !
- */
-
 public class SettingsManager : Singleton<SettingsManager>
 {
     // Settings accessible globally
