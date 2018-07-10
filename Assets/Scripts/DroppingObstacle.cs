@@ -41,4 +41,9 @@ public class DroppingObstacle : MonoBehaviour
         }
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawIcon(transform.position, "drop", true);
+    }
+
 }
