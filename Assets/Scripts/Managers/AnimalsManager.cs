@@ -14,7 +14,7 @@ public class AnimalsManager : Singleton<AnimalsManager>
     // Variables
     enum AnimalForm { None, Human, Eagle };
 
-    [SerializeField] private GameObject _humanForm;
+    [SerializeField] private GameObject _humanFormHolder;
     [SerializeField] private GameObject[] _equippedAnimalsPrefabs = new GameObject[2];
     [SerializeField] private Transform _playerSpawnObject;
     private Vector3 _playerSpawnPosition;
@@ -26,7 +26,7 @@ public class AnimalsManager : Singleton<AnimalsManager>
 
     private void Start()
     {
-        Assert.IsNotNull(_humanForm);
+        Assert.IsNotNull(_humanFormHolder);
         Assert.IsNotNull(_playerSpawnObject);
 
         _playerSpawnPosition = _playerSpawnObject.transform.position;
@@ -46,7 +46,7 @@ public class AnimalsManager : Singleton<AnimalsManager>
     {
         if (_currentAnimalIdentifier == AnimalForm.Human) return;
         DestroyCurrentForm();
-        _currentPlayerForm = Instantiate(_humanForm, _positionBeforeDestroy, Quaternion.identity);
+        _currentPlayerForm = Instantiate(_humanFormHolder, _positionBeforeDestroy, Quaternion.identity);
         _currentAnimalIdentifier = AnimalForm.Human;
     }
 
