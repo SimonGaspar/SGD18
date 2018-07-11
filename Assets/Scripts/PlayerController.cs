@@ -9,8 +9,7 @@ public class PlayerController : PhysicsObject
     [SerializeField] private float maxSpeed = 7f;
     [SerializeField] private bool canFly = false;
     [SerializeField] private bool canWalk = true;
-
-    [HideInInspector] public Animal Animal;
+    
     private SpriteRenderer _spriteRenderer;
     // Use this for initialization
     void Start()
@@ -30,4 +29,6 @@ public class PlayerController : PhysicsObject
         if (canWalk || (!_grounded && canFly))
             _targetVelocity = move * maxSpeed;
     }
+
+
 }
