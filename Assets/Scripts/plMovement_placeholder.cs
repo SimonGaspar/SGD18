@@ -4,27 +4,33 @@ using UnityEngine;
 
 public class plMovement_placeholder : MonoBehaviour
 {
-	Camera cam;
+	//Camera cam;
 	[SerializeField]
 	Transform player;
 	Rigidbody2D rigid;
 	[SerializeField]
 	float movementSpeed;
 	[SerializeField]
-	DebugCamScript debugCamScript;
-	[SerializeField]
 	float jumpForce = 8;
+
+	[SerializeField]
+	CameraMovement cameraMovement;
+
 	bool onGround;
 	bool prevOnGround;
 	RaycastHit2D hit;
-	// Use this for initialization
+
+
+
+
+
+
 	void Start()
 	{
 
 		rigid = GetComponent<Rigidbody2D>();
 		if (rigid == null)
 			Debug.Log("No rigid attached to player");
-		cam = debugCamScript.cam;
 	}
 
 	// Update is called once per frame
@@ -32,16 +38,12 @@ public class plMovement_placeholder : MonoBehaviour
 	{
 		onGround = OnGround();
 
-		if (prevOnGround != onGround)
-		{
-			if (onGround)
-			{
-				debugCamScript.AdjustYrelativeOffset(cam.WorldToScreenPoint(player.transform.position).y + 0.5f);
-				//Debug.Log(true);
-			}
-		}
+
 		float horizontal = Input.GetAxisRaw("Horizontal");
 		float vertical = Input.GetAxisRaw("Vertical");
+		
+
+
 		Vector2 move = new Vector2(horizontal, vertical);
 		move.Normalize();
 		Vector2 targetVel = rigid.velocity;
@@ -57,6 +59,14 @@ public class plMovement_placeholder : MonoBehaviour
 
 		rigid.velocity = Vector2.Lerp(rigid.velocity, targetVel, 0.8f);
 
+		if (prevOnGround != onGround)
+		{
+			if (onGround)
+			{
+				cameraMovement.AdjustYrelativeOffset(-1.2f);
+			}
+		}
+
 		prevOnGround = onGround;
 	}
 
@@ -69,9 +79,11 @@ public class plMovement_placeholder : MonoBehaviour
 		float dis = 0.2f;
 		hit = Physics2D.Raycast(origin, dir, dis);
 
-		Debug.DrawLine(origin, hit.point);
+		//Debug.DrawLine(origin, hit.point);
 
 		return hit;
 
 	}
+
+	
 }
