@@ -24,8 +24,8 @@ public class AnimalsManager : Singleton<AnimalsManager>
 
     private AnimalForm _currentAnimalIdentifier;
 
-    public GameObject Particle;
-    GameObject _particle;
+    public ParticleSystem Particle;
+    ParticleSystem _particle;
     bool _runParticle=false;
 
     [System.Serializable]
@@ -47,6 +47,7 @@ public class AnimalsManager : Singleton<AnimalsManager>
         _playerSpawnPosition = _playerSpawnObject.transform.position;
         _positionBeforeDestroy = _playerSpawnPosition;
         SpawnHuman();
+        _particle = Instantiate<ParticleSystem>(Particle);
     }
 
     public void DestroyCurrentForm()
@@ -75,20 +76,36 @@ public class AnimalsManager : Singleton<AnimalsManager>
             AnimalForm chosenAnimalForm = (AnimalForm)Enum.Parse(typeof(AnimalForm), chosenAnimalPrefab.name);
             if (_currentAnimalIdentifier == chosenAnimalForm) return;
 
-            _particle = Instantiate(Particle);
-            _particle.transform.position = _currentPlayerForm.transform.position - new Vector3(0, 0.7f, -1f);
-            _particle = Instantiate(Particle);
-            _particle.transform.position = _currentPlayerForm.transform.position - new Vector3(0, 0.7f, 1f);
- 
+            
+            _particle.Simulate(0.0f, true, true);
+            _particle.Play();
+            
+
+
             DestroyCurrentForm();
             _currentPlayerForm = Instantiate(chosenAnimalPrefab, _positionBeforeDestroy, Quaternion.identity);
             _currentAnimalIdentifier = chosenAnimalForm;
+
+            Transformation();
         }
     }
 
     public Vector3 GetPosition() {
         return _currentPlayerForm.transform.position;
     }
+
+    //private IEnumerator Transformation() {
+
+    //    var x = _currentPlayerForm.GetComponent<SpriteRenderer>();
+    //    float timer = 1f;
+    //    while (timer > (1 / 8))
+    //    {
+    //        timer -= Time.deltaTime;
+    //        _currentPlayerForm.transform.localScale = Vector3.one * timer * 8;
+    //        yield return null;
+    //    }
+    //    _currentPlayerForm.transform.localScale = Vector3.zero;
+    //}
 
     private void Update()
     {
@@ -97,10 +114,7 @@ public class AnimalsManager : Singleton<AnimalsManager>
             RadialMenuSpawner.Instance.SpawnMenu(_equippedAnimalsPrefabs);
         }
 
-        if (_runParticle) {
-            _particle.transform.position = _currentPlayerForm.transform.position - new Vector3(0, 1f, 0);
-        }
-
+        _particle.transform.position = _currentPlayerForm.transform.position;
     }
     // Global functions
 
