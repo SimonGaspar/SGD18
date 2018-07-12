@@ -12,7 +12,7 @@ using UnityEngine;
 public class AnimalsManager : Singleton<AnimalsManager>
 {
     // Variables
-    enum AnimalForm { None, Human, Eagle };
+    enum AnimalForm { None, Human, Eagle, Bison };
 
     [SerializeField] private GameObject _humanFormHolder;
     [SerializeField] private GameObject[] _equippedAnimalsPrefabs = new GameObject[2];
