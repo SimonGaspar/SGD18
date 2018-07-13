@@ -9,4 +9,7 @@ public class EventsManager : Singleton<EventsManager>
 
     public delegate void onPlayerDeath();
     public onPlayerDeath playerDeathDelegate;
+
+    public delegate void onFormChange();
+    public onFormChange formChangeDelegate;
 }

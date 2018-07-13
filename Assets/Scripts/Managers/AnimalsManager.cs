@@ -48,6 +48,7 @@ public class AnimalsManager : Singleton<AnimalsManager>
         DestroyCurrentForm();
         _currentPlayerForm = Instantiate(_humanFormHolder, _positionBeforeDestroy, Quaternion.identity);
         _currentAnimalIdentifier = AnimalForm.Human;
+        EventsManager.Instance.formChangeDelegate();
     }
 
     public void SwapToAnimalNumber(int index)
@@ -62,8 +63,15 @@ public class AnimalsManager : Singleton<AnimalsManager>
             DestroyCurrentForm();
             _currentPlayerForm = Instantiate(chosenAnimalPrefab, _positionBeforeDestroy, Quaternion.identity);
             _currentAnimalIdentifier = chosenAnimalForm;
+            EventsManager.Instance.formChangeDelegate();
         }
     }
+
+    public Transform GetCurrentAnimalTransformComponent()
+    {
+        return _currentPlayerForm.GetComponent<Transform>();
+    }
+
     private void Update()
     {
 

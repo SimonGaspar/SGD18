@@ -106,8 +106,6 @@ public class CameraMovementBackup : MonoBehaviour
 
     Vector2 maxDif;
 
-
-
     void Start()
     {
 
@@ -124,24 +122,6 @@ public class CameraMovementBackup : MonoBehaviour
         {
             Debug.Log("CameraScript: no player to follow, missing reference!");
         }
-
-        //assign correct UI pivots and anchors, so changes in inspector dont affect code, they will only affect visual debugging
-        lowerBar.rectTransform.pivot = new Vector2(0.5F, 0.5F);
-        upperBar.rectTransform.pivot = new Vector2(0.5F, 0.5F);
-        leftBar.rectTransform.pivot = new Vector2(0.5F, 0.5F);
-        rightBar.rectTransform.pivot = new Vector2(0.5F, 0.5F);
-
-        lowerBar.rectTransform.anchorMin = new Vector2(0.5F, 0.5F);
-        upperBar.rectTransform.anchorMin = new Vector2(0.5F, 0.5F);
-        leftBar.rectTransform.anchorMin = new Vector2(0.5F, 0.5F);
-        rightBar.rectTransform.anchorMin = new Vector2(0.5F, 0.5F);
-
-        lowerBar.rectTransform.anchorMax = new Vector2(0.5F, 0.5F);
-        upperBar.rectTransform.anchorMax = new Vector2(0.5F, 0.5F);
-        leftBar.rectTransform.anchorMax = new Vector2(0.5F, 0.5F);
-        rightBar.rectTransform.anchorMax = new Vector2(0.5F, 0.5F);
-
-
 
         camSize = new Vector2(cam.pixelWidth, cam.pixelHeight);
         //set correct values for deadzone at the begining, avoiding first frame bugs
