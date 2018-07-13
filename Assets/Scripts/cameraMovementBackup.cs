@@ -1,10 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Assertions;
 using UnityEngine.UI;
 
-public class CameraMovement : MonoBehaviour
+public class CameraMovementBackup : MonoBehaviour
 {
 
     public Camera cam;
@@ -28,7 +27,7 @@ public class CameraMovement : MonoBehaviour
 
     // this will probably not be in future updates, no more offset needed
     float horizontal;
-    // bool isLookingLeft = true;
+    //    bool isLookingLeft = true;
 
     //checks if player left camera viev deadzone
     public bool outOfBoundsX = false;
@@ -44,10 +43,9 @@ public class CameraMovement : MonoBehaviour
     Transform followTarget;
 
     float targetOffsetX;
-    Vector2 targetPosition;
     float targetPositionX;
     float targetPositionY;
-    Vector2 offset;
+    Vector3 offset;
     Vector2 lastCamPos = Vector3.zero;
     public Vector3 offsetView;
 
@@ -67,16 +65,16 @@ public class CameraMovement : MonoBehaviour
     //rework, set always correct bar values, then input and folllow target check for merging issues
 
     //those four points serve as guidance for our camera, their images are for visual debugging, only need transform really, should change to transform tbh
-    // [SerializeField]
-    // Image upperBar;
-    // [SerializeField]
-    // Image lowerBar;
-    // [SerializeField]
-    // Image leftBar;
-    // [SerializeField]
-    // Image rightBar;
-    // [SerializeField]
-    // Texture GizmosTexture;
+    [SerializeField]
+    Image upperBar;
+    [SerializeField]
+    Image lowerBar;
+    [SerializeField]
+    Image leftBar;
+    [SerializeField]
+    Image rightBar;
+    [SerializeField]
+    Texture GizmosTexture;
 
     //create screenspace bounds, if player moves out of the bounds, follow smmoothly
     public Bounds camDeadzone;
@@ -97,6 +95,9 @@ public class CameraMovement : MonoBehaviour
     [Range(0, 1)]
     float DeadzoneHeight;
 
+
+
+
     Vector2 camSize;
     Vector2 relativeValues;
     Vector2 position;
@@ -105,32 +106,42 @@ public class CameraMovement : MonoBehaviour
 
     Vector2 maxDif;
 
+
+
     void Start()
     {
+
+        targetPositionX = followTarget.position.x;// + offset.x;
+        targetPositionY = followTarget.position.y;// + offset.y;
+
         cam = GetComponent<Camera>();
 
-        Assert.IsNotNull(cam);
-        Assert.IsNotNull(followTarget);
-
-        targetPosition = followTarget.position;
-        // targetPositionX = followTarget.position.x;// + offset.x;
-        // targetPositionY = followTarget.position.y;// + offset.y;
+        if (cam == null)
+        {
+            Debug.Log("No camera reference!");
+        }
+        if (followTarget == null)
+        {
+            Debug.Log("CameraScript: no player to follow, missing reference!");
+        }
 
         //assign correct UI pivots and anchors, so changes in inspector dont affect code, they will only affect visual debugging
-        // lowerBar.rectTransform.pivot = new Vector2(0.5F, 0.5F);
-        // upperBar.rectTransform.pivot = new Vector2(0.5F, 0.5F);
-        // leftBar.rectTransform.pivot = new Vector2(0.5F, 0.5F);
-        // rightBar.rectTransform.pivot = new Vector2(0.5F, 0.5F);
+        lowerBar.rectTransform.pivot = new Vector2(0.5F, 0.5F);
+        upperBar.rectTransform.pivot = new Vector2(0.5F, 0.5F);
+        leftBar.rectTransform.pivot = new Vector2(0.5F, 0.5F);
+        rightBar.rectTransform.pivot = new Vector2(0.5F, 0.5F);
 
-        // lowerBar.rectTransform.anchorMin = new Vector2(0.5F, 0.5F);
-        // upperBar.rectTransform.anchorMin = new Vector2(0.5F, 0.5F);
-        // leftBar.rectTransform.anchorMin = new Vector2(0.5F, 0.5F);
-        // rightBar.rectTransform.anchorMin = new Vector2(0.5F, 0.5F);
+        lowerBar.rectTransform.anchorMin = new Vector2(0.5F, 0.5F);
+        upperBar.rectTransform.anchorMin = new Vector2(0.5F, 0.5F);
+        leftBar.rectTransform.anchorMin = new Vector2(0.5F, 0.5F);
+        rightBar.rectTransform.anchorMin = new Vector2(0.5F, 0.5F);
 
-        // lowerBar.rectTransform.anchorMax = new Vector2(0.5F, 0.5F);
-        // upperBar.rectTransform.anchorMax = new Vector2(0.5F, 0.5F);
-        // leftBar.rectTransform.anchorMax = new Vector2(0.5F, 0.5F);
-        // rightBar.rectTransform.anchorMax = new Vector2(0.5F, 0.5F);
+        lowerBar.rectTransform.anchorMax = new Vector2(0.5F, 0.5F);
+        upperBar.rectTransform.anchorMax = new Vector2(0.5F, 0.5F);
+        leftBar.rectTransform.anchorMax = new Vector2(0.5F, 0.5F);
+        rightBar.rectTransform.anchorMax = new Vector2(0.5F, 0.5F);
+
+
 
         camSize = new Vector2(cam.pixelWidth, cam.pixelHeight);
         //set correct values for deadzone at the begining, avoiding first frame bugs
@@ -191,12 +202,12 @@ public class CameraMovement : MonoBehaviour
 		*/
 
         //always adjusting position, if dispaly changes, should be in separate function and changed only if necessary
-        // lowerBar.rectTransform.position = new Vector2(camSize.y, relativeValues.y);
-        // upperBar.rectTransform.position = new Vector2(camSize.y, relativeValues.y + DeadzoneHeight * camSize.y);
-        // leftBar.rectTransform.position = new Vector2(relativeValues.x, 0f);
-        // rightBar.rectTransform.position = new Vector2(relativeValues.x + DeadzoneWidth * camSize.x, 0f);
-        // camDeadzone.size = new Vector3(rightBar.rectTransform.position.x - leftBar.rectTransform.position.x,
-        //                                 upperBar.rectTransform.position.y - lowerBar.rectTransform.position.y, 0f);
+        lowerBar.rectTransform.position = new Vector2(camSize.y, relativeValues.y);
+        upperBar.rectTransform.position = new Vector2(camSize.y, relativeValues.y + DeadzoneHeight * camSize.y);
+        leftBar.rectTransform.position = new Vector2(relativeValues.x, 0f);
+        rightBar.rectTransform.position = new Vector2(relativeValues.x + DeadzoneWidth * camSize.x, 0f);
+        camDeadzone.size = new Vector3(rightBar.rectTransform.position.x - leftBar.rectTransform.position.x,
+                                        upperBar.rectTransform.position.y - lowerBar.rectTransform.position.y, 0f);
 
     }
 
@@ -207,20 +218,20 @@ public class CameraMovement : MonoBehaviour
 
         if (!onPlayer)
         {
-            targetPosition.x = lastCamPos.x + offsetView.x;
-            targetPosition.y = lastCamPos.y + offsetView.y;
+            targetPositionX = lastCamPos.x + offsetView.x;
+            targetPositionY = lastCamPos.y + offsetView.y;
 
         }
         else
         {
             if (outOfBoundsX)
             {
-                targetPosition.x = Mathf.Lerp(cam.transform.position.x, followTarget.position.x, 0.3f);
+                targetPositionX = Mathf.Lerp(cam.transform.position.x, followTarget.position.x, 0.3f);
             }
 
             if (outOfBoundsY)
             {
-                targetPosition.y = Mathf.Lerp(cam.transform.position.y, followTarget.position.y, 0.3f);
+                targetPositionY = Mathf.Lerp(cam.transform.position.y, followTarget.position.y, 0.3f);
             }
             lastCamPos = new Vector2(cam.transform.position.x, cam.transform.position.y);
 
@@ -315,21 +326,21 @@ public class CameraMovement : MonoBehaviour
     }
 
     //only for debug purposes
-    // private void OnDrawGizmos()
-    // {
+    private void OnDrawGizmos()
+    {
 
-    //     camDeadzone.center = new Vector3(relativeValues.x, relativeValues.y, 0f);
-    //     Rect rect = new Rect(camDeadzone.center, camDeadzone.size);
-    //     // Gizmos.DrawGUITexture(rect, GizmosTexture);
+        camDeadzone.center = new Vector3(relativeValues.x, relativeValues.y, 0f);
+        Rect rect = new Rect(camDeadzone.center, camDeadzone.size);
+        Gizmos.DrawGUITexture(rect, GizmosTexture);
 
-    // }
+    }
     //only for dev builds
     void ToggleImages(bool turnOn)
     {
-        // lowerBar.enabled = turnOn;
-        // upperBar.enabled = turnOn;
-        // leftBar.enabled = turnOn;
-        // rightBar.enabled = turnOn;
+        lowerBar.enabled = turnOn;
+        upperBar.enabled = turnOn;
+        leftBar.enabled = turnOn;
+        rightBar.enabled = turnOn;
     }
 
 }
