@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -59,6 +59,7 @@ public class PhysicsObject : MonoBehaviour
         move = Vector2.up * deltaPosition.y;
 
         Movement(move, true);
+		Debug.DrawRay(_rb2d.position, Vector3.up * 100);
     }
 
     protected virtual void Movement(Vector2 move, bool yMovement)

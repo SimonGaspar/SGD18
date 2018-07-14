@@ -34,7 +34,7 @@ public class plMovement_placeholder : MonoBehaviour
 	}
 
 	// Update is called once per frame
-	void Update()
+	void FixedUpdate()
 	{
 		onGround = OnGround();
 
@@ -66,7 +66,7 @@ public class plMovement_placeholder : MonoBehaviour
 				cameraMovement.AdjustYrelativeOffset(-1.2f);
 			}
 		}
-
+		Debug.DrawLine(rigid.position, Vector3.up * 100);
 		prevOnGround = onGround;
 	}
 
