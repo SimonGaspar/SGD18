@@ -20,13 +20,28 @@ GameObject:
   m_Component:
   - component: {fileID: 4321474123834134}
   - component: {fileID: 212090531306763536}
-  - component: {fileID: 61511305822061064}
   - component: {fileID: 50694702962670572}
-  - component: {fileID: 114081666635760310}
-  m_Layer: 0
+  - component: {fileID: 61511305822061064}
+  - component: {fileID: 114852799608415482}
+  m_Layer: 10
   m_Name: Bison
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1363849123960602
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4736560918130672}
+  m_Layer: 10
+  m_Name: GroundCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -39,8 +54,22 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.24, z: 0}
   m_LocalScale: {x: 1.4809349, y: 1.1311638, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 4736560918130672}
   m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4736560918130672
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1363849123960602}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.517, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4321474123834134}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &50694702962670572
@@ -50,7 +79,7 @@ Rigidbody2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1359729434417512}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
@@ -62,7 +91,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &61511305822061064
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -88,7 +117,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &114081666635760310
+--- !u!114 &114852799608415482
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -96,18 +125,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 1359729434417512}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f7b19221a003454f8590c8b278b9db8, type: 3}
+  m_Script: {fileID: 11500000, guid: ae15ef1a4d8da5d4c8d23ea77528d927, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gravityModifier: 1
-  _minGroundNormalY: 0.65
-  _shellRadius: 0.1
-  jumpTakeOffSpeed: 7
-  canFly: 0
-  canWalk: 1
-  canJump: 0
-  maxSpeed: 10
-  acceleration: 10
+  _speed: 5
+  _jumpSpeed: 4
+  _fallGravityMultiplier: 2.5
+  _groundCheckRadius: 0.1
+  _groundCheckTransform: {fileID: 4736560918130672}
+  _groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294966271
+  _slopeFriction: 0.2
+  _canFly: 0
+  _canWalk: 1
+  _canJump: 0
 --- !u!212 &212090531306763536
 SpriteRenderer:
   m_ObjectHideFlags: 1

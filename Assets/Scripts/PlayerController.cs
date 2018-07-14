@@ -1,64 +1,83 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.UI;
+using UnityEngine.Assertions;
 using UnityEngine;
 
-public class PlayerController : PhysicsObject
+public class PlayerController : MonoBehaviour
 {
 
-    [SerializeField] private float jumpTakeOffSpeed = 7f;
-
-    [SerializeField] private bool canFly = false;
-    [SerializeField] private bool canWalk = true;
-    [SerializeField] private bool canJump = true;
-
-    [SerializeField] private float maxSpeed = 7f;
-    [SerializeField] private float acceleration = 1f;
-
-    private float currentSpeed = 0f;
-
+    private Rigidbody2D _rb2d;
     private SpriteRenderer _spriteRenderer;
 
+    [SerializeField] [Range(0, 15)] private float _maximumMovementSpeed = 5f;
+    [SerializeField] [Range(0, 10)] private float _jumpSpeed = 4f;
+    [SerializeField] [Range(0, 10)] [Tooltip("Speed gain per second")] private float _acceleration = 2f;
+    [SerializeField] [Range(0, 5)] private float _fallGravityMultiplier = 2.5f;
 
+    [SerializeField] [Range(0, 1)] private float _groundCheckRadius = 0.1f;
+    [SerializeField] private Transform _groundCheckTransform;
+    [SerializeField] [Tooltip("Layers to act as a ground")] private LayerMask _groundLayerMask;
+
+    [SerializeField] private bool _canFly = false;
+    [SerializeField] private bool _canWalk = true;
+    [SerializeField] private bool _canJump = true;
+
+    private bool _grounded = false;
+    private float _currentHorizontalSpeed = 0f;
     // Use this for initialization
-    private void Start()
+    void Start()
     {
+        _rb2d = GetComponent<Rigidbody2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
+
+        Assert.IsNotNull(_groundCheckTransform);
+        Assert.IsNotNull(_rb2d);
+        Assert.IsNotNull(_spriteRenderer);
     }
 
-    protected override void ComputeVelocity()
+    private void Update()
     {
-        _targetVelocity = Vector2.zero;
-        float horizontalSpeed = Input.GetAxis("Horizontal");
+        _grounded = Physics2D.OverlapCircle(_groundCheckTransform.position, _groundCheckRadius, _groundLayerMask);
+        // I know physics calculations shouldn't be done in `Update()`, but putting them into `FixedUpdate()` creates an awful input lag
+        // Just leave it here (╯°□°）╯︵ ┻━┻
+        CalculateMovement();
+    }
 
-        horizontalSpeed = (horizontalSpeed > 0) ? Mathf.Ceil(horizontalSpeed) : Mathf.Floor(horizontalSpeed);
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+        // jump modifier for prettier falling
+        if (_rb2d.velocity.y < 0)
+            _rb2d.velocity += Vector2.up * Physics2D.gravity.y * (_fallGravityMultiplier - 1) * Time.deltaTime;
 
-        if (horizontalSpeed != 0)
-        {
-            currentSpeed += horizontalSpeed * acceleration * Time.deltaTime;
-        }
+        _spriteRenderer.color = (_rb2d.velocity.x >= _maximumMovementSpeed) ? Color.red : Color.white;
+    }
+
+    private void CalculateMovement()
+    {
+        float inputHorizontal = Input.GetAxis("Horizontal");
+
+        inputHorizontal = (inputHorizontal > 0) ? Mathf.Ceil(inputHorizontal) : Mathf.Floor(inputHorizontal);
+
+        if (inputHorizontal != 0)
+            _currentHorizontalSpeed += inputHorizontal * _acceleration * Time.fixedDeltaTime;
         else
-        {
-            currentSpeed = 0;
-        }
+            _currentHorizontalSpeed = 0;
 
-        currentSpeed = Mathf.Clamp(currentSpeed, -maxSpeed, maxSpeed);
-        if (Mathf.Abs(currentSpeed) == maxSpeed)
-        {
-            _spriteRenderer.color = Color.red;
-        }
-        else
-        {
-            _spriteRenderer.color = Color.white;
-        }
+        _currentHorizontalSpeed = Mathf.Clamp(_currentHorizontalSpeed, -_maximumMovementSpeed, _maximumMovementSpeed);
+        // horizontal movement
+        if (_canWalk || (!_canWalk && !_grounded && _canFly))
+            _rb2d.velocity = new Vector2(_currentHorizontalSpeed, _rb2d.velocity.y);
 
-        Vector2 move = Vector2.zero;
-        move.x = currentSpeed;
-        if (canJump && Input.GetButtonDown("Jump") && (_grounded || canFly))
-        {
-            _velocity.y = jumpTakeOffSpeed;
-        }
-        if (canWalk || (!_grounded && canFly))
-            _targetVelocity = move;
+        // jump
+        if (Input.GetButtonDown("Jump") && (_grounded || _canFly) && _canJump)
+            _rb2d.velocity = new Vector2(_rb2d.velocity.x, _jumpSpeed);
+
+    }
+
+    public void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawSphere(_groundCheckTransform.position, _groundCheckRadius);
     }
 }
