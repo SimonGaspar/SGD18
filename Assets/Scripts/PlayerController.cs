@@ -36,6 +36,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool _canJump = true;
     [SerializeField] private bool _canCrouch = true;
 
+    public bool IsMoving { get { return (_rb2d.velocity.x != 0 || _rb2d.velocity.y != 0); } }
+
     private bool _grounded = false;
     private bool _jumping = false;
     private bool _crouching = false;
@@ -55,9 +57,12 @@ public class PlayerController : MonoBehaviour
         Assert.IsNotNull(_groundCheckTransform);
         Assert.IsNotNull(_rb2d);
         Assert.IsNotNull(_spriteRenderer);
-        Assert.IsNotNull(_crouchCollider);
 
-        if (_canCrouch) Assert.IsNotNull(_ceilingCheckTransform);
+        if (_canCrouch)
+        {
+            Assert.IsNotNull(_crouchCollider);
+            Assert.IsNotNull(_ceilingCheckTransform);
+        }
 
         _defaultMovementModifier = _movementModifier;
     }
@@ -87,12 +92,10 @@ public class PlayerController : MonoBehaviour
     }
     private void HandleCrouching()
     {
+        if (!_canCrouch) return;
         bool canStandUp = !Physics2D.OverlapCircle(_ceilingCheckTransform.position, _ceilingCheckRadius, _groundLayerMask);
 
-        if (Input.GetButton("Crouch"))
-        {
-            Crouch();
-        }
+        if (Input.GetButton("Crouch")) Crouch();
 
         if (Input.GetButtonUp("Crouch"))
         {
@@ -100,8 +103,7 @@ public class PlayerController : MonoBehaviour
             else _wantToStandUp = true;
         }
 
-        if (_wantToStandUp && canStandUp)
-            Stand();
+        if (_wantToStandUp && canStandUp) Stand();
 
     }
     private void CalculateMovement()
