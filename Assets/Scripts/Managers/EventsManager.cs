@@ -5,11 +5,11 @@ using UnityEngine;
 public class EventsManager : Singleton<EventsManager>
 {
     public delegate void onGameStart();
-    public onGameStart gameStartDelegate;
+    public onGameStart gameStartDelegate = delegate { };
 
     public delegate void onPlayerDeath();
-    public onPlayerDeath playerDeathDelegate;
+    public onPlayerDeath playerDeathDelegate = delegate { };
 
     public delegate void onFormChange();
-    public onFormChange formChangeDelegate;
+    public onFormChange formChangeDelegate = delegate { };
 }

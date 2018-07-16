@@ -41,7 +41,7 @@ GameObject:
   m_Layer: 10
   m_Name: GroundCheck
   m_TagString: Untagged
-  m_Icon: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -118,15 +118,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae15ef1a4d8da5d4c8d23ea77528d927, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 5
+  _maximumMovementSpeed: 5
   _jumpSpeed: 4
+  _acceleration: 7
   _fallGravityMultiplier: 2.5
-  _groundCheckRadius: 0.1
+  _crouchingMovementModifier: 0.5
+  _groundCheckRadius: 0.25
   _groundCheckTransform: {fileID: 4889641077053486}
   _groundLayerMask:
     serializedVersion: 2
     m_Bits: 4294966271
-  _slopeFriction: 0.2
   _canFly: 1
   _canWalk: 0
   _canJump: 1
