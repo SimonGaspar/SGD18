@@ -125,7 +125,7 @@ public class CameraMovement : MonoBehaviour
 
     }
 
-    void FixedUpdate()
+	void LateUpdate()
     {
 
         currentPos = transform.position;
