@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 114264653678332584}
   m_Layer: 0
   m_Name: Human
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -96,7 +96,6 @@ MonoBehaviour:
   maxSpeed: 3
   canFly: 0
   canWalk: 1
-  Animal: {fileID: 0}
 --- !u!212 &212273607341155342
 SpriteRenderer:
   m_ObjectHideFlags: 1

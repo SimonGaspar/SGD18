@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 114221463663773824}
   m_Layer: 0
   m_Name: Eagle
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -96,7 +96,6 @@ MonoBehaviour:
   maxSpeed: 5
   canFly: 1
   canWalk: 0
-  Animal: {fileID: 0}
 --- !u!212 &212270117817157518
 SpriteRenderer:
   m_ObjectHideFlags: 1

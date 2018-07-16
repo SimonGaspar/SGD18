@@ -26,9 +26,12 @@ public class AnimalsManager : Singleton<AnimalsManager>
 
     public ParticleSystem Particle;
     ParticleSystem _particle;
-    bool _runParticle=false;
 
-    [System.Serializable]
+    SpriteRenderer rend;
+    bool IsDestroyed=false;
+    GameObject chosenAnimalPrefab;
+
+   [System.Serializable]
     public class FormPrefabs
     {
         public Color color;
@@ -48,14 +51,17 @@ public class AnimalsManager : Singleton<AnimalsManager>
         _positionBeforeDestroy = _playerSpawnPosition;
         SpawnHuman();
         _particle = Instantiate<ParticleSystem>(Particle);
+
+
     }
 
     public void DestroyCurrentForm()
     {
         if (_currentPlayerForm != null)
         {
-            _positionBeforeDestroy = _currentPlayerForm.transform.position;
-            Destroy(_currentPlayerForm);
+            IsDestroyed = false;
+            rend = _currentPlayerForm.GetComponent<SpriteRenderer>();
+            StartCoroutine("Destroying");
         }
     }
     public void SpawnHuman()
@@ -68,25 +74,19 @@ public class AnimalsManager : Singleton<AnimalsManager>
 
     public void SwapToAnimalNumber(int index)
     {
-        GameObject chosenAnimalPrefab = null;
+        chosenAnimalPrefab = null;
         if (index < _equippedAnimalsPrefabs.Length)
             chosenAnimalPrefab = _equippedAnimalsPrefabs[index]._animalsPrefabs;
         if (chosenAnimalPrefab != null)
         {
             AnimalForm chosenAnimalForm = (AnimalForm)Enum.Parse(typeof(AnimalForm), chosenAnimalPrefab.name);
             if (_currentAnimalIdentifier == chosenAnimalForm) return;
+            _currentAnimalIdentifier = chosenAnimalForm;
 
-            
             _particle.Simulate(0.0f, true, true);
             _particle.Play();
             
-
-
             DestroyCurrentForm();
-            _currentPlayerForm = Instantiate(chosenAnimalPrefab, _positionBeforeDestroy, Quaternion.identity);
-            _currentAnimalIdentifier = chosenAnimalForm;
-
-            Transformation();
         }
     }
 
@@ -94,18 +94,38 @@ public class AnimalsManager : Singleton<AnimalsManager>
         return _currentPlayerForm.transform.position;
     }
 
-    //private IEnumerator Transformation() {
+    private IEnumerator Destroying()
+    {
+        for (float f = 1f; f >= 0.05; f -= 0.05f)
+        {
+            Color c = rend.material.color;
+            c.a = f;
+            rend.material.color = c;
+            yield return new WaitForSeconds(0.05f);
+        }
 
-    //    var x = _currentPlayerForm.GetComponent<SpriteRenderer>();
-    //    float timer = 1f;
-    //    while (timer > (1 / 8))
-    //    {
-    //        timer -= Time.deltaTime;
-    //        _currentPlayerForm.transform.localScale = Vector3.one * timer * 8;
-    //        yield return null;
-    //    }
-    //    _currentPlayerForm.transform.localScale = Vector3.zero;
-    //}
+        if (IsDestroyed == false)
+        {
+            _positionBeforeDestroy = _currentPlayerForm.transform.position;
+            Destroy(_currentPlayerForm);
+            _currentPlayerForm = Instantiate(chosenAnimalPrefab, _positionBeforeDestroy, Quaternion.identity);
+            
+            rend = _currentPlayerForm.GetComponent<SpriteRenderer>();
+            Color c = rend.material.color;
+            c.a = 0f;
+            rend.material.color = c;
+            IsDestroyed = true;
+        }
+        
+        for (float f = 0.05f; f <= 1; f += 0.05f)
+        {
+            Color c = rend.material.color;
+            c.a = f;
+            rend.material.color = c;
+            yield return new WaitForSeconds(0.05f);
+        }
+    }
+    
 
     private void Update()
     {
@@ -114,7 +134,7 @@ public class AnimalsManager : Singleton<AnimalsManager>
             RadialMenuSpawner.Instance.SpawnMenu(_equippedAnimalsPrefabs);
         }
 
-        _particle.transform.position = _currentPlayerForm.transform.position;
+        _particle.transform.position = _currentPlayerForm.transform.position - new Vector3(0,0,0.1f);
     }
     // Global functions
 
