@@ -44,6 +44,7 @@ public class AnimalsManager : Singleton<AnimalsManager>
     }
     public void SpawnHuman()
     {
+        if (PreventSwapForm()) return;
         if (_currentAnimalIdentifier == AnimalForm.Human) return;
         DestroyCurrentForm();
         _currentPlayerForm = Instantiate(_humanFormHolder, _positionBeforeDestroy, Quaternion.identity);
@@ -53,6 +54,7 @@ public class AnimalsManager : Singleton<AnimalsManager>
 
     public void SwapToAnimalNumber(int index)
     {
+        if (PreventSwapForm()) return;
         GameObject chosenAnimalPrefab = null;
         if (index < _equippedAnimalsPrefabs.Length)
             chosenAnimalPrefab = _equippedAnimalsPrefabs[index];
@@ -65,6 +67,11 @@ public class AnimalsManager : Singleton<AnimalsManager>
             _currentAnimalIdentifier = chosenAnimalForm;
             EventsManager.Instance.formChangeDelegate();
         }
+    }
+
+    private bool PreventSwapForm()
+    {
+        return _currentPlayerForm != null && _currentPlayerForm.GetComponent<PlayerController>().IsMoving;
     }
 
     public Transform GetCurrentAnimalTransformComponent()

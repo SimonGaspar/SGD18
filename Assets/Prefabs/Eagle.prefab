@@ -41,7 +41,7 @@ GameObject:
   m_Layer: 10
   m_Name: GroundCheck
   m_TagString: Untagged
-  m_Icon: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -86,7 +86,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 4
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -120,9 +120,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maximumMovementSpeed: 5
   _jumpSpeed: 4
-  _acceleration: 2
+  _acceleration: 7
   _fallGravityMultiplier: 2.5
-  _groundCheckRadius: 0.1
+  _crouchingMovementModifier: 0.5
+  _ceilingCheckTransform: {fileID: 0}
+  _groundCheckRadius: 0.25
   _groundCheckTransform: {fileID: 4889641077053486}
   _groundLayerMask:
     serializedVersion: 2
@@ -130,6 +132,7 @@ MonoBehaviour:
   _canFly: 1
   _canWalk: 0
   _canJump: 1
+  _canCrouch: 0
 --- !u!212 &212270117817157518
 SpriteRenderer:
   m_ObjectHideFlags: 1
