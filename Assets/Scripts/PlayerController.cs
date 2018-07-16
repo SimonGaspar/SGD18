@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D _rb2d;
     private SpriteRenderer _spriteRenderer;
+    private BoxCollider2D _crouchCollider;
 
     [Space]
     [Header("Movement")]
@@ -15,12 +16,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField] [Range(0, 10)] private float _jumpSpeed = 4f;
     [SerializeField] [Range(0, 10)] [Tooltip("Speed gain per second")] private float _acceleration = 2f;
     [SerializeField] [Range(0, 5)] private float _fallGravityMultiplier = 2.5f;
+
+    [Space]
+    [Header("Crouching")]
     [SerializeField] [Range(0, 1)] [Tooltip("Percentage of maximum speed while crouching")] private float _crouchingMovementModifier = 0.5f;
+    [SerializeField] private Transform _ceilingCheckTransform;
+    [SerializeField] [Range(0, 1)] private float _ceilingCheckRadius = 0.1f;
 
     [Space]
     [Header("Groundcheck")]
     [SerializeField] [Range(0, 1)] private float _groundCheckRadius = 0.1f;
-    [SerializeField] private Transform _groundCheckTransform;
+    [SerializeField] [Tooltip("Only needed when crouching is enabled")] private Transform _groundCheckTransform;
     [SerializeField] [Tooltip("Layers to act as a ground")] private LayerMask _groundLayerMask;
 
     [Space]
@@ -28,21 +34,32 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool _canFly = false;
     [SerializeField] private bool _canWalk = true;
     [SerializeField] private bool _canJump = true;
+    [SerializeField] private bool _canCrouch = true;
 
     private bool _grounded = false;
     private bool _jumping = false;
+    private bool _crouching = false;
+    private bool _wantToStandUp = false;
+
     private float _currentHorizontalSpeed = 0f;
-    private bool _runningIntoWall = false;
+    private int _runningIntoWall = 0; // -1 - left, 0 - nothing, 1 - right
+    private float _defaultMovementModifier;
     private float _movementModifier = 1f;
     // Use this for initialization
     void Start()
     {
         _rb2d = GetComponent<Rigidbody2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        _crouchCollider = GetComponent<BoxCollider2D>();
 
         Assert.IsNotNull(_groundCheckTransform);
         Assert.IsNotNull(_rb2d);
         Assert.IsNotNull(_spriteRenderer);
+        Assert.IsNotNull(_crouchCollider);
+
+        if (_canCrouch) Assert.IsNotNull(_ceilingCheckTransform);
+
+        _defaultMovementModifier = _movementModifier;
     }
 
     private void Update()
@@ -50,6 +67,7 @@ public class PlayerController : MonoBehaviour
         _grounded = Physics2D.OverlapCircle(_groundCheckTransform.position, _groundCheckRadius, _groundLayerMask);
         // I know physics calculations shouldn't be done in `Update()`, but putting them into `FixedUpdate()` creates an awful input lag
         // Just leave it here (╯°□°）╯︵ ┻━┻
+        HandleCrouching();
         CalculateMovement();
     }
 
@@ -67,14 +85,28 @@ public class PlayerController : MonoBehaviour
         _rb2d.velocity = clampedVelocity;
         _spriteRenderer.color = (_rb2d.velocity.x >= _maximumMovementSpeed) ? Color.red : Color.white;
     }
+    private void HandleCrouching()
+    {
+        bool canStandUp = !Physics2D.OverlapCircle(_ceilingCheckTransform.position, _ceilingCheckRadius, _groundLayerMask);
 
+        if (Input.GetButton("Crouch"))
+        {
+            Crouch();
+        }
+
+        if (Input.GetButtonUp("Crouch"))
+        {
+            if (canStandUp) Stand();
+            else _wantToStandUp = true;
+        }
+
+        if (_wantToStandUp && canStandUp)
+            Stand();
+
+    }
     private void CalculateMovement()
     {
         float inputHorizontal = Input.GetAxis("Horizontal");
-
-        if (_runningIntoWall)
-            inputHorizontal = 0;
-
         if (inputHorizontal == 0 && _grounded)
             _rb2d.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
         else
@@ -82,12 +114,15 @@ public class PlayerController : MonoBehaviour
 
         inputHorizontal = (inputHorizontal > 0) ? Mathf.Ceil(inputHorizontal) : Mathf.Floor(inputHorizontal);
 
+        if (_runningIntoWall == inputHorizontal) // normal goes the other way
+            inputHorizontal = 0;
+
         if (inputHorizontal != 0)
             _currentHorizontalSpeed += inputHorizontal * _acceleration * Time.fixedDeltaTime;
         else
             _currentHorizontalSpeed = 0;
 
-        _currentHorizontalSpeed = Mathf.Clamp(_currentHorizontalSpeed, -_maximumMovementSpeed, _maximumMovementSpeed);
+        _currentHorizontalSpeed = Mathf.Clamp(_currentHorizontalSpeed, -_maximumMovementSpeed * _movementModifier, _maximumMovementSpeed * _movementModifier);
         // horizontal movement
         if (_canWalk || (!_canWalk && !_grounded && _canFly))
             _rb2d.velocity = new Vector2(_currentHorizontalSpeed, _rb2d.velocity.y);
@@ -114,11 +149,31 @@ public class PlayerController : MonoBehaviour
         {
             if (contacts[i].normal.x == 1 || contacts[i].normal.x == -1)
             {
-                _runningIntoWall = true;
+                _runningIntoWall = -(int)contacts[i].normal.x;
                 return;
             }
         }
-        _runningIntoWall = false;
+        _runningIntoWall = 0;
+    }
+
+    private void OnCollisionExit2D(Collision2D other)
+    {
+        _runningIntoWall = 0;
+    }
+
+    public void Stand()
+    {
+        _crouchCollider.enabled = true;
+        _movementModifier = _defaultMovementModifier;
+        _crouching = false;
+        _wantToStandUp = false;
+    }
+
+    public void Crouch()
+    {
+        _crouchCollider.enabled = false;
+        _movementModifier = _crouchingMovementModifier;
+        _crouching = true;
     }
 
     public void OnDrawGizmos()

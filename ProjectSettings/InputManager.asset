@@ -70,11 +70,11 @@ InputManager:
     axis: 0
     joyNum: 0
   - serializedVersion: 3
-    m_Name: ChangeNext
+    m_Name: Crouch
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: k
+    positiveButton: left ctrl
     altNegativeButton: 
     altPositiveButton: 
     gravity: 3

@@ -123,6 +123,7 @@ MonoBehaviour:
   _acceleration: 7
   _fallGravityMultiplier: 2.5
   _crouchingMovementModifier: 0.5
+  _ceilingCheckTransform: {fileID: 0}
   _groundCheckRadius: 0.25
   _groundCheckTransform: {fileID: 4889641077053486}
   _groundLayerMask:
@@ -131,6 +132,7 @@ MonoBehaviour:
   _canFly: 1
   _canWalk: 0
   _canJump: 1
+  _canCrouch: 0
 --- !u!212 &212270117817157518
 SpriteRenderer:
   m_ObjectHideFlags: 1
