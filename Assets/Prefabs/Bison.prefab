@@ -86,8 +86,8 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 4
-  m_Material: {fileID: 6200000, guid: e0cadcde31574d34a8bccff56e876bed, type: 2}
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -128,11 +128,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae15ef1a4d8da5d4c8d23ea77528d927, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-
   _maximumMovementSpeed: 10
   _jumpSpeed: 4
   _acceleration: 4
-
   _fallGravityMultiplier: 2.5
   _crouchingMovementModifier: 0.5
   _ceilingCheckTransform: {fileID: 0}
