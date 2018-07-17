@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Assertions;
 using UnityEngine;
@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D _rb2d;
     private SpriteRenderer _spriteRenderer;
-    private BoxCollider2D _crouchCollider;
+    private CapsuleCollider2D _crouchCollider;
 
     [Space]
     [Header("Movement")]
@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour
     {
         _rb2d = GetComponent<Rigidbody2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        _crouchCollider = GetComponent<BoxCollider2D>();
+        _crouchCollider = GetComponent<CapsuleCollider2D>();
 
         Assert.IsNotNull(_groundCheckTransform);
         Assert.IsNotNull(_rb2d);
@@ -143,14 +143,16 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
+    private void OnCollisionStay2D(Collision2D other)
     {
         ContactPoint2D[] contacts = new ContactPoint2D[16];
         int contactsCount = other.GetContacts(contacts);
         for (int i = 0; i < contactsCount; i++)
         {
+			Debug.DrawLine(contacts[i].point, Vector3.up * 100,Color.red);
             if (contacts[i].normal.x == 1 || contacts[i].normal.x == -1)
             {
+				Debug.Log(true);
                 _runningIntoWall = -(int)contacts[i].normal.x;
                 return;
             }
