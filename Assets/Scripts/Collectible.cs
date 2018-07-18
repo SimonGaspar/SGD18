@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum CollectibleType { Feather, Arm };
+public enum CollectibleType { Feather, Horn };
 public class Collectible : MonoBehaviour
 {
     [SerializeField] private CollectibleType _type;
@@ -18,7 +18,7 @@ public class Collectible : MonoBehaviour
     {
         if (other.tag == "Player" && !_picked)
         {
-            GameManager.Instance.CollectiblePickup(_type);
+            GameManager.Instance.CollectiblePickup(this, _type);
             _picked = true;
             _animator.SetTrigger("isPicked");
         }
