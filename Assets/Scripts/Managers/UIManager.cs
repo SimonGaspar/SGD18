@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Events;
 using UnityEngine.Assertions;
 using UnityEngine.UI;
 using UnityEngine;
@@ -19,11 +20,16 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private GameObject _panelPrefab;
     private GameObject _currentlyOpenedPanel;
 
+    [Header("Collectible panel")]
+    [SerializeField] private Image[] _collectiblesImages;
+
     private void Start()
     {
         Assert.IsNotNull(_canvas);
-        Assert.IsNotNull(_buttonPrefab);
-        Assert.IsNotNull(_panelPrefab);
+        // Assert.IsNotNull(_buttonPrefab);
+        // Assert.IsNotNull(_panelPrefab);
+
+        EventsManager.Instance.collectibleChangeDelegate += collectibleCountChanged;
 
         SpawnMainMenu();
         SpawnSideButtons();
@@ -61,8 +67,28 @@ public class UIManager : Singleton<UIManager>
         _currentlyOpenedPanel = panel;
     }
 
-    public void ShowModal()
+    // Modal
+
+    public void UseModal(string titleText, string buttonText1, UnityAction buttonEvent1, string buttonText2, UnityAction buttonEvent2)
     {
-        _modalScript.SetUpModal("Hello there", "YES", delegate { _modalScript.HideModal(); }, "NO", delegate { _modalScript.HideModal(); });
+        _modalScript.SetUpModal(titleText, buttonText1, buttonEvent1, buttonText2, buttonEvent2);
+    }
+
+    // Collectibles
+    public void collectibleCountChanged()
+    {
+        int[] maxCollectibles = GameManager.Instance.MaxCollectiblesCount;
+        int[] countCollectibles = GameManager.Instance.CollectiblesCount;
+
+        for (int i = 0; i < _collectiblesImages.Length; i++)
+        {
+            if (countCollectibles[i] == 0) return;
+
+            Image img = _collectiblesImages[i];
+
+            Color temp = img.color;
+            temp.a = (float)countCollectibles[i] / (float)maxCollectibles[i];
+            img.color = temp;
+        }
     }
 }

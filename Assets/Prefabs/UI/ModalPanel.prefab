@@ -73,6 +73,8 @@ GameObject:
   - component: {fileID: 223771082998024284}
   - component: {fileID: 114865607170089316}
   - component: {fileID: 114491155252555344}
+  - component: {fileID: 114924824337920090}
+  - component: {fileID: 114721603721304382}
   m_Layer: 5
   m_Name: ModalPanel
   m_TagString: Untagged
@@ -109,8 +111,6 @@ GameObject:
   - component: {fileID: 222756373111151096}
   - component: {fileID: 114316609792470532}
   - component: {fileID: 114945787990246646}
-  - component: {fileID: 114075796906786566}
-  - component: {fileID: 114402893188655224}
   m_Layer: 5
   m_Name: ModalPanelContent
   m_TagString: Untagged
@@ -194,17 +194,6 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &114075796906786566
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1691494267252200}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2be05d1deba9714ba2745f95458fec8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114095985259039600
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -385,20 +374,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114402893188655224
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1691494267252200}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f7452a0e62b71f448f5c60d2b4d4d3d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _titleText: {fileID: 0}
-  _buttonChoice1: {fileID: 0}
-  _buttonChoice2: {fileID: 0}
 --- !u!114 &114491155252555344
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -483,6 +458,20 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114721603721304382
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1352499271119318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f7452a0e62b71f448f5c60d2b4d4d3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _titleText: {fileID: 114234464643253326}
+  _buttonChoice1: {fileID: 114526657122645754}
+  _buttonChoice2: {fileID: 114012031535215392}
 --- !u!114 &114865607170089316
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -504,6 +493,17 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+--- !u!114 &114924824337920090
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1352499271119318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2be05d1deba9714ba2745f95458fec8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114945787990246646
 MonoBehaviour:
   m_ObjectHideFlags: 1

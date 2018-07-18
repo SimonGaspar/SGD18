@@ -23,15 +23,13 @@ public class ModalWindowScript : MonoBehaviour
     {
         _titleText.text = titleText;
 
-
-
         _buttonChoice1.GetComponentInChildren<Text>().text = buttonText1;
         _buttonChoice1.onClick.RemoveAllListeners();
         _buttonChoice1.onClick.AddListener(buttonEvent1);
 
         _buttonChoice2.GetComponentInChildren<Text>().text = buttonText2;
         _buttonChoice2.onClick.RemoveAllListeners();
-        _buttonChoice2.onClick.AddListener(buttonEvent1);
+        _buttonChoice2.onClick.AddListener(buttonEvent2);
 
         ShowModal();
     }

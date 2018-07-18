@@ -609,7 +609,7 @@ GameObject:
   - component: {fileID: 954534704}
   - component: {fileID: 954534703}
   m_Layer: 0
-  m_Name: Mainmenu
+  m_Name: Background placeholder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -810,6 +810,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87737f8ea5efc70488927ad6595c67d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _saveString: /gameSave.dat
 --- !u!114 &1570362123
 MonoBehaviour:
   m_ObjectHideFlags: 0

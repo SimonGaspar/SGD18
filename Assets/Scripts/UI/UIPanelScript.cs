@@ -13,8 +13,6 @@ public class UIPanelScript : MonoBehaviour
     [Header("Side panel settings")]
     [SerializeField] private GameObject _sidePanel;
     [SerializeField] private GameObject _sidePanelButtonPrefab;
-    [SerializeField] private Vector2 _buttonStartPosition = new Vector2(0f, -125f);
-    [SerializeField] private Vector2 _buttonOffsetPosition = new Vector2(0f, -175f);
 
     private Animal[] _animals;
     private GameObject _currentContentPanel;
