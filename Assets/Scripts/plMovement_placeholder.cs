@@ -7,9 +7,10 @@ public class plMovement_placeholder : MonoBehaviour
 	//Camera cam;
 	[SerializeField]
 	Transform player;
+	[SerializeField]
 	Rigidbody2D rigid;
 	[SerializeField]
-	float movementSpeed;
+	float movementSpeed=5f;
 	[SerializeField]
 	float jumpForce = 8;
 
@@ -39,25 +40,24 @@ public class plMovement_placeholder : MonoBehaviour
 		onGround = OnGround();
 
 
-		float horizontal = Input.GetAxisRaw("Horizontal");
-		float vertical = Input.GetAxisRaw("Vertical");
+		float horizontal = Input.GetAxis("Horizontal");
+		float vertical = Input.GetAxis("Vertical");
 		
 
 
 		Vector2 move = new Vector2(horizontal, vertical);
-		move.Normalize();
-		Vector2 targetVel = rigid.velocity;
+		//move.Normalize();
+		Vector2 targetVel = move;
 
 		//if(onGround)
 		//{
 		if (Input.GetButtonDown("Jump"))
 			targetVel.y = jumpForce;
 		//}
-
-
+		
 		targetVel.x = movementSpeed * horizontal;
-
-		rigid.velocity = Vector2.Lerp(rigid.velocity, targetVel, 0.8f);
+		Debug.Log(targetVel);
+		rigid.velocity = Vector2.Lerp(rigid.velocity,targetVel,0.6f);
 
 		if (prevOnGround != onGround)
 		{
