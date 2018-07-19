@@ -7,34 +7,49 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
+    private Vector3 _playerSpawn;
+    public Vector3 PlayerSpawn { get { return _playerSpawn; } }
+
+    [Space]
     [SerializeField] private string _saveString = "/gameSave.dat";
     [SerializeField] private int _numberOfAnimals = 2;
     [SerializeField] [Tooltip("Maximum number of collectibles for each animal")] private int[] _maximumCollectibles;
     [Space]
     [Header("Collectibles")]
-    [SerializeField] private GameObject[] _collectiblesPrefabs;
-    [Space]
-    [Header("Collectible spawns on each level")]
-    [SerializeField] private SpawnsOnLevel[] _spawnsOnLevel;
+    [SerializeField] private string _collectibleTag = "Collectible";
+
+    private int CurrentLevelNumber { get { return SceneManager.GetActiveScene().buildIndex; } }
 
     public int[] CollectiblesCount { get { return _collectiblesCount; } }
     public int[] MaxCollectiblesCount { get { return _maximumCollectibles; } }
 
     private int[] _collectiblesCount;
 
+    public List<float> _pickedUpCollectibles;
+
+    private Save _currentLoadObject = null;
+
     private void Start()
     {
         _collectiblesCount = new int[_numberOfAnimals];
-        Debug.Log(SceneManager.GetActiveScene().name);
-        SpawnCollectiblesInCurrentLevel();
+        _pickedUpCollectibles = new List<float>();
+    }
+
+    private void Awake()
+    {
+        _playerSpawn = GameObject.FindGameObjectWithTag("Spawn").transform.position;
+    }
+
+    public void LoadLevel(int index)
+    {
+        SceneManager.LoadScene(index);
     }
 
     public void StartGame()
     {
         if (SaveExists())
         {
-            UIManager.Instance.UseModal("Do you wish to continue from previous save ?", "Continue", delegate { Continue(); }, "New Game", delegate { NewGame(); });
-
+            UIManager.Instance.MainMenuPlay();
         }
     }
 
@@ -60,7 +75,18 @@ public class GameManager : Singleton<GameManager>
 
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Open(Application.persistentDataPath + _saveString, FileMode.OpenOrCreate);
-        saveObject.foo = "bar";
+
+        // Saving Data
+        saveObject.currentLevelNumber = this.CurrentLevelNumber;
+        saveObject.collectiblesCounts = this.CollectiblesCount;
+        saveObject.currentPlayerCheckpoint = new Vector3Ser(PlayerSpawn.x, PlayerSpawn.y, PlayerSpawn.z);
+        saveObject.pickedUpCollectiblesID = new List<float>();
+        foreach (float c in _pickedUpCollectibles)
+        {
+            saveObject.pickedUpCollectiblesID.Add(c);
+        }
+
+        // ------------
         bf.Serialize(file, saveObject);
         file.Close();
     }
@@ -73,62 +99,69 @@ public class GameManager : Singleton<GameManager>
             FileStream file = File.Open(Application.persistentDataPath + _saveString, FileMode.Open);
             Save loadObject = (Save)bf.Deserialize(file);
 
-            Debug.Log(loadObject.foo);
+            // Loading data
+            LoadLevel(loadObject.currentLevelNumber);
+
+            // -----------
             file.Close();
+            _currentLoadObject = loadObject;
+            _playerSpawn = new Vector3(_currentLoadObject.currentPlayerCheckpoint.x, _currentLoadObject.currentPlayerCheckpoint.y, _currentLoadObject.currentPlayerCheckpoint.z);
+            SceneManager.sceneLoaded += OnNewSceneLoaded;
         }
+    }
+
+    private void OnNewSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        GameObject[] collectiblesInLevel = GameObject.FindGameObjectsWithTag("Collectible");
+        foreach (GameObject collectible in collectiblesInLevel)
+        {
+            if (_currentLoadObject.pickedUpCollectiblesID.Contains(collectible.transform.position.sqrMagnitude))
+                Destroy(collectible);
+
+        }
+        _playerSpawn = new Vector3(_currentLoadObject.currentPlayerCheckpoint.x, _currentLoadObject.currentPlayerCheckpoint.y, _currentLoadObject.currentPlayerCheckpoint.z);
+        AnimalsManager.Instance.ResetSpawn();
+        SceneManager.sceneLoaded -= OnNewSceneLoaded;
     }
 
     public bool SaveExists()
     {
         return File.Exists(Application.persistentDataPath + _saveString);
     }
-    // Collectibles
-    public void SpawnCollectiblesInCurrentLevel()
+
+
+    public void CollectiblePickup(GameObject collectible, CollectibleType type)
     {
-        int foundIndex = -1;
-        for (int i = 0; i < _spawnsOnLevel.Length; i++)
-        {
-            if (_spawnsOnLevel[i].LevelName == SceneManager.GetActiveScene().name)
-            {
-                foundIndex = i;
-            }
-        }
-        if (foundIndex == -1) return;
-
-        CollectibleSpawn[] spawns = _spawnsOnLevel[foundIndex].CollectibleSpawns;
-
-        foreach (CollectibleSpawn s in spawns)
-        {
-            GameObject obj = Instantiate(_collectiblesPrefabs[(int)s.Type]);
-            obj.transform.position = s.Transform.position;
-        }
-
-    }
-
-    public void CollectiblePickup(Collectible collectible, CollectibleType type)
-    {
-        Debug.Log("Picked up: " + type);
+        _pickedUpCollectibles.Add(collectible.transform.position.sqrMagnitude);
+        print(_pickedUpCollectibles.Count);
         _collectiblesCount[(int)type]++;
-        EventsManager.Instance.collectibleChangeDelegate();
+        //EventsManager.Instance.collectibleChangeDelegate();
     }
-}
 
-[System.Serializable]
-class SpawnsOnLevel
-{
-    [Tooltip("Level name has to be exactly the same as Scene name")] public string LevelName;
-    public CollectibleSpawn[] CollectibleSpawns;
-}
-
-[System.Serializable]
-class CollectibleSpawn
-{
-    [Tooltip("Transform of desired spawn")] public Transform Transform;
-    [Tooltip("Type of collectible to be spawned")] public CollectibleType Type;
+    private bool CompareVectors(Vector3 a, Vector3Ser b)
+    {
+        return (a.x == b.x && a.y == b.y && a.z == b.z);
+    }
 }
 
 [System.Serializable]
 class Save
 {
-    public string foo;
+    public int currentLevelNumber;
+    public Vector3Ser currentPlayerCheckpoint;
+    public List<float> pickedUpCollectiblesID;
+
+    public int[] collectiblesCounts;
+}
+
+[System.Serializable]
+public class Vector3Ser
+{
+    public Vector3Ser(float x, float y, float z)
+    {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    }
+    public float x, y, z;
 }

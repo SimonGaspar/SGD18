@@ -18,7 +18,7 @@ public class Collectible : MonoBehaviour
     {
         if (other.tag == "Player" && !_picked)
         {
-            GameManager.Instance.CollectiblePickup(this, _type);
+            GameManager.Instance.CollectiblePickup(this.gameObject, _type);
             _picked = true;
             _animator.SetTrigger("isPicked");
         }

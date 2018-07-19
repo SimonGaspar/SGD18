@@ -23,6 +23,8 @@ public class UIManager : Singleton<UIManager>
     [Header("Collectible panel")]
     [SerializeField] private Image[] _collectiblesImages;
 
+    private Animator _mainMenuAnimator;
+
     private void Start()
     {
         Assert.IsNotNull(_canvas);
@@ -30,6 +32,8 @@ public class UIManager : Singleton<UIManager>
         // Assert.IsNotNull(_panelPrefab);
 
         EventsManager.Instance.collectibleChangeDelegate += collectibleCountChanged;
+
+        _mainMenuAnimator = GameObject.Find("MainMenu").GetComponent<Animator>();
 
         SpawnMainMenu();
         SpawnSideButtons();
@@ -90,5 +94,10 @@ public class UIManager : Singleton<UIManager>
             temp.a = (float)countCollectibles[i] / (float)maxCollectibles[i];
             img.color = temp;
         }
+    }
+
+    public void MainMenuPlay()
+    {
+        _mainMenuAnimator.SetTrigger("PlayClicked");
     }
 }
