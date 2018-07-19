@@ -3433,10 +3433,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stone: {fileID: 838603549}
-  branch: {fileID: 677729745}
-  branchTwo: {fileID: 1111108130}
   anim: {fileID: 0}
   animClip: {fileID: 7400000, guid: 19459edfefd01c84690a7d5030075a75, type: 2}
+  defStonePos: {x: 1.25, y: 0.65, z: 0}
 --- !u!95 &377604716
 Animator:
   serializedVersion: 3
@@ -7921,7 +7920,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 838603546}
   m_LocalRotation: {x: -0, y: -0, z: 0.99607074, w: -0.088562}
-  m_LocalPosition: {x: 1.2510781, y: 0.654632, z: 0}
+  m_LocalPosition: {x: 1.25, y: 0.65, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 377604713}
