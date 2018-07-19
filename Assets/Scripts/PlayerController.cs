@@ -58,6 +58,7 @@ public class PlayerController : MonoBehaviour
 
 	private Vector2 _defaultColliderSize;
 	private Vector2 _defaultColliderOffset;
+	private Vector3 _defLocalScale;
 
 	// Use this for initialization
 	void Start()
@@ -65,6 +66,7 @@ public class PlayerController : MonoBehaviour
 		_rb2d = GetComponent<Rigidbody2D>();
 		_spriteRenderer = GetComponent<SpriteRenderer>();
 		_crouchCollider = GetComponent<CapsuleCollider2D>();
+		_defLocalScale = transform.localScale;
 
 		Assert.IsNotNull(_groundCheckTransform);
 		Assert.IsNotNull(_rb2d);
@@ -142,11 +144,18 @@ public class PlayerController : MonoBehaviour
 
 		_currentHorizontalSpeed = Mathf.Clamp(_currentHorizontalSpeed, -_maximumMovementSpeed * _movementModifier, _maximumMovementSpeed * _movementModifier);
 		// horizontal movement
+
+		if (inputHorizontal > 0)
+			transform.localScale = _defLocalScale;
+		if (inputHorizontal < -0.1)
+			transform.localScale = new Vector3(-_defLocalScale.x,_defLocalScale.y,_defLocalScale.z);
+
 		if (_canWalk || (!_canWalk && !_grounded && _canFly))
+			//_rb2d.velocity = new Vector2(((inputHorizontal>0)?_currentHorizontalSpeed:-_currentHorizontalSpeed), _rb2d.velocity.y);
 			_rb2d.velocity = new Vector2(_currentHorizontalSpeed, _rb2d.velocity.y);
 
-		// jump
-		if (_rb2d.velocity.y <= 0) _jumping = false;
+			// jump
+			if (_rb2d.velocity.y <= 0) _jumping = false;
 		if (Input.GetButtonDown("Jump") && (_grounded || _canFly) && _canJump)
 		{
 			_rb2d.velocity = new Vector2(_rb2d.velocity.x, _jumpSpeed);
@@ -167,6 +176,7 @@ public class PlayerController : MonoBehaviour
 		{
 			if (contacts[i].normal.x == 1 || contacts[i].normal.x == -1)
 			{
+				Debug.DrawRay(contacts[i].point,Vector3.one*100);
 				//_runningIntoWall = -(int)contacts[i].normal.x;
 				return;
 			}

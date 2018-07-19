@@ -21,8 +21,8 @@ GameObject:
   - component: {fileID: 4321474123834134}
   - component: {fileID: 212090531306763536}
   - component: {fileID: 50694702962670572}
-  - component: {fileID: 61511305822061064}
   - component: {fileID: 114852799608415482}
+  - component: {fileID: 70493617800926636}
   m_Layer: 10
   m_Name: Bison
   m_TagString: Player
@@ -52,7 +52,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1359729434417512}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.24, z: 0}
+  m_LocalPosition: {x: 1.17, y: 8.01, z: 0}
   m_LocalScale: {x: 1.4809349, y: 1.1311638, z: 1}
   m_Children:
   - {fileID: 4736560918130672}
@@ -92,8 +92,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!61 &61511305822061064
-BoxCollider2D:
+--- !u!70 &70493617800926636
+CapsuleCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -104,19 +104,9 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  m_Offset: {x: -0.000000001465884, y: -0.01609904}
+  m_Size: {x: 1.0000001, y: 0.95505303}
+  m_Direction: 1
 --- !u!114 &114852799608415482
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -134,6 +124,7 @@ MonoBehaviour:
   _fallGravityMultiplier: 2.5
   _crouchingMovementModifier: 0.5
   _ceilingCheckTransform: {fileID: 0}
+  _ceilingCheckRadius: 0.1
   _groundCheckRadius: 0.25
   _groundCheckTransform: {fileID: 4736560918130672}
   _groundLayerMask:
