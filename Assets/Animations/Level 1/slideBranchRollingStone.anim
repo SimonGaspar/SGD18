@@ -26,8 +26,26 @@ AnimationClip:
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
-        time: 0.52
-        value: {x: 0, y: 0, z: 42.154003}
+        time: 0.26666668
+        value: {x: 0, y: 0, z: -3.9880002}
+        inSlope: {x: 0, y: 0, z: 20.661179}
+        outSlope: {x: 0, y: 0, z: 20.661179}
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
+        outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
+      - serializedVersion: 3
+        time: 0.56666666
+        value: {x: 0, y: 0, z: 10.507001}
+        inSlope: {x: 0, y: 0, z: 62.723694}
+        outSlope: {x: 0, y: 0, z: 62.723694}
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
+        outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
+      - serializedVersion: 3
+        time: 0.9
+        value: {x: 0, y: 0, z: 35.737003}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -35,17 +53,17 @@ AnimationClip:
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
-        time: 0.54
-        value: {x: 0, y: 0, z: 41.11}
-        inSlope: {x: 0, y: 0, z: -21.050007}
-        outSlope: {x: 0, y: 0, z: -21.050007}
+        time: 0.96666664
+        value: {x: 0, y: 0, z: 33.717003}
+        inSlope: {x: 0, y: 0, z: 0}
+        outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
         weightedMode: 0
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
-        time: 0.64
-        value: {x: 0, y: 0, z: 39.628002}
+        time: 1.0666667
+        value: {x: 0, y: 0, z: 35.325}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -55,7 +73,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: kkonar_tunel_2
+    path: 
   m_PositionCurves:
   - curve:
       serializedVersion: 2
@@ -70,44 +88,44 @@ AnimationClip:
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
-        time: 0.06
-        value: {x: 0.633, y: -0.077, z: 0}
-        inSlope: {x: 0.07272741, y: -0.4636364, z: 0}
-        outSlope: {x: 0.07272741, y: -0.4636364, z: 0}
+        time: 0.26666668
+        value: {x: 0.6823948, y: -0.021523954, z: 0}
+        inSlope: {x: 0.6101321, y: 0, z: 0}
+        outSlope: {x: 0.6101321, y: 0, z: 0}
         tangentMode: 0
         weightedMode: 0
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
-        time: 0.22
-        value: {x: 0.637, y: -0.142, z: 0}
-        inSlope: {x: 0.03478268, y: -0.56521744, z: 0}
-        outSlope: {x: 0.03478268, y: -0.56521744, z: 0}
+        time: 0.56666666
+        value: {x: 0.7857415, y: -0.09126042, z: 0}
+        inSlope: {x: 0.64358723, y: -0.44044086, z: 0}
+        outSlope: {x: 0.64358723, y: -0.44044086, z: 0}
         tangentMode: 0
         weightedMode: 0
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
-        time: 0.52
-        value: {x: 0.84, y: -0.728, z: 0}
-        inSlope: {x: 0.02500043, y: -0.1000002, z: 0}
-        outSlope: {x: 0.02500043, y: -0.1000002, z: 0}
+        time: 0.9
+        value: {x: 1.09, y: -0.72, z: 0}
+        inSlope: {x: 0.19999981, y: -0.29999977, z: 0}
+        outSlope: {x: 0.19999981, y: -0.29999977, z: 0}
         tangentMode: 0
         weightedMode: 0
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
-        time: 0.54
-        value: {x: 0.842, y: -0.736, z: 0}
-        inSlope: {x: 0.06666779, y: -0.26666722, z: 0}
-        outSlope: {x: 0.06666779, y: -0.26666722, z: 0}
+        time: 0.96666664
+        value: {x: 1.11, y: -0.75, z: 0}
+        inSlope: {x: 0, y: -0.23999965, z: 0}
+        outSlope: {x: 0, y: -0.23999965, z: 0}
         tangentMode: 0
         weightedMode: 0
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
-        time: 0.64
-        value: {x: 0.89, y: -0.767, z: 0}
+        time: 1.0666667
+        value: {x: 1.08, y: -0.76, z: 0}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -117,11 +135,11 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: kkonar_tunel_2
+    path: 
   m_ScaleCurves: []
   m_FloatCurves: []
   m_PPtrCurves: []
-  m_SampleRate: 50
+  m_SampleRate: 30
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
@@ -129,14 +147,14 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 310183878
+      path: 0
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 310183878
+      path: 0
       attribute: 4
       script: {fileID: 0}
       typeID: 4
@@ -148,7 +166,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.64
+    m_StopTime: 1.0666667
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -177,44 +195,44 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.06
-        value: 0.633
-        inSlope: 0.07272741
-        outSlope: 0.07272741
+        time: 0.26666668
+        value: 0.6823948
+        inSlope: 0.6101321
+        outSlope: 0.6101321
         tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.22
-        value: 0.637
-        inSlope: 0.03478268
-        outSlope: 0.03478268
+        time: 0.56666666
+        value: 0.7857415
+        inSlope: 0.64358723
+        outSlope: 0.64358723
         tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.52
-        value: 0.84
-        inSlope: 0.02500043
-        outSlope: 0.02500043
+        time: 0.9
+        value: 1.09
+        inSlope: 0.19999981
+        outSlope: 0.19999981
         tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.54
-        value: 0.842
-        inSlope: 0.06666779
-        outSlope: 0.06666779
+        time: 0.96666664
+        value: 1.11
+        inSlope: 0
+        outSlope: 0
         tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.64
-        value: 0.89
+        time: 1.0666667
+        value: 1.08
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -225,7 +243,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.x
-    path: kkonar_tunel_2
+    path: 
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -241,44 +259,44 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.06
-        value: -0.077
-        inSlope: -0.4636364
-        outSlope: -0.4636364
+        time: 0.26666668
+        value: -0.021523954
+        inSlope: 0
+        outSlope: 0
         tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.22
-        value: -0.142
-        inSlope: -0.56521744
-        outSlope: -0.56521744
+        time: 0.56666666
+        value: -0.09126042
+        inSlope: -0.44044086
+        outSlope: -0.44044086
         tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.52
-        value: -0.728
-        inSlope: -0.1000002
-        outSlope: -0.1000002
+        time: 0.9
+        value: -0.72
+        inSlope: -0.29999977
+        outSlope: -0.29999977
         tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.54
-        value: -0.736
-        inSlope: -0.26666722
-        outSlope: -0.26666722
+        time: 0.96666664
+        value: -0.75
+        inSlope: -0.23999965
+        outSlope: -0.23999965
         tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.64
-        value: -0.767
+        time: 1.0666667
+        value: -0.76
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -289,7 +307,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.y
-    path: kkonar_tunel_2
+    path: 
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -305,7 +323,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.06
+        time: 0.26666668
         value: 0
         inSlope: 0
         outSlope: 0
@@ -314,7 +332,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.22
+        time: 0.56666666
         value: 0
         inSlope: 0
         outSlope: 0
@@ -323,7 +341,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.52
+        time: 0.9
         value: 0
         inSlope: 0
         outSlope: 0
@@ -332,7 +350,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.54
+        time: 0.96666664
         value: 0
         inSlope: 0
         outSlope: 0
@@ -341,7 +359,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.64
+        time: 1.0666667
         value: 0
         inSlope: 0
         outSlope: 0
@@ -353,7 +371,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.z
-    path: kkonar_tunel_2
+    path: 
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -369,7 +387,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.52
+        time: 0.26666668
         value: 0
         inSlope: 0
         outSlope: 0
@@ -378,7 +396,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.54
+        time: 0.56666666
         value: 0
         inSlope: 0
         outSlope: 0
@@ -387,7 +405,25 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.64
+        time: 0.9
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.96666664
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1.0666667
         value: 0
         inSlope: 0
         outSlope: 0
@@ -399,7 +435,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.x
-    path: kkonar_tunel_2
+    path: 
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -415,7 +451,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.52
+        time: 0.26666668
         value: 0
         inSlope: 0
         outSlope: 0
@@ -424,7 +460,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.54
+        time: 0.56666666
         value: 0
         inSlope: 0
         outSlope: 0
@@ -433,7 +469,25 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.64
+        time: 0.9
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.96666664
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1.0666667
         value: 0
         inSlope: 0
         outSlope: 0
@@ -445,7 +499,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.y
-    path: kkonar_tunel_2
+    path: 
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -461,8 +515,26 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.52
-        value: 42.154003
+        time: 0.26666668
+        value: -3.9880002
+        inSlope: 20.661179
+        outSlope: 20.661179
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.56666666
+        value: 10.507001
+        inSlope: 62.723694
+        outSlope: 62.723694
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.9
+        value: 35.737003
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -470,17 +542,17 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.54
-        value: 41.11
-        inSlope: -21.050007
-        outSlope: -21.050007
+        time: 0.96666664
+        value: 33.717003
+        inSlope: 0
+        outSlope: 0
         tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.64
-        value: 39.628002
+        time: 1.0666667
+        value: 35.325
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -491,7 +563,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.z
-    path: kkonar_tunel_2
+    path: 
     classID: 4
     script: {fileID: 0}
   m_EulerEditorCurves:
@@ -502,7 +574,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: kkonar_tunel_2
+    path: 
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -512,7 +584,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: kkonar_tunel_2
+    path: 
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -522,10 +594,10 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: kkonar_tunel_2
+    path: 
     classID: 4
     script: {fileID: 0}
-  m_HasGenericRootTransform: 0
+  m_HasGenericRootTransform: 1
   m_HasMotionFloatCurves: 0
   m_GenerateMotionCurves: 0
   m_Events: []
