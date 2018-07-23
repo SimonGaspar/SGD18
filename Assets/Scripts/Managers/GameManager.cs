@@ -69,7 +69,7 @@ public class GameManager : Singleton<GameManager>
         Application.Quit();
     }
 
-    public void SaveGame()
+    public void SaveGame(Transform newSpawn)
     {
         Save saveObject = new Save();
 
@@ -79,7 +79,7 @@ public class GameManager : Singleton<GameManager>
         // Saving Data
         saveObject.currentLevelNumber = this.CurrentLevelNumber;
         saveObject.collectiblesCounts = this.CollectiblesCount;
-        saveObject.currentPlayerCheckpoint = new Vector3Ser(PlayerSpawn.x, PlayerSpawn.y, PlayerSpawn.z);
+        saveObject.currentPlayerCheckpoint = new Vector3Ser(newSpawn.position.x, newSpawn.position.y, newSpawn.position.z);
         saveObject.pickedUpCollectiblesID = new List<float>();
         foreach (float c in _pickedUpCollectibles)
         {
@@ -112,16 +112,17 @@ public class GameManager : Singleton<GameManager>
 
     private void OnNewSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        GameObject[] collectiblesInLevel = GameObject.FindGameObjectsWithTag("Collectible");
-        foreach (GameObject collectible in collectiblesInLevel)
-        {
-            if (_currentLoadObject.pickedUpCollectiblesID.Contains(collectible.transform.position.sqrMagnitude))
-                Destroy(collectible);
+        // GameObject[] collectiblesInLevel = GameObject.FindGameObjectsWithTag("Collectible");
+        // foreach (GameObject collectible in collectiblesInLevel)
+        // {
+        //     if (_currentLoadObject.pickedUpCollectiblesID.Contains(collectible.transform.position.sqrMagnitude))
+        //         Destroy(collectible);
 
-        }
+        // }
         _playerSpawn = new Vector3(_currentLoadObject.currentPlayerCheckpoint.x, _currentLoadObject.currentPlayerCheckpoint.y, _currentLoadObject.currentPlayerCheckpoint.z);
         AnimalsManager.Instance.ResetSpawn();
         SceneManager.sceneLoaded -= OnNewSceneLoaded;
+        EventsManager.Instance.formChangeDelegate();
     }
 
     public bool SaveExists()
