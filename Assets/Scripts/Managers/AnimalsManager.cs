@@ -45,13 +45,16 @@ public class AnimalsManager : Singleton<AnimalsManager>
             _currentPlayerForm = null;
             _currentAnimalIdentifier = AnimalForm.None;
         }
+
     }
     public void SpawnHuman()
     {
         if (PreventSwapForm()) return;
         if (_currentAnimalIdentifier == AnimalForm.Human) return;
+		_positionBeforeDestroy = GameManager.Instance.PlayerSpawn; //currently used to spawn player at correct location because player does not spawn automatically
+
         DestroyCurrentForm();
-        _currentPlayerForm = Instantiate(_humanFormHolder, _positionBeforeDestroy, Quaternion.identity);
+		_currentPlayerForm = Instantiate(_humanFormHolder, _positionBeforeDestroy, Quaternion.identity);
         _currentAnimalIdentifier = AnimalForm.Human;
         EventsManager.Instance.formChangeDelegate();
     }

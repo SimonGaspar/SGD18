@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
 
 	private Rigidbody2D _rb2d;
 	private SpriteRenderer _spriteRenderer;
-	private CapsuleCollider2D _crouchCollider;
+	private BoxCollider2D _crouchCollider;
 
 	[Space]
 	[Header("Movement")]
@@ -71,7 +71,7 @@ public class PlayerController : MonoBehaviour
 	{
 		_rb2d = GetComponent<Rigidbody2D>();
 		_spriteRenderer = GetComponent<SpriteRenderer>();
-		_crouchCollider = GetComponent<CapsuleCollider2D>();
+		_crouchCollider = GetComponent<BoxCollider2D>();
 		_defLocalScale = transform.localScale;
 
 		Assert.IsNotNull(_groundCheckTransform);
