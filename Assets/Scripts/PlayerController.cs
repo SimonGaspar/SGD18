@@ -44,7 +44,13 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] private bool _canJump = true;
 	[SerializeField] private bool _canCrouch = true;
 
-	public bool IsMoving { get { return (_rb2d.velocity.x != 0 || _rb2d.velocity.y != 0); } }
+    [Space]
+    [Header("Change")]
+    [SerializeField]
+    private ParticleSystem _particle = null;
+    private ParticleSystem _currentParticle = null;
+
+    public bool IsMoving { get { return (_rb2d.velocity.x != 0 || _rb2d.velocity.y != 0); } }
 
 	private bool _grounded = false;
 	private bool _jumping = false;
@@ -91,11 +97,12 @@ public class PlayerController : MonoBehaviour
 		// I know physics calculations shouldn't be done in `Update()`, but putting them into `FixedUpdate()` creates an awful input lag
 		// Just leave it here (╯°□°）╯︵ ┻━┻
 		HandleCrouching();
-		CalculateMovement();
+        CalculateMovement();
 	}
 
-	// Update is called once per frame
-	void FixedUpdate()
+    
+    // Update is called once per frame
+    void FixedUpdate()
 	{
 		// jump modifier for prettier falling
 		if (_rb2d.velocity.y < 0)
@@ -218,4 +225,12 @@ public class PlayerController : MonoBehaviour
 		Gizmos.color = Color.blue;
 		Gizmos.DrawSphere(_groundCheckTransform.position, _groundCheckRadius);
 	}
+
+
+    public void PlayParticle()
+    {
+        if (_particle != null) { 
+        _currentParticle = Instantiate<ParticleSystem>(_particle);
+        _currentParticle.transform.position = transform.position; }
+    }
 }
