@@ -16,7 +16,6 @@ public class AnimalsManager : Singleton<AnimalsManager>
 
     [SerializeField] private GameObject _humanFormHolder;
     [SerializeField] private GameObject[] _equippedAnimalsPrefabs = new GameObject[2];
-    [SerializeField] private Transform _playerSpawnObject;
     private Vector3 _playerSpawnPosition;
 
     private GameObject _currentPlayerForm;
@@ -27,10 +26,13 @@ public class AnimalsManager : Singleton<AnimalsManager>
     private void Start()
     {
         Assert.IsNotNull(_humanFormHolder);
-        Assert.IsNotNull(_playerSpawnObject);
+    }
 
-        _playerSpawnPosition = _playerSpawnObject.transform.position;
-        _positionBeforeDestroy = _playerSpawnPosition;
+    public void ResetSpawn()
+    {
+        DestroyCurrentForm();
+        _positionBeforeDestroy = GameManager.Instance.PlayerSpawn;
+        _currentAnimalIdentifier = AnimalForm.None;
         SpawnHuman();
     }
 
@@ -40,6 +42,8 @@ public class AnimalsManager : Singleton<AnimalsManager>
         {
             _positionBeforeDestroy = _currentPlayerForm.transform.position;
             Destroy(_currentPlayerForm);
+            _currentPlayerForm = null;
+            _currentAnimalIdentifier = AnimalForm.None;
         }
     }
     public void SpawnHuman()
