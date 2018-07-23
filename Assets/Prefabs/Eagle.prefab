@@ -86,7 +86,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 12
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -100,7 +100,7 @@ CapsuleCollider2D:
   m_GameObject: {fileID: 1830434057732246}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 1ab5d17e3c072e145bf999c5ef7a7ec8, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -124,6 +124,7 @@ MonoBehaviour:
   _fallGravityMultiplier: 2.5
   _crouchingMovementModifier: 0.5
   _ceilingCheckTransform: {fileID: 0}
+  _ceilingCheckRadius: 0.1
   _groundCheckRadius: 0.25
   _groundCheckTransform: {fileID: 4889641077053486}
   _groundLayerMask:
