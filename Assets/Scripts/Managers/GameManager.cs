@@ -17,6 +17,9 @@ public class GameManager : Singleton<GameManager>
     [Space]
     [Header("Collectibles")]
     [SerializeField] private string _collectibleTag = "Collectible";
+    [Space]
+    [Header("Levels")]
+    [SerializeField] private int[] _levels;
 
     private int CurrentLevelNumber { get { return SceneManager.GetActiveScene().buildIndex; } }
 
@@ -40,9 +43,18 @@ public class GameManager : Singleton<GameManager>
         _playerSpawn = GameObject.FindGameObjectWithTag("Spawn").transform.position;
     }
 
-    public void LoadLevel(int index)
+    public void LoadLevel(int index, bool newLevel)
     {
         SceneManager.LoadScene(index);
+        if (newLevel) SceneManager.sceneLoaded += OnNewLevelLoaded;
+    }
+
+    private void OnNewLevelLoaded(Scene scene, LoadSceneMode mode)
+    {
+        _playerSpawn = GameObject.FindGameObjectWithTag("Spawn").transform.position;
+        AnimalsManager.Instance.ResetSpawn();
+        EventsManager.Instance.formChangeDelegate();
+        SceneManager.sceneLoaded += OnNewLevelLoaded;
     }
 
     public void StartGame()
@@ -51,17 +63,27 @@ public class GameManager : Singleton<GameManager>
         {
             UIManager.Instance.MainMenuPlay();
         }
+        else
+        {
+            NewGame();
+        }
     }
 
     public void NewGame()
     {
-        Debug.Log("New Game");
         File.Delete(Application.persistentDataPath + _saveString);
+        LoadLevel(_levels[0], true);
     }
 
     public void Continue()
     {
-        Debug.Log("Continue");
+        LoadGame();
+    }
+
+    public void NextLevel()
+    {
+        int currentLevelIndex = SceneManager.GetActiveScene().buildIndex;
+        LoadLevel(++currentLevelIndex, true);
     }
 
     public void QuitGame()
@@ -100,17 +122,17 @@ public class GameManager : Singleton<GameManager>
             Save loadObject = (Save)bf.Deserialize(file);
 
             // Loading data
-            LoadLevel(loadObject.currentLevelNumber);
+            LoadLevel(loadObject.currentLevelNumber, false);
 
             // -----------
             file.Close();
             _currentLoadObject = loadObject;
             _playerSpawn = new Vector3(_currentLoadObject.currentPlayerCheckpoint.x, _currentLoadObject.currentPlayerCheckpoint.y, _currentLoadObject.currentPlayerCheckpoint.z);
-            SceneManager.sceneLoaded += OnNewSceneLoaded;
+            SceneManager.sceneLoaded += OnSaveLoaded;
         }
     }
 
-    private void OnNewSceneLoaded(Scene scene, LoadSceneMode mode)
+    private void OnSaveLoaded(Scene scene, LoadSceneMode mode)
     {
         // GameObject[] collectiblesInLevel = GameObject.FindGameObjectsWithTag("Collectible");
         // foreach (GameObject collectible in collectiblesInLevel)
@@ -121,7 +143,7 @@ public class GameManager : Singleton<GameManager>
         // }
         _playerSpawn = new Vector3(_currentLoadObject.currentPlayerCheckpoint.x, _currentLoadObject.currentPlayerCheckpoint.y, _currentLoadObject.currentPlayerCheckpoint.z);
         AnimalsManager.Instance.ResetSpawn();
-        SceneManager.sceneLoaded -= OnNewSceneLoaded;
+        SceneManager.sceneLoaded -= OnSaveLoaded;
         EventsManager.Instance.formChangeDelegate();
     }
 

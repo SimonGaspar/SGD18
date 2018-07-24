@@ -23,6 +23,8 @@ public class UIManager : Singleton<UIManager>
     [Header("Collectible panel")]
     [SerializeField] private Image[] _collectiblesImages;
 
+
+    private bool _inPlayMenu = false;
     private Animator _mainMenuAnimator;
 
     private void Start()
@@ -35,12 +37,14 @@ public class UIManager : Singleton<UIManager>
 
         _mainMenuAnimator = GameObject.Find("MainMenu").GetComponent<Animator>();
 
-        SpawnMainMenu();
         SpawnSideButtons();
     }
-    private void SpawnMainMenu()
+    private void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            MainMenuGoBack();
+        }
     }
 
     private void SpawnSideButtons()
@@ -98,6 +102,21 @@ public class UIManager : Singleton<UIManager>
 
     public void MainMenuPlay()
     {
-        _mainMenuAnimator.SetTrigger("PlayClicked");
+        if (!_inPlayMenu)
+        {
+            _inPlayMenu = true;
+            _mainMenuAnimator.ResetTrigger("GoBackClicked");
+            _mainMenuAnimator.SetTrigger("PlayClicked");
+        }
+    }
+
+    public void MainMenuGoBack()
+    {
+        if (_inPlayMenu)
+        {
+            _inPlayMenu = false;
+            _mainMenuAnimator.ResetTrigger("PlayClicked");
+            _mainMenuAnimator.SetTrigger("GoBackClicked");
+        }
     }
 }

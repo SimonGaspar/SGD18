@@ -8,11 +8,10 @@ using UnityEngine;
 /*
  * To work correctly, this Script has to be attached to game object in current scene !
  */
+public enum AnimalForm { None, Human, Eagle, Bison };
 
 public class AnimalsManager : Singleton<AnimalsManager>
 {
-    // Variables
-    enum AnimalForm { None, Human, Eagle, Bison };
 
     [SerializeField] private GameObject _humanFormHolder;
     [SerializeField] private GameObject[] _equippedAnimalsPrefabs = new GameObject[2];
@@ -27,6 +26,7 @@ public class AnimalsManager : Singleton<AnimalsManager>
     {
         Assert.IsNotNull(_humanFormHolder);
     }
+
 
     public void ResetSpawn()
     {
@@ -61,7 +61,7 @@ public class AnimalsManager : Singleton<AnimalsManager>
         StartCoroutine(Swap(index));
     }
 
-        public IEnumerator Swap(int index)
+    public IEnumerator Swap(int index)
     {
         if (PreventSwapForm()) yield return null;
         GameObject chosenAnimalPrefab = null;
@@ -73,7 +73,7 @@ public class AnimalsManager : Singleton<AnimalsManager>
             if (_currentAnimalIdentifier == chosenAnimalForm) yield return null;
             _currentPlayerForm.GetComponent<Animator>().SetTrigger("HumanOut");
             yield return new WaitForSeconds(2.5f);
-            var x= Instantiate(chosenAnimalPrefab, _currentPlayerForm.transform.position, Quaternion.identity);
+            var x = Instantiate(chosenAnimalPrefab, _currentPlayerForm.transform.position, Quaternion.identity);
             DestroyCurrentForm();
             _currentPlayerForm = x;
             EventsManager.Instance.formChangeDelegate();

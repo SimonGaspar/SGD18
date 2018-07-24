@@ -166,6 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae15ef1a4d8da5d4c8d23ea77528d927, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _animalForm: 1
   _maximumMovementSpeed: 4
   _jumpSpeed: 4.8
   _acceleration: 8
@@ -182,8 +183,7 @@ MonoBehaviour:
   _canWalk: 1
   _canJump: 1
   _canCrouch: 1
-  _particle: {fileID: 198452587303102356, guid: 8b3318c066a418945979fa521a788149,
-    type: 2}
+  _particle: {fileID: 0}
 --- !u!212 &212273607341155342
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -224,7 +224,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 4.76, y: 8.38}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

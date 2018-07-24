@@ -118,6 +118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae15ef1a4d8da5d4c8d23ea77528d927, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _animalForm: 2
   _maximumMovementSpeed: 5
   _jumpSpeed: 4
   _acceleration: 7
@@ -134,6 +135,7 @@ MonoBehaviour:
   _canWalk: 0
   _canJump: 1
   _canCrouch: 0
+  _particle: {fileID: 0}
 --- !u!212 &212270117817157518
 SpriteRenderer:
   m_ObjectHideFlags: 1

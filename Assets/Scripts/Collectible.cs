@@ -16,7 +16,7 @@ public class Collectible : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Player" && !_picked)
+        if (other.gameObject.tag == "Player" && !_picked)
         {
             GameManager.Instance.CollectiblePickup(this.gameObject, _type);
             _picked = true;
