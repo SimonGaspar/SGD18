@@ -134,9 +134,9 @@ public class PlayerController : MonoBehaviour
 	private void CalculateMovement()
 	{
 		float inputHorizontal = Input.GetAxis("Horizontal");
-		/*if (inputHorizontal == 0 && _grounded)
+		if (inputHorizontal == 0 && _grounded)
 			_rb2d.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
-		else*/
+		else
 			_rb2d.constraints = RigidbodyConstraints2D.FreezeRotation;
 
 		inputHorizontal = (inputHorizontal > 0) ? Mathf.Ceil(inputHorizontal) : Mathf.Floor(inputHorizontal);

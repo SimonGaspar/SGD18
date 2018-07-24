@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,4 +14,9 @@ public class Deathzone : MonoBehaviour
             GameManager.Instance.LoadGame();
         }
     }
+
+	private void OnDrawGizmos()
+	{
+		Gizmos.DrawIcon(transform.position, "death");
+	}
 }
