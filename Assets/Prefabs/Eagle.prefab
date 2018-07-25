@@ -118,11 +118,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae15ef1a4d8da5d4c8d23ea77528d927, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animalForm: 2
+  _animalForm: 3
   _maximumMovementSpeed: 5
   _jumpSpeed: 4
   _acceleration: 7
   _fallGravityMultiplier: 2.5
+  _pushingSpeedModifier: 0.1
   _crouchingMovementModifier: 0.5
   _ceilingCheckTransform: {fileID: 0}
   _ceilingCheckRadius: 0.1

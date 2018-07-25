@@ -7,38 +7,53 @@ using UnityEngine;
 
 public class UIManager : Singleton<UIManager>
 {
-    [SerializeField] private Canvas _canvas;
     [Space]
-    [Header("Top left UI")]
-    [SerializeField] private GameObject _buttonPrefab;
-    [SerializeField] private Vector2 _startPosition = new Vector2(39f, -105f);
-    [SerializeField] private Vector2 _offsetEachButton = new Vector2(0f, 205);
-    [SerializeField] private Animal[] _animals;
-    [SerializeField] private ModalWindowScript _modalScript;
+    [Header("Collectibles panel")]
+    [SerializeField] private GameObject _collectibleImagePrefab;
 
-    [Header("Panel")]
-    [SerializeField] private GameObject _panelPrefab;
-    private GameObject _currentlyOpenedPanel;
-
-    [Header("Collectible panel")]
-    [SerializeField] private Image[] _collectiblesImages;
-
+    private Transform _collectiblesPanelTransform;
 
     private bool _inPlayMenu = false;
-    private Animator _mainMenuAnimator;
+    private Animator _mainMenuAnimator = null;
+
+    private List<GameObject> _collectibleImages;
 
     private void Start()
     {
-        Assert.IsNotNull(_canvas);
         // Assert.IsNotNull(_buttonPrefab);
-        // Assert.IsNotNull(_panelPrefab);
+        if (GameObject.Find("MainMenu"))
+        {
+            _mainMenuAnimator = GameObject.Find("MainMenu").GetComponent<Animator>();
+        }
+
+        _collectiblesPanelTransform = GameObject.Find("CollectiblesPanel").transform;
+
+        Assert.IsNotNull(_collectibleImagePrefab);
+        Assert.IsNotNull(_collectiblesPanelTransform);
 
         EventsManager.Instance.collectibleChangeDelegate += collectibleCountChanged;
 
-        _mainMenuAnimator = GameObject.Find("MainMenu").GetComponent<Animator>();
+        _collectibleImages = new List<GameObject>();
 
-        SpawnSideButtons();
+        InitializeTopLeftPanel();
+        EventsManager.Instance.collectibleChangeDelegate();
     }
+
+    public void InitializeTopLeftPanel()
+    {
+        Animal[] animals = GameManager.Instance.AvailableAnimals;
+        foreach (Animal a in animals)
+        {
+            GameObject obj = Instantiate(_collectibleImagePrefab);
+            obj.transform.SetParent(_collectiblesPanelTransform, false);
+
+            Image i = obj.GetComponent<Image>();
+            i.color = a.AnimalColor;
+
+            _collectibleImages.Add(obj);
+        }
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -47,56 +62,55 @@ public class UIManager : Singleton<UIManager>
         }
     }
 
-    private void SpawnSideButtons()
-    {
-        Vector3 buttonPosition = Vector3.zero;
-        buttonPosition = new Vector3(_startPosition.x, _startPosition.y, 0f);
+    // private void SpawnSideButtons()
+    // {
+    //     Vector3 buttonPosition = Vector3.zero;
+    //     buttonPosition = new Vector3(_startPosition.x, _startPosition.y, 0f);
 
-        foreach (Animal a in _animals)
-        {
-            GameObject b = Instantiate(_buttonPrefab);
+    //     foreach (Animal a in _animals)
+    //     {
+    //         GameObject b = Instantiate(_buttonPrefab);
 
-            b.GetComponent<Image>().sprite = a.AnimalSprite;
-            b.GetComponent<Button>().onClick.AddListener(delegate { HandleButtonClick(a); });
-            b.transform.position = buttonPosition;
-            b.transform.SetParent(_canvas.transform, false);
+    //         b.GetComponent<Image>().sprite = a.AnimalSprite;
+    //         b.GetComponent<Button>().onClick.AddListener(delegate { HandleButtonClick(a); });
+    //         b.transform.position = buttonPosition;
+    //         b.transform.SetParent(_canvas.transform, false);
 
-            buttonPosition += new Vector3(_offsetEachButton.x, _offsetEachButton.y, 0f);
-        }
-    }
+    //         buttonPosition += new Vector3(_offsetEachButton.x, _offsetEachButton.y, 0f);
+    //     }
+    // }
 
-    private void HandleButtonClick(Animal animal)
-    {
-        if (_currentlyOpenedPanel != null) Destroy(_currentlyOpenedPanel);
+    // private void HandleButtonClick(Animal animal)
+    // {
+    //     if (_currentlyOpenedPanel != null) Destroy(_currentlyOpenedPanel);
 
-        GameObject panel = Instantiate(_panelPrefab);
-        panel.transform.SetParent(_canvas.transform, false);
-        panel.GetComponent<UIPanelScript>().InitializePanel(_animals, animal);
-        _currentlyOpenedPanel = panel;
-    }
+    //     GameObject panel = Instantiate(_panelPrefab);
+    //     panel.transform.SetParent(_canvas.transform, false);
+    //     panel.GetComponent<UIPanelScript>().InitializePanel(_animals, animal);
+    //     _currentlyOpenedPanel = panel;
+    // }
 
-    // Modal
+    // // Modal
 
-    public void UseModal(string titleText, string buttonText1, UnityAction buttonEvent1, string buttonText2, UnityAction buttonEvent2)
-    {
-        _modalScript.SetUpModal(titleText, buttonText1, buttonEvent1, buttonText2, buttonEvent2);
-    }
+    // public void UseModal(string titleText, string buttonText1, UnityAction buttonEvent1, string buttonText2, UnityAction buttonEvent2)
+    // {
+    //     _modalScript.SetUpModal(titleText, buttonText1, buttonEvent1, buttonText2, buttonEvent2);
+    // }
 
     // Collectibles
     public void collectibleCountChanged()
     {
-        int[] maxCollectibles = GameManager.Instance.MaxCollectiblesCount;
-        int[] countCollectibles = GameManager.Instance.CollectiblesCount;
-
-        for (int i = 0; i < _collectiblesImages.Length; i++)
+        int[] collectibleCounts = GameManager.Instance.CollectiblesCount;
+        Animal[] animals = GameManager.Instance.AvailableAnimals;
+        for (int i = 0; i < _collectibleImages.Count; i++)
         {
-            if (countCollectibles[i] == 0) return;
+            Image im = _collectibleImages[i].GetComponent<Image>();
+            Color temp = im.color;
+            if (animals[i].RequiredParts == 0) temp.a = 1f;
+            else temp.a = (float)collectibleCounts[i] / (float)animals[i].AnimalSprites.Length;
 
-            Image img = _collectiblesImages[i];
+            im.color = temp;
 
-            Color temp = img.color;
-            temp.a = (float)countCollectibles[i] / (float)maxCollectibles[i];
-            img.color = temp;
         }
     }
 

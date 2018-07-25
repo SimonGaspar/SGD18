@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 114030698657414706}
   m_Layer: 0
   m_Name: Horn
-  m_TagString: Untagged
+  m_TagString: Collectible
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -65,7 +65,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1934488985537236}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 4.54, y: -1.36, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4331960781584510}
@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a27dcc30dee29cc49b59e3f54e66b622, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _type: 1
+  _collectibleFor: 2
 --- !u!212 &212905627268624404
 SpriteRenderer:
   m_ObjectHideFlags: 1

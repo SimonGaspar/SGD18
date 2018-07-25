@@ -55,7 +55,7 @@ Transform:
   m_GameObject: {fileID: 1359729434417512}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.15, y: -1.38, z: 0}
-  m_LocalScale: {x: 0.23142427, y: 0.17676587, z: 0.15626904}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.15626904}
   m_Children:
   - {fileID: 4736560918130672}
   m_Father: {fileID: 0}
@@ -163,11 +163,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae15ef1a4d8da5d4c8d23ea77528d927, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animalForm: 3
+  _animalForm: 2
   _maximumMovementSpeed: 10
   _jumpSpeed: 0
   _acceleration: 7
   _fallGravityMultiplier: 2.5
+  _pushingSpeedModifier: 0.1
   _crouchingMovementModifier: 0.5
   _ceilingCheckTransform: {fileID: 0}
   _ceilingCheckRadius: 0.1

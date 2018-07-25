@@ -53,16 +53,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9456e81c700455e408cd4fbd64c7f1fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _buttonPrefab: {fileID: 0}
-  _startPosition: {x: 39, y: -105}
-  _offsetEachButton: {x: 0, y: 205}
-  _animals: []
-  _modalScript: {fileID: 0}
-  _panelPrefab: {fileID: 0}
-  _collectiblesImages:
-  - {fileID: 0}
-  - {fileID: 0}
+  _collectibleImagePrefab: {fileID: 1796405650782270, guid: 8ece2ed7c8147b4409411061f3bc4496,
+    type: 2}
 --- !u!114 &114173658677840070
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -90,8 +82,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87737f8ea5efc70488927ad6595c67d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _availableAnimals:
+  - {fileID: 11400000, guid: efb87de473235d04aa342cc84f503201, type: 2}
+  - {fileID: 11400000, guid: 397c763d2d417e74287d707c993389d2, type: 2}
+  - {fileID: 11400000, guid: 01c1eb0d80b208a4bbf9e1c3ffa7846d, type: 2}
   _saveString: /gameSave.dat
-  _numberOfAnimals: 2
   _maximumCollectibles: 0500000005000000
   _collectibleTag: Collectible
   _levels: 0100000002000000

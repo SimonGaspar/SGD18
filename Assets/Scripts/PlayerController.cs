@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Animal identifier")]
     [SerializeField] private AnimalForm _animalForm;
+    public AnimalForm CurrentAnimalForm { get { return _animalForm; } }
 
     [Space]
     [Header("Movement")]
@@ -21,6 +22,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] [Range(0, 10)] private float _jumpSpeed = 4f;
     [SerializeField] [Range(0, 10)] [Tooltip("Speed gain per second")] private float _acceleration = 2f;
     [SerializeField] [Range(0, 5)] private float _fallGravityMultiplier = 2.5f;
+    [SerializeField] [Range(0, 1)] private float _pushingSpeedModifier = 0.1f;
 
     [Space]
     [Header("Crouching")]
@@ -71,6 +73,9 @@ public class PlayerController : MonoBehaviour
     private Vector3 _defLocalScale;
 
     private bool _movementDisabled = false;
+
+    private bool _isPushing = false;
+
 
     // Use this for initialization
     void Start()
@@ -183,10 +188,22 @@ public class PlayerController : MonoBehaviour
             _rb2d.velocity = new Vector2(_rb2d.velocity.x, Mathf.Clamp(_rb2d.velocity.y, -1000f, 2f));
         }
     }
-
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "Pushable" && _animalForm == AnimalForm.Bison)
+        {
+            _currentHorizontalSpeed = 0f;
+            _movementModifier = _pushingSpeedModifier;
+            _isPushing = true;
+            print("pushing");
+        }
+    }
     private void OnCollisionStay2D(Collision2D other)
     {
-        if (_animalForm != AnimalForm.Bison) return;
+        if (_animalForm == AnimalForm.Bison && _isPushing)
+        {
+            return;
+        }
 
         ContactPoint2D[] contacts = new ContactPoint2D[16];
         int contactsCount = other.GetContacts(contacts);
@@ -205,6 +222,8 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionExit2D(Collision2D other)
     {
         _runningIntoWall = 0;
+        _movementModifier = _defaultMovementModifier;
+        _isPushing = false;
     }
 
     public void Stand()

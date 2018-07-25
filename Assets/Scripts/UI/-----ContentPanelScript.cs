@@ -17,12 +17,6 @@ public class ContentPanelScript : MonoBehaviour
         Assert.IsNotNull(_titleText);
     }
 
-    public void InitializeContentPanel(Animal animal)
-    {
-        _titleText.text = animal.Name;
-        _titleImage.sprite = animal.AnimalSprite;
-    }
-
     public void ClosePanel()
     {
         Destroy(gameObject);

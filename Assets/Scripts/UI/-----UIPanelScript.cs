@@ -33,7 +33,7 @@ public class UIPanelScript : MonoBehaviour
         _currentContentPanel = Instantiate(_contentPanelPrefab);
         _currentContentPanel.transform.SetParent(transform, false);
 
-        _currentContentPanel.GetComponent<ContentPanelScript>().InitializeContentPanel(currentAnimal);
+        //_currentContentPanel.GetComponent<ContentPanelScript>().InitializeContentPanel(currentAnimal);
     }
 
     public void SpawnSidePanelButtons()
@@ -42,7 +42,7 @@ public class UIPanelScript : MonoBehaviour
         {
             GameObject b = Instantiate(_sidePanelButtonPrefab);
 
-            b.GetComponent<Image>().sprite = a.AnimalSprite;
+            //b.GetComponent<Image>().sprite = a.AnimalSprite;
             b.GetComponent<Button>().onClick.AddListener(delegate { HandleButtonClick(a); });
             b.transform.SetParent(_sidePanel.transform, false);
         }
@@ -53,7 +53,7 @@ public class UIPanelScript : MonoBehaviour
         _currentContentPanel = Instantiate(_contentPanelPrefab);
         _currentContentPanel.transform.SetParent(transform, false);
 
-        _currentContentPanel.GetComponent<ContentPanelScript>().InitializeContentPanel(animal);
+        //        _currentContentPanel.GetComponent<ContentPanelScript>().InitializeContentPanel(animal);
     }
 
     public void ClosePanel()

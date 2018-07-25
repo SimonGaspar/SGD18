@@ -11,8 +11,12 @@ public class GameManager : Singleton<GameManager>
     public Vector3 PlayerSpawn { get { return _playerSpawn; } }
 
     [Space]
+    [Header("Animals")]
+    [SerializeField] private Animal[] _availableAnimals;
+    public Animal[] AvailableAnimals { get { return _availableAnimals; } }
+
+    [Space]
     [SerializeField] private string _saveString = "/gameSave.dat";
-    [SerializeField] private int _numberOfAnimals = 2;
     [SerializeField] [Tooltip("Maximum number of collectibles for each animal")] private int[] _maximumCollectibles;
     [Space]
     [Header("Collectibles")]
@@ -24,7 +28,6 @@ public class GameManager : Singleton<GameManager>
     private int CurrentLevelNumber { get { return SceneManager.GetActiveScene().buildIndex; } }
 
     public int[] CollectiblesCount { get { return _collectiblesCount; } }
-    public int[] MaxCollectiblesCount { get { return _maximumCollectibles; } }
 
     private int[] _collectiblesCount;
 
@@ -32,8 +35,10 @@ public class GameManager : Singleton<GameManager>
 
     private Save _currentLoadObject = null;
 
+    private int _numberOfAnimals = 0;
     private void Start()
     {
+        _numberOfAnimals = _availableAnimals.Length;
         _collectiblesCount = new int[_numberOfAnimals];
         _pickedUpCollectibles = new List<float>();
     }
@@ -153,12 +158,12 @@ public class GameManager : Singleton<GameManager>
     }
 
 
-    public void CollectiblePickup(GameObject collectible, CollectibleType type)
+    public void CollectiblePickup(GameObject collectible, AnimalForm type)
     {
         _pickedUpCollectibles.Add(collectible.transform.position.sqrMagnitude);
-        print(_pickedUpCollectibles.Count);
-        _collectiblesCount[(int)type]++;
-        //EventsManager.Instance.collectibleChangeDelegate();
+        print((int)type - 1);
+        _collectiblesCount[(int)type - 1]++;
+        EventsManager.Instance.collectibleChangeDelegate();
     }
 
     private bool CompareVectors(Vector3 a, Vector3Ser b)

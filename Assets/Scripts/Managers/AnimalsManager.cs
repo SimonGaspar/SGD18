@@ -8,7 +8,7 @@ using UnityEngine;
 /*
  * To work correctly, this Script has to be attached to game object in current scene !
  */
-public enum AnimalForm { None, Human, Eagle, Bison };
+public enum AnimalForm { None, Human, Bison, Eagle };
 
 public class AnimalsManager : Singleton<AnimalsManager>
 {
@@ -72,12 +72,12 @@ public class AnimalsManager : Singleton<AnimalsManager>
             AnimalForm chosenAnimalForm = (AnimalForm)Enum.Parse(typeof(AnimalForm), chosenAnimalPrefab.name);
             if (_currentAnimalIdentifier == chosenAnimalForm) yield return null;
             _currentPlayerForm.GetComponent<Animator>().SetTrigger("HumanOut");
-            yield return new WaitForSeconds(2.5f);
+            //yield return new WaitForSeconds(2.5f);
             var x = Instantiate(chosenAnimalPrefab, _currentPlayerForm.transform.position, Quaternion.identity);
             DestroyCurrentForm();
             _currentPlayerForm = x;
             EventsManager.Instance.formChangeDelegate();
-            yield return new WaitForSeconds(1);
+            // yield return new WaitForSeconds(1);
             //_currentPlayerForm.GetComponent<Animator>().SetTrigger("BisonIn");
             _currentAnimalIdentifier = chosenAnimalForm;
         }

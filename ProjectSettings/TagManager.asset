@@ -7,6 +7,7 @@ TagManager:
   - Ground
   - Collectible
   - Spawn
+  - Pushable
   layers:
   - Default
   - TransparentFX
