@@ -11,7 +11,7 @@ public class TunelRollingStone : MonoBehaviour
 	[SerializeField] AnimationClip animClip;
 	public CircleCollider2D col;
 	public bool disabled;
-
+	public CircleCollider2D childStone;
 
 	void Start()
 	{

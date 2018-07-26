@@ -3509,6 +3509,11 @@ Transform:
   m_Father: {fileID: 1917427678}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &824377939 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4633718753771134, guid: aa37f99a60181b14bad88e6ba5d2676d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1954196723}
 --- !u!1001 &832431835
 Prefab:
   m_ObjectHideFlags: 0
@@ -4268,7 +4273,7 @@ MonoBehaviour:
   lookAroundEnabled: 0
   smoothAmmount: 0.25
   onPlayer: 1
-  followTarget: {fileID: 0}
+  followTarget: {fileID: 824377939}
   offset: {x: 2, y: 1, z: 0}
   offsetView: {x: 0, y: 0, z: 0}
   horizontalView: 0

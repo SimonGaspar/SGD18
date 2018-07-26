@@ -187,7 +187,7 @@ MonoBehaviour:
   _groundCheckTransform: {fileID: 4507646328574210}
   _groundLayerMask:
     serializedVersion: 2
-    m_Bits: 4294966271
+    m_Bits: 4294964223
   _canFly: 0
   _canWalk: 1
   _canJump: 1

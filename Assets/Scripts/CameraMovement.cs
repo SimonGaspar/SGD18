@@ -16,7 +16,7 @@ public class CameraMovement : MonoBehaviour
 
 	[SerializeField]
 	[Range(0, 1)]
-	float smoothAmmount = 0.2f;
+	float smoothAmmount = 0.07f;
 
 	//if not on player, movement should be disabled
 	public bool onPlayer = true;
@@ -29,7 +29,7 @@ public class CameraMovement : MonoBehaviour
 
 	//set caamera center offset from player
 	[SerializeField]
-	Vector3 offset = new Vector3(2f, 1f, 0f);
+	Vector3 offset = new Vector3(0.06f, 0.5F, 0f);
 	Vector2 lastCamPos = Vector3.zero;
 
 	[SerializeField]
@@ -72,7 +72,7 @@ public class CameraMovement : MonoBehaviour
 	Vector2 distanceFromCenter;
 	//deadzone if distance is greater along axis, move camera 
 	[SerializeField]
-	Vector2 deadZone = new Vector2(2f, 1f);
+	Vector2 deadZone = new Vector2(0.5f, 0.5f);
 
 	void Start()
 	{
