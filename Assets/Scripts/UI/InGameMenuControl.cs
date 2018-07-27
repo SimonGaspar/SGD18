@@ -86,8 +86,7 @@ public class InGameMenuControl : MonoBehaviour
 
 
         _currentAnimalContent = _animals[0]; // human
-        //ReloadContent();
-        print("ingame start");
+
         InitializeTopLeftPanel();
         CloseInGameMenu();
 
@@ -117,7 +116,7 @@ public class InGameMenuControl : MonoBehaviour
     {
         int[] collectibleCounts = GameManager.Instance.CollectiblesCount;
         Animal[] animals = GameManager.Instance.AvailableAnimals;
-        print(gameObject.GetInstanceID());
+
         for (int i = 0; i < _collectibleImages.Count; i++)
         {
             Image im = _collectibleImages[i].GetComponent<Image>();
@@ -179,7 +178,6 @@ public class InGameMenuControl : MonoBehaviour
 
     public void QuitGame()
     {
-        print("quit gmae");
         _buttonsAnimator.SetTrigger("ButtonClicked");
         GameManager.Instance.QuitGame();
     }

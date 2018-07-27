@@ -8,15 +8,6 @@ using UnityEngine;
 public class GameManager : Singleton<GameManager>
 {
 
-    // static GameManager instance = null;
-    // public static GameManager Instance
-    // {
-    //     get
-    //     {
-    //         return instance;
-    //     }
-    // }
-
     private Vector3 _playerSpawn;
     public Vector3 PlayerSpawn { get { return _playerSpawn; } }
 
@@ -48,19 +39,18 @@ public class GameManager : Singleton<GameManager>
     private int _numberOfAnimals = 0;
     private void Start()
     {
-        print("UI Start");
-
         _numberOfAnimals = _availableAnimals.Length;
         _collectiblesCount = new int[_numberOfAnimals];
 
         _pickedUpCollectibles = new List<float>();
-        print(CollectiblesCount);
+
         if (GameObject.FindGameObjectWithTag("Spawn") != null) _playerSpawn = GameObject.FindGameObjectWithTag("Spawn").transform.position;
     }
 
     public void LoadLevel(int index, bool newLevel)
     {
         SceneManager.LoadScene(index);
+
         if (newLevel) SceneManager.sceneLoaded += OnNewLevelLoaded;
     }
 
@@ -149,14 +139,8 @@ public class GameManager : Singleton<GameManager>
 
     private void OnSaveLoaded(Scene scene, LoadSceneMode mode)
     {
-        // GameObject[] collectiblesInLevel = GameObject.FindGameObjectsWithTag("Collectible");
-        // foreach (GameObject collectible in collectiblesInLevel)
-        // {
-        //     if (_currentLoadObject.pickedUpCollectiblesID.Contains(collectible.transform.position.sqrMagnitude))
-        //         Destroy(collectible);
-
-        // }
         _playerSpawn = new Vector3(_currentLoadObject.currentPlayerCheckpoint.x, _currentLoadObject.currentPlayerCheckpoint.y, _currentLoadObject.currentPlayerCheckpoint.z);
+        _collectiblesCount = _currentLoadObject.collectiblesCounts;
         AnimalsManager.Instance.ResetSpawn();
         SceneManager.sceneLoaded -= OnSaveLoaded;
         EventsManager.Instance.formChangeDelegate();

@@ -1,22 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 using UnityEngine;
 
 public class SceneLoader : MonoBehaviour
 {
 
     public Animator sceneLoaderAnimator;
-    private int _levelToLoad;
+    UnityAction<GameObject> _eventToInvoke;
 
-    public void FadeToLevel(int levelIndex)
+    public void FadeToLevel(UnityAction<GameObject> eventTo)
     {
-        _levelToLoad = levelIndex;
-        sceneLoaderAnimator.SetTrigger("fadeOut");
+        _eventToInvoke = eventTo;
+        sceneLoaderAnimator.SetTrigger("TriggerLeavesOUT");
     }
 
     public void onFadeComplete()
     {
-        SceneManager.LoadScene(_levelToLoad);
+        _eventToInvoke.Invoke(gameObject);
     }
 }
