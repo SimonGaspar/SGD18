@@ -129,7 +129,7 @@ MonoBehaviour:
   _groundCheckTransform: {fileID: 4889641077053486}
   _groundLayerMask:
     serializedVersion: 2
-    m_Bits: 4294966271
+    m_Bits: 4294964223
   _canFly: 1
   _canWalk: 0
   _canJump: 1
@@ -173,8 +173,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -553205341
+  m_SortingLayer: -2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 6fe7c65bc4e386a4fbfee3544419520f, type: 3}
   m_Color: {r: 0.4743681, g: 0.4750033, b: 0.49056602, a: 1}

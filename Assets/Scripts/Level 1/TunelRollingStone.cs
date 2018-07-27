@@ -9,8 +9,9 @@ public class TunelRollingStone : MonoBehaviour {
 	[SerializeField] Rigidbody2D stone;
 	[SerializeField]Animator anim;
 	[SerializeField] AnimationClip animClip;
-	[SerializeField] Vector3 defStonePos = new Vector3(1.25f, 0.65f,0f);
-
+	public CircleCollider2D col;
+	public bool disabled;
+	public CircleCollider2D childStone;
 	void Start () {
 		stone.isKinematic = true;
 		anim = GetComponent<Animator>();
