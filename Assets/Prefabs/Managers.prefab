@@ -55,6 +55,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _collectibleImagePrefab: {fileID: 1796405650782270, guid: 8ece2ed7c8147b4409411061f3bc4496,
     type: 2}
+  _ingameMenuScene: 1
+  _ingameMenuRootObj: InGameMenu
 --- !u!114 &114173658677840070
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -89,5 +91,5 @@ MonoBehaviour:
   _saveString: /gameSave.dat
   _maximumCollectibles: 0500000005000000
   _collectibleTag: Collectible
-  _levels: 0100000002000000
+  _levels: 0200000003000000
   _pickedUpCollectibles: []

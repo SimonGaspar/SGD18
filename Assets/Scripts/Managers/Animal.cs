@@ -13,4 +13,9 @@ public class Animal : ScriptableObject
 
     [Header("Top left panel sprites")]
     public Sprite[] AnimalSprites;
+
+    [Header("Ingame menu content")]
+    public Sprite TitleSprite;
+    public string KeyBind;
+    [TextArea] public string ContentText;
 }

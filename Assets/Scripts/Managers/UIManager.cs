@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine.Events;
 using UnityEngine.Assertions;
 using UnityEngine.UI;
@@ -11,46 +12,45 @@ public class UIManager : Singleton<UIManager>
     [Header("Collectibles panel")]
     [SerializeField] private GameObject _collectibleImagePrefab;
 
+    [Space]
+    [Header("MainMenu")]
+    [SerializeField] [Tooltip("Name of the scene that contains MainMenu")] private string _mainMenuScene = "MainMenu";
+    [Space]
+    [Header("InGame menu")]
+    [SerializeField] [Tooltip("BuildIndex of a scene that contains Ingame menu")] private int _ingameMenuSceneNumber = 1;
+    [SerializeField] [Tooltip("Name of the object that controls InGame menu")] private string _ingameMenuControl = "InGameMenuControl";
+
     private Transform _collectiblesPanelTransform;
 
+    private bool _inMainMenu = false;
     private bool _inPlayMenu = false;
-    private Animator _mainMenuAnimator = null;
+    private bool _ingameMenuOpened = false;
 
-    private List<GameObject> _collectibleImages;
+    private Animator _mainMenuAnimator = null;
 
     private void Start()
     {
+        print("UI start");
         // Assert.IsNotNull(_buttonPrefab);
-        if (GameObject.Find("MainMenu"))
+        if (GameObject.Find("MainMenuCanvas"))
         {
+            _inMainMenu = true;
             _mainMenuAnimator = GameObject.Find("MainMenu").GetComponent<Animator>();
         }
-
-        _collectiblesPanelTransform = GameObject.Find("CollectiblesPanel").transform;
 
         Assert.IsNotNull(_collectibleImagePrefab);
         Assert.IsNotNull(_collectiblesPanelTransform);
 
-        EventsManager.Instance.collectibleChangeDelegate += collectibleCountChanged;
-
-        _collectibleImages = new List<GameObject>();
-
-        InitializeTopLeftPanel();
-        EventsManager.Instance.collectibleChangeDelegate();
+        SceneManager.sceneLoaded += OnNewSceneLoaded;
     }
 
-    public void InitializeTopLeftPanel()
+    void OnNewSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Animal[] animals = GameManager.Instance.AvailableAnimals;
-        foreach (Animal a in animals)
+        print("New scene loaded");
+        if (SceneManager.GetActiveScene().name != _mainMenuScene && !SceneManager.GetSceneByBuildIndex(_ingameMenuSceneNumber).isLoaded)
         {
-            GameObject obj = Instantiate(_collectibleImagePrefab);
-            obj.transform.SetParent(_collectiblesPanelTransform, false);
-
-            Image i = obj.GetComponent<Image>();
-            i.color = a.AnimalColor;
-
-            _collectibleImages.Add(obj);
+            print("Adding ingame ui");
+            SceneManager.LoadScene(_ingameMenuSceneNumber, LoadSceneMode.Additive);
         }
     }
 
@@ -58,59 +58,38 @@ public class UIManager : Singleton<UIManager>
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            MainMenuGoBack();
+            if (SceneManager.GetActiveScene().name == _mainMenuScene)
+            {
+                MainMenuGoBack();
+            }
+            else if (SceneManager.GetSceneByBuildIndex(_ingameMenuSceneNumber).isLoaded)
+            {
+                GameObject obj = GameObject.Find(_ingameMenuControl);
+                if (obj.GetComponent<InGameMenuControl>().IsOpened) CloseIngameMenu();
+                else OpenInGameMenu();
+            }
+
         }
     }
 
-    // private void SpawnSideButtons()
-    // {
-    //     Vector3 buttonPosition = Vector3.zero;
-    //     buttonPosition = new Vector3(_startPosition.x, _startPosition.y, 0f);
-
-    //     foreach (Animal a in _animals)
-    //     {
-    //         GameObject b = Instantiate(_buttonPrefab);
-
-    //         b.GetComponent<Image>().sprite = a.AnimalSprite;
-    //         b.GetComponent<Button>().onClick.AddListener(delegate { HandleButtonClick(a); });
-    //         b.transform.position = buttonPosition;
-    //         b.transform.SetParent(_canvas.transform, false);
-
-    //         buttonPosition += new Vector3(_offsetEachButton.x, _offsetEachButton.y, 0f);
-    //     }
-    // }
-
-    // private void HandleButtonClick(Animal animal)
-    // {
-    //     if (_currentlyOpenedPanel != null) Destroy(_currentlyOpenedPanel);
-
-    //     GameObject panel = Instantiate(_panelPrefab);
-    //     panel.transform.SetParent(_canvas.transform, false);
-    //     panel.GetComponent<UIPanelScript>().InitializePanel(_animals, animal);
-    //     _currentlyOpenedPanel = panel;
-    // }
-
-    // // Modal
-
-    // public void UseModal(string titleText, string buttonText1, UnityAction buttonEvent1, string buttonText2, UnityAction buttonEvent2)
-    // {
-    //     _modalScript.SetUpModal(titleText, buttonText1, buttonEvent1, buttonText2, buttonEvent2);
-    // }
-
-    // Collectibles
-    public void collectibleCountChanged()
+    public void OpenInGameMenu()
     {
-        int[] collectibleCounts = GameManager.Instance.CollectiblesCount;
-        Animal[] animals = GameManager.Instance.AvailableAnimals;
-        for (int i = 0; i < _collectibleImages.Count; i++)
+        GameObject obj = GameObject.Find(_ingameMenuControl);
+
+        if (obj != null)
         {
-            Image im = _collectibleImages[i].GetComponent<Image>();
-            Color temp = im.color;
-            if (animals[i].RequiredParts == 0) temp.a = 1f;
-            else temp.a = (float)collectibleCounts[i] / (float)animals[i].AnimalSprites.Length;
+            obj.GetComponent<InGameMenuControl>().OpenInGameMenu();
+        }
 
-            im.color = temp;
+    }
 
+    public void CloseIngameMenu()
+    {
+        GameObject obj = GameObject.Find(_ingameMenuControl);
+
+        if (obj != null)
+        {
+            obj.GetComponent<InGameMenuControl>().CloseInGameMenu();
         }
     }
 

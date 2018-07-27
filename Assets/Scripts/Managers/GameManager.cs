@@ -7,6 +7,16 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
+
+    // static GameManager instance = null;
+    // public static GameManager Instance
+    // {
+    //     get
+    //     {
+    //         return instance;
+    //     }
+    // }
+
     private Vector3 _playerSpawn;
     public Vector3 PlayerSpawn { get { return _playerSpawn; } }
 
@@ -38,14 +48,14 @@ public class GameManager : Singleton<GameManager>
     private int _numberOfAnimals = 0;
     private void Start()
     {
+        print("UI Start");
+
         _numberOfAnimals = _availableAnimals.Length;
         _collectiblesCount = new int[_numberOfAnimals];
-        _pickedUpCollectibles = new List<float>();
-    }
 
-    private void Awake()
-    {
-        _playerSpawn = GameObject.FindGameObjectWithTag("Spawn").transform.position;
+        _pickedUpCollectibles = new List<float>();
+        print(CollectiblesCount);
+        if (GameObject.FindGameObjectWithTag("Spawn") != null) _playerSpawn = GameObject.FindGameObjectWithTag("Spawn").transform.position;
     }
 
     public void LoadLevel(int index, bool newLevel)
@@ -161,7 +171,6 @@ public class GameManager : Singleton<GameManager>
     public void CollectiblePickup(GameObject collectible, AnimalForm type)
     {
         _pickedUpCollectibles.Add(collectible.transform.position.sqrMagnitude);
-        print((int)type - 1);
         _collectiblesCount[(int)type - 1]++;
         EventsManager.Instance.collectibleChangeDelegate();
     }
@@ -169,6 +178,10 @@ public class GameManager : Singleton<GameManager>
     private bool CompareVectors(Vector3 a, Vector3Ser b)
     {
         return (a.x == b.x && a.y == b.y && a.z == b.z);
+    }
+    public bool IsAnimalAvailable(int number)
+    {
+        return (CollectiblesCount[number] == AvailableAnimals[number].RequiredParts);
     }
 }
 
