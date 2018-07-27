@@ -14,6 +14,7 @@ public class CameraMovement : MonoBehaviour
 	[SerializeField]
 	private bool lookAroundEnabled = false;
 
+
 	[SerializeField]
 	[Range(0, 1)]
 	float smoothAmmount = 0.07f;
@@ -25,6 +26,13 @@ public class CameraMovement : MonoBehaviour
 	[SerializeField]
 	private Transform followTarget;
 
+
+	//empty bubble image above player
+	[SerializeField]
+	SpriteRenderer bubbleHolder;
+	//its child with bubble content
+	private SpriteRenderer bubbleChildSprite;
+	
 
 
 	//set caamera center offset from player
@@ -73,7 +81,14 @@ public class CameraMovement : MonoBehaviour
 	//deadzone if distance is greater along axis, move camera 
 	[SerializeField]
 	Vector2 deadZone = new Vector2(0.5f, 0.5f);
+	SpriteRenderer[] spriteRenderers;
+	[SerializeField] Vector3 bubbleOffset =new Vector3(1.35f, 1.35f,0f);
 
+	private void Awake()
+	{
+
+	
+	}
 	void Start()
 	{
 		cam = GetComponent<Camera>();
@@ -83,6 +98,17 @@ public class CameraMovement : MonoBehaviour
 
 
 		EventsManager.Instance.formChangeDelegate += OnFormChange;
+		//find first child object, ignore parent
+
+		spriteRenderers = bubbleHolder.gameObject.GetComponentsInChildren<SpriteRenderer>();
+		foreach (SpriteRenderer sprite in spriteRenderers)
+		{
+			if (sprite.transform.parent != null)
+				bubbleChildSprite = sprite;
+		}
+		//disable bubble at start
+		bubbleHolder.enabled = false;
+		bubbleChildSprite.enabled = false;
 
 	}
 
@@ -157,16 +183,6 @@ public class CameraMovement : MonoBehaviour
 
 
 
-
-
-		//player in screen space
-
-		//get camera size in pixels, should be called only if changed/necessary
-		//camSize = new Vector2(cam.pixelWidth, cam.pixelHeight);
-
-
-
-
 		if (!onPlayer)
 		{
 			screenTarget.x = lastCamPos.x + offsetView.x;
@@ -193,6 +209,7 @@ public class CameraMovement : MonoBehaviour
 	{
 		yield return new WaitForFixedUpdate();
 		Vector3 targetPos = new Vector3(screenTarget.x, screenTarget.y, cam.transform.position.z);// + offsetView;
+		bubbleHolder.transform.position = followTarget.transform.position+bubbleOffset;
 		transform.position = Vector3.Lerp(currentPos, targetPos, smoothAmmount);
 	}
 	//create subbtle jump down effect , not used currently and is WIP
@@ -230,10 +247,30 @@ public class CameraMovement : MonoBehaviour
 		}
 		return new Vector3(offsetCam.x, offsetCam.y, 0f);
 	}
+
+	public void DrawGuideBubble(Sprite spriteObject, bool enabled)
+	{
+		if (!enabled)
+		{
+			bubbleHolder.enabled = false;
+			bubbleChildSprite.enabled = false;
+		}
+		else
+		{
+			bubbleHolder.enabled = true;
+			bubbleChildSprite.enabled = true;
+			//relativeSize = new Vector2(0.3f, 0.3f);
+			Vector2 camPoint = cam.WorldToScreenPoint(centerOfScreenInWS);
+			bubbleChildSprite.sprite = spriteObject;
+		}
+	}
+
+
+
 	private void OnDrawGizmos()
 	{
-		
-		Gizmos.DrawIcon(new Vector2(centerOfScreenInWS.x, centerOfScreenInWS.y + deadZone.y) , "arrowU", true);
+
+		Gizmos.DrawIcon(new Vector2(centerOfScreenInWS.x, centerOfScreenInWS.y + deadZone.y), "arrowU", true);
 		Gizmos.DrawIcon(new Vector2(centerOfScreenInWS.x, centerOfScreenInWS.y - deadZone.y), "arrowD", true);
 		Gizmos.DrawIcon(new Vector2(centerOfScreenInWS.x - deadZone.x, centerOfScreenInWS.y), "arrowL", true);
 		Gizmos.DrawIcon(new Vector2(centerOfScreenInWS.x + deadZone.x, centerOfScreenInWS.y), "arrowR", true);
