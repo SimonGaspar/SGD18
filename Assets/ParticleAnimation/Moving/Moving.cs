@@ -17,7 +17,7 @@ public class Moving : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        _particle.transform.position = transform.position;
+        _particle.transform.position = transform.position + new Vector3(0,0,-0.2f);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -40,6 +40,8 @@ public class Moving : MonoBehaviour {
                     _particle.transform.rotation = new Quaternion(-0.5f, 0.5f, -0.5f, 0.5f);
                 }
                 _particle.Simulate(0.0f, true, true);
+                var mainDuration = _particle.main;
+                mainDuration.duration = 30f;
                 _particle.Play();
                 
                 break;
@@ -53,8 +55,13 @@ public class Moving : MonoBehaviour {
     {
         if (collision.gameObject.tag == "Player")
         {
-            _particle.Stop();
+            StartCoroutine(StopParticle());
         }
+    }
+
+    IEnumerator StopParticle() {
+        yield return new WaitForSeconds(1);
+        _particle.Stop();
     }
 
     public float GetCollisionAngle(Transform hitobjectTransform, Collider2D collider, Vector2 contactPoint)

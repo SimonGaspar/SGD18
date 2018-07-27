@@ -17,9 +17,9 @@ public class DisableStone : MonoBehaviour
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		tunelRollingStone.disabled = true;
-		tunelRollingStone.stone.bodyType = RigidbodyType2D.Static;
-		tunelRollingStone.col.sharedMaterial = physicsMat;
-		return;
+		//tunelRollingStone.disabled = true;
+		//tunelRollingStone.stone.bodyType = RigidbodyType2D.Static;
+		//tunelRollingStone.col.sharedMaterial = physicsMat;
+		//return;
 	}
 }

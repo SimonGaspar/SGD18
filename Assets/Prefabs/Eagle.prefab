@@ -51,8 +51,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1830434057732246}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.43158856, y: -0.025198974, z: 2.8984375}
   m_LocalScale: {x: 0.60045207, y: 0.60045207, z: 0.60045207}
   m_Children:
   - {fileID: 4889641077053486}
@@ -134,6 +134,13 @@ MonoBehaviour:
   _canWalk: 0
   _canJump: 1
   _canCrouch: 0
+  _particle: {fileID: 198452587303102356, guid: 8b3318c066a418945979fa521a788149,
+    type: 2}
+  _movingParticle: {fileID: 198365222077465754, guid: d74ec1aad71542741bb8c054c34bdcbb,
+    type: 2}
+  movingPositionX: 0
+  movingPositionY: 0
+  movingPositionZ: 0
 --- !u!212 &212270117817157518
 SpriteRenderer:
   m_ObjectHideFlags: 1

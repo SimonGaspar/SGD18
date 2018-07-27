@@ -45,10 +45,16 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] private bool _canCrouch = true;
 
     [Space]
-    [Header("Change")]
-    [SerializeField]
-    private ParticleSystem _particle = null;
-    private ParticleSystem _currentParticle = null;
+    [Header("Particle-Animation")]
+    [SerializeField] private ParticleSystem _particle = null;
+    static ParticleSystem _currentParticle = null;
+    [SerializeField] private ParticleSystem _movingParticle;
+    [SerializeField] private float movingPositionX;
+    [SerializeField] private float movingPositionY;
+    [SerializeField] private float movingPositionZ;
+    ParticleSystem movingParticle;
+    Vector3 _position;
+    bool CanMove = false;
 
     public bool IsMoving { get { return (_rb2d.velocity.x != 0 || _rb2d.velocity.y != 0); } }
 
@@ -87,20 +93,39 @@ public class PlayerController : MonoBehaviour
 		_defaultMovementModifier = _movementModifier;
 		_defaultColliderSize = _crouchCollider.size;
 		_defaultColliderOffset = _crouchCollider.offset;
-		//_rb2d.centerOfMass = _groundCheckTransform.position;
+        //_rb2d.centerOfMass = _groundCheckTransform.position;
 
-	}
+    }
 
-	private void Update()
+    private void Awake()
+    {
+        movingParticle = Instantiate<ParticleSystem>(_movingParticle);
+        movingParticle.Stop();
+        movingParticle.transform.position = transform.position;
+    }
+
+    private void Update()
 	{
 		_grounded = Physics2D.OverlapCircle(_groundCheckTransform.position, _groundCheckRadius, _groundLayerMask);
-		// I know physics calculations shouldn't be done in `Update()`, but putting them into `FixedUpdate()` creates an awful input lag
-		// Just leave it here (╯°□°）╯︵ ┻━┻
-		HandleCrouching();
-        CalculateMovement();
-	}
+        if(_grounded) GetComponent<Animator>().SetBool("IsGrounded", true);
+        else GetComponent<Animator>().SetBool("IsGrounded", false);
+        // I know physics calculations shouldn't be done in `Update()`, but putting them into `FixedUpdate()` creates an awful input lag
+        // Just leave it here (╯°□°）╯︵ ┻━┻
+        HandleCrouching();
+        if (CanMove)
+        {
+            CalculateMovement();
+        }
 
-    
+        if(_currentParticle!=null)
+            _currentParticle.transform.position = transform.position;
+    }
+
+    private void OnDestroy()
+    {
+        Destroy(movingParticle);
+    }
+
     // Update is called once per frame
     void FixedUpdate()
 	{
@@ -134,9 +159,9 @@ public class PlayerController : MonoBehaviour
 	private void CalculateMovement()
 	{
 		float inputHorizontal = Input.GetAxis("Horizontal");
-		if (inputHorizontal == 0 && _grounded)
+		/*if (inputHorizontal == 0 && _grounded)
 			_rb2d.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
-		else
+		else*/
 			_rb2d.constraints = RigidbodyConstraints2D.FreezeRotation;
 
 		inputHorizontal = (inputHorizontal > 0) ? Mathf.Ceil(inputHorizontal) : Mathf.Floor(inputHorizontal);
@@ -150,9 +175,25 @@ public class PlayerController : MonoBehaviour
 			_currentHorizontalSpeed = 0;
 
 		_currentHorizontalSpeed = Mathf.Clamp(_currentHorizontalSpeed, -_maximumMovementSpeed * _movementModifier, _maximumMovementSpeed * _movementModifier);
-		// horizontal movement
+        // horizontal movement
 
-		if (inputHorizontal > 0)
+        if ((_currentHorizontalSpeed > 0 || _currentHorizontalSpeed < 0) && _grounded)
+        {
+            var x = GetComponent<Animator>().GetBool("IsRunning");
+            GetComponent<Animator>().SetBool("IsRunning", true);
+            _movingParticle.Simulate(0.0f, true, true);
+            if (inputHorizontal > 0)
+                movingParticle.transform.position = transform.position + new Vector3(-movingPositionX, movingPositionY, movingPositionZ);
+            else
+                movingParticle.transform.position = transform.position + new Vector3(+movingPositionX, movingPositionY, movingPositionZ);
+            movingParticle.Play();
+        }
+        else
+        {if(!(_currentHorizontalSpeed > 0 || _currentHorizontalSpeed < 0))
+            GetComponent<Animator>().SetBool("IsRunning", false);
+        }
+
+        if (inputHorizontal > 0)
 			transform.localScale = _defLocalScale;
 		if (inputHorizontal < -0.1)
 			transform.localScale = new Vector3(-_defLocalScale.x,_defLocalScale.y,_defLocalScale.z);
@@ -163,7 +204,9 @@ public class PlayerController : MonoBehaviour
 
 			// jump
 			if (_rb2d.velocity.y <= 0) _jumping = false;
-		if (Input.GetButtonDown("Jump") && (_grounded || _canFly) && _canJump)
+            if(_rb2d.velocity.y == 0) GetComponent<Animator>().SetBool("IsJumping", false);
+            else if(_jumping==true)GetComponent<Animator>().SetBool("IsJumping", true);
+        if (Input.GetButtonDown("Jump") && (_grounded || _canFly) && _canJump)
 		{
 			_rb2d.velocity = new Vector2(_rb2d.velocity.x, _jumpSpeed);
 			_jumping = true;
@@ -229,8 +272,56 @@ public class PlayerController : MonoBehaviour
 
     public void PlayParticle()
     {
-        if (_particle != null) { 
-        _currentParticle = Instantiate<ParticleSystem>(_particle);
-        _currentParticle.transform.position = transform.position; }
+        if (_particle != null) {
+            CanMove = false;
+            if(_currentParticle == null) _currentParticle =Instantiate<ParticleSystem>(_particle);
+
+            _currentParticle.transform.position = transform.position;
+            StartCoroutine(Particle());
+        }
     }
+    int ToBison = 10;
+    IEnumerator Particle() {
+
+        //if (chosenAnimalForm == AnimalForm.Bison)
+        _rb2d.velocity = new Vector2(0, 0);
+        _currentParticle.Play();
+        {
+            float i = 0;
+            switch (ToBison) {
+                case 0:
+                    while (i++ <= 4)
+                    {
+                        var shape = _currentParticle.shape;
+                            shape.scale = new Vector3(4 + i*3 , 1, 2);
+                        yield return new WaitForSeconds(1f / 32f);
+                    }
+                    break;
+                case 1:
+                    while (i++ <= 4)
+                    {
+                        var shape = _currentParticle.shape;
+                            shape.scale = new Vector3(16 - i*2, 1, 2);
+                        yield return new WaitForSeconds(1f / 32f);
+                    }
+                    break;
+                default:break;
+            }
+        }
+    }
+    public void SetTransformBison(int ToBison) {
+        this.ToBison = ToBison;
+    }
+
+
+    void SetMovingToTrue()
+    {
+        CanMove = true;
+    }
+
+    void SetMovingToFalse()
+    {
+        CanMove = false;
+    }
+
 }

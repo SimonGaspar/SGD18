@@ -6,54 +6,23 @@ using UnityEngine;
 
 public class UIPanelScript : MonoBehaviour
 {
-    [Space]
-    [Header("Content panel settings")]
-    [SerializeField] private GameObject _contentPanelPrefab;
-    [Space]
-    [Header("Side panel settings")]
-    [SerializeField] private GameObject _sidePanel;
-    [SerializeField] private GameObject _sidePanelButtonPrefab;
+    [SerializeField] private Image _titleImage;
+    [SerializeField] private Text _titleText;
 
-    private Animal[] _animals;
-    private GameObject _currentContentPanel;
+    private Image _panelImage;
 
     private void Start()
     {
-        Assert.IsNotNull(_sidePanel);
-        Assert.IsNotNull(_contentPanelPrefab);
-        Assert.IsNotNull(_sidePanelButtonPrefab);
+        Assert.IsNotNull(_titleImage);
+        Assert.IsNotNull(_titleText);
     }
 
-    public void InitializePanel(Animal[] animals, Animal currentAnimal)
+    public void InitializePanel(Animal animal)
     {
-        _animals = animals;
+        _titleText.text = animal.Name;
+        _titleImage.sprite = animal.AnimalSprite;
 
-        SpawnSidePanelButtons();
-
-        _currentContentPanel = Instantiate(_contentPanelPrefab);
-        _currentContentPanel.transform.SetParent(transform, false);
-
-        _currentContentPanel.GetComponent<ContentPanelScript>().InitializeContentPanel(currentAnimal);
-    }
-
-    public void SpawnSidePanelButtons()
-    {
-        foreach (Animal a in _animals)
-        {
-            GameObject b = Instantiate(_sidePanelButtonPrefab);
-
-            b.GetComponent<Image>().sprite = a.AnimalSprite;
-            b.GetComponent<Button>().onClick.AddListener(delegate { HandleButtonClick(a); });
-            b.transform.SetParent(_sidePanel.transform, false);
-        }
-    }
-    public void HandleButtonClick(Animal animal)
-    {
-        if (_currentContentPanel != null) Destroy(_currentContentPanel.gameObject);
-        _currentContentPanel = Instantiate(_contentPanelPrefab);
-        _currentContentPanel.transform.SetParent(transform, false);
-
-        _currentContentPanel.GetComponent<ContentPanelScript>().InitializeContentPanel(animal);
+        gameObject.SetActive(true);
     }
 
     public void ClosePanel()

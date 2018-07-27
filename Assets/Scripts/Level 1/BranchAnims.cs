@@ -6,9 +6,6 @@ public class BranchAnims : MonoBehaviour
 {
 
 	[SerializeField] public float animDelay = 1f;
-	[SerializeField] bool activateColliders = false;
-	[SerializeField] List<Collider2D> colls = new List<Collider2D>(); 
-
 	Animator anim;
 
 	[SerializeField] AnimationClip animClip;
@@ -23,13 +20,6 @@ public class BranchAnims : MonoBehaviour
 		yield return new WaitForSeconds(value);
 
 		anim.Play(animClip.name);
-		if(activateColliders)
-		{
-			foreach (Collider2D col in colls)
-			{
-				col.enabled = true;
-			}
-		}
 	}
 	private void OnDrawGizmos()
 	{

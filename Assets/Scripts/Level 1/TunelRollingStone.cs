@@ -2,35 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 [RequireComponent(typeof(Animator))]
-public class TunelRollingStone : MonoBehaviour
-{
+public class TunelRollingStone : MonoBehaviour {
 
-	[SerializeField] public Rigidbody2D stone;
-	[SerializeField] Animator anim;
+	[SerializeField] Rigidbody2D stone;
+	[SerializeField]Animator anim;
 	[SerializeField] AnimationClip animClip;
-	public CircleCollider2D col;
-	public bool disabled;
+	[SerializeField] Vector3 defStonePos = new Vector3(1.25f, 0.65f,0f);
 
-
-	void Start()
-	{
+	void Start () {
 		stone.isKinematic = true;
 		anim = GetComponent<Animator>();
-		stone.velocity = Vector2.zero;
 	}
-
+	
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		if(disabled)
-		{
-			stone.GetComponent<Deathzone>().enabled = false;
-		}
 		if (collision.tag == "Player")
 
 		{
 			StartCoroutine(ActivateStone());
-
+		
 		}
 	}
 	IEnumerator ActivateStone()
@@ -45,5 +37,11 @@ public class TunelRollingStone : MonoBehaviour
 		Gizmos.DrawIcon(stone.transform.position, "fallingStone", true);
 		Gizmos.DrawIcon(transform.position, "fallingBranch", true);
 
+	}
+	public void RestartScript()
+	{
+		stone.velocity = Vector2.zero;
+		stone.isKinematic = true;
+		stone.transform.position = defStonePos;
 	}
 }

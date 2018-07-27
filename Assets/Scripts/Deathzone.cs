@@ -11,7 +11,7 @@ public class Deathzone : MonoBehaviour
         if (!_claimed && other.tag == "Player")
         {
             _claimed = true;
-            GameManager.Instance.LoadGame();
+           // GameManager.Instance.LoadGame();
         }
     }
 

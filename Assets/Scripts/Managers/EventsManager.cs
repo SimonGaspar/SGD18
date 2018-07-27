@@ -12,7 +12,4 @@ public class EventsManager : Singleton<EventsManager>
 
     public delegate void onFormChange();
     public onFormChange formChangeDelegate = delegate { };
-
-    public delegate void onCollectiblesChange();
-    public onCollectiblesChange collectibleChangeDelegate = delegate { };
 }
