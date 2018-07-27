@@ -10,8 +10,6 @@ public class CameraMovement : MonoBehaviour
 	[SerializeField]
 	private Camera cam;
 	[SerializeField]
-	private bool toggleVisualDebug = true;
-	[SerializeField]
 	private bool lookAroundEnabled = false;
 
 
@@ -158,7 +156,7 @@ public class CameraMovement : MonoBehaviour
 
 		//use arrows to look ahoead
 		if (lookAroundEnabled)
-			offsetView = VIewAhead();
+			offsetView = ViewAhead();
 
 
 
@@ -213,13 +211,13 @@ public class CameraMovement : MonoBehaviour
 		transform.position = Vector3.Lerp(currentPos, targetPos, smoothAmmount);
 	}
 	//create subbtle jump down effect , not used currently and is WIP
-	public void AdjustYrelativeOffset(float target)
+	/*public void AdjustYrelativeOffset(float target)
 	{
 		// += target;
-	}
+	}*/
 
 	//logic for looking ahead
-	Vector3 VIewAhead()
+	Vector3 ViewAhead()
 	{
 
 		if (longPressTimer > 3f)
@@ -260,7 +258,6 @@ public class CameraMovement : MonoBehaviour
 			bubbleHolder.enabled = true;
 			bubbleChildSprite.enabled = true;
 			//relativeSize = new Vector2(0.3f, 0.3f);
-			Vector2 camPoint = cam.WorldToScreenPoint(centerOfScreenInWS);
 			bubbleChildSprite.sprite = spriteObject;
 		}
 	}
