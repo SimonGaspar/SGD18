@@ -81,6 +81,7 @@ public class CameraMovement : MonoBehaviour
 	Vector2 deadZone = new Vector2(0.5f, 0.5f);
 	SpriteRenderer[] spriteRenderers;
 	[SerializeField] Vector3 bubbleOffset =new Vector3(1.35f, 1.35f,0f);
+	Animator bubbleAnim;
 
 	private void Awake()
 	{
@@ -105,8 +106,9 @@ public class CameraMovement : MonoBehaviour
 				bubbleChildSprite = sprite;
 		}
 		//disable bubble at start
-		bubbleHolder.enabled = false;
-		bubbleChildSprite.enabled = false;
+		//bubbleHolder.enabled = false;
+		//bubbleChildSprite.enabled = false;
+		bubbleAnim = bubbleHolder.GetComponent<Animator>();
 
 	}
 
@@ -250,15 +252,17 @@ public class CameraMovement : MonoBehaviour
 	{
 		if (!enabled)
 		{
-			bubbleHolder.enabled = false;
+			//bubbleHolder.enabled = false;
 			bubbleChildSprite.enabled = false;
+			bubbleAnim.Play("FadeOut");
 		}
 		else
 		{
-			bubbleHolder.enabled = true;
+			//bubbleHolder.enabled = true;
 			bubbleChildSprite.enabled = true;
 			//relativeSize = new Vector2(0.3f, 0.3f);
 			bubbleChildSprite.sprite = spriteObject;
+			bubbleAnim.Play("FadeIn");
 		}
 	}
 

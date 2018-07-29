@@ -7,6 +7,7 @@ public class TriggerBubble : MonoBehaviour {
 	Camera cam;
 	CameraMovement cameraMovement;
 	[SerializeField] Sprite spriteToShow;
+	Animator anim;
 	/*public Transform player;
 		public void OnFormChange()
 	{
