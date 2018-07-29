@@ -56,7 +56,7 @@ public class PlayerController : MonoBehaviour
     private ParticleSystem _currentParticle = null;
 
     public bool IsMoving { get { return (_rb2d.velocity.x != 0 || _rb2d.velocity.y != 0); } }
-    public bool CanDestroy { get { return (_animalForm.Equals(AnimalForm.Bison) && (_currentHorizontalSpeed == _maximumMovementSpeed)); } }
+    public bool CanDestroy { get { return (_animalForm.Equals(AnimalForm.Bison) && (Mathf.Abs( _currentHorizontalSpeed )== _maximumMovementSpeed)); } }
 
     private bool _grounded = false;
     private bool _jumping = false;

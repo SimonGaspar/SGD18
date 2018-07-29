@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Assertions;
 using UnityEngine;
@@ -14,7 +14,7 @@ public class PushableObject : MonoBehaviour
         _rb2d = GetComponent<Rigidbody2D>();
 
         Assert.IsNotNull(_rb2d);
-        _rb2d.bodyType = RigidbodyType2D.Kinematic;
+        _rb2d.bodyType = RigidbodyType2D.Static;
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -35,7 +35,7 @@ public class PushableObject : MonoBehaviour
 
         if (other.gameObject.tag == "Player")
         {
-            _rb2d.bodyType = RigidbodyType2D.Kinematic;
+            _rb2d.bodyType = RigidbodyType2D.Static;
             _rb2d.velocity = new Vector2(0f, _rb2d.velocity.y);
         }
     }
