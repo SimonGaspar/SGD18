@@ -150,7 +150,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4591158020412856, guid: 315ebc730bfcc4044b1fa13ba1593d72, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 315ebc730bfcc4044b1fa13ba1593d72, type: 2}
@@ -236,73 +236,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &489566084
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 224875415583407262, guid: 5a4cf68b4e4ebd24e92cc4244851dce5,
-        type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4280383370840652, guid: 5a4cf68b4e4ebd24e92cc4244851dce5, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0.43158856
-      objectReference: {fileID: 0}
-    - target: {fileID: 4280383370840652, guid: 5a4cf68b4e4ebd24e92cc4244851dce5, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: -0.025198974
-      objectReference: {fileID: 0}
-    - target: {fileID: 4280383370840652, guid: 5a4cf68b4e4ebd24e92cc4244851dce5, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 2.8984375
-      objectReference: {fileID: 0}
-    - target: {fileID: 4280383370840652, guid: 5a4cf68b4e4ebd24e92cc4244851dce5, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4280383370840652, guid: 5a4cf68b4e4ebd24e92cc4244851dce5, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4280383370840652, guid: 5a4cf68b4e4ebd24e92cc4244851dce5, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4280383370840652, guid: 5a4cf68b4e4ebd24e92cc4244851dce5, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4280383370840652, guid: 5a4cf68b4e4ebd24e92cc4244851dce5, type: 2}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224752718922439270, guid: 5a4cf68b4e4ebd24e92cc4244851dce5,
-        type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: -0.2999878
-      objectReference: {fileID: 0}
-    - target: {fileID: 114216029685592842, guid: 5a4cf68b4e4ebd24e92cc4244851dce5,
-        type: 2}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114216029685592842, guid: 5a4cf68b4e4ebd24e92cc4244851dce5,
-        type: 2}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114216029685592842, guid: 5a4cf68b4e4ebd24e92cc4244851dce5,
-        type: 2}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 5a4cf68b4e4ebd24e92cc4244851dce5, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &546365115
 GameObject:
   m_ObjectHideFlags: 0
@@ -440,7 +373,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4488745184361870, guid: 71492e4002dedb34d839296788fde822, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1119378886092836, guid: 71492e4002dedb34d839296788fde822, type: 2}
       propertyPath: m_TagString
@@ -514,7 +447,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &796172655
 GameObject:
@@ -544,7 +477,7 @@ Transform:
   - {fileID: 1356234055}
   - {fileID: 546365116}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1356234053
 GameObject:

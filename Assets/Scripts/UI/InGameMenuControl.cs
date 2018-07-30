@@ -35,8 +35,7 @@ public class InGameMenuControl : MonoBehaviour
 
     [Space]
     [Header("Buttons stuff")]
-    [SerializeField] private Animator _buttonsAnimator;
-    [SerializeField] private string _questionText;
+    [SerializeField] private Text _questionText;
     [SerializeField] private Button _choiceYes;
     [SerializeField] private Button _choiceNo;
 
@@ -46,8 +45,12 @@ public class InGameMenuControl : MonoBehaviour
     [SerializeField] private Transform _collectiblesPanelTransform;
     [SerializeField] private CanvasGroup _collectiblesCanvasGroup;
 
-    public List<GameObject> _leftPanelButtons;
-    public List<GameObject> _collectibleImages;
+    [Space]
+    [Header("Animators")]
+    [SerializeField] private Animator _ingameMenuAnimator;
+
+    private List<GameObject> _leftPanelButtons;
+    private List<GameObject> _collectibleImages;
 
     private bool _isOpened = false;
     public bool IsOpened { get { return _isOpened; } }
@@ -87,8 +90,11 @@ public class InGameMenuControl : MonoBehaviour
 
         _currentAnimalContent = _animals[0]; // human
 
+        ReloadContent();
         InitializeTopLeftPanel();
-        CloseInGameMenu();
+
+        _canvasGroup.alpha = 0f;
+        _canvasGroup.interactable = false;
 
         EventsManager.Instance.collectibleChangeDelegate += collectibleCountChanged;
     }
@@ -151,16 +157,16 @@ public class InGameMenuControl : MonoBehaviour
     public void OpenInGameMenu()
     {
         CloseTopLeftPanel();
-        _canvasGroup.alpha = 1f;
-        _canvasGroup.interactable = true;
+        _ingameMenuAnimator.ResetTrigger("CloseMenu");
+        _ingameMenuAnimator.SetTrigger("OpenMenu");
         _isOpened = true;
     }
 
     public void CloseInGameMenu()
     {
         OpenTopLeftPanel();
-        _canvasGroup.alpha = 0f;
-        _canvasGroup.interactable = false;
+        _ingameMenuAnimator.ResetTrigger("OpenMenu");
+        _ingameMenuAnimator.SetTrigger("CloseMenu");
         _isOpened = false;
     }
 
@@ -176,10 +182,33 @@ public class InGameMenuControl : MonoBehaviour
         _collectiblesCanvasGroup.alpha = 0f;
     }
 
-    public void QuitGame()
+    public void DialogYesNo(string question, UnityAction yesAction, UnityAction noAction)
     {
-        _buttonsAnimator.SetTrigger("ButtonClicked");
-        GameManager.Instance.QuitGame();
+        _choiceYes.onClick.RemoveAllListeners();
+        _choiceNo.onClick.RemoveAllListeners();
+
+        _choiceYes.onClick.AddListener(yesAction);
+        _choiceNo.onClick.AddListener(noAction);
+
+        _questionText.text = question;
+
     }
 
+    public void DialogGoBack()
+    {
+        _ingameMenuAnimator.ResetTrigger("ButtonClicked");
+        _ingameMenuAnimator.SetTrigger("ButtonGoBack");
+    }
+
+    public void NewGame()
+    {
+        DialogYesNo("Do you wish to create a new game?", delegate { GameManager.Instance.NewGame(); }, delegate { DialogGoBack(); });
+        _ingameMenuAnimator.SetTrigger("ButtonClicked");
+    }
+    public void QuitGame()
+    {
+        DialogYesNo("Do you wish to quit the game?", delegate { GameManager.Instance.QuitGame(); }, delegate { DialogGoBack(); });
+        _ingameMenuAnimator.SetTrigger("ButtonClicked");
+        //GameManager.Instance.QuitGame();
+    }
 }

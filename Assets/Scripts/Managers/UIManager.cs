@@ -31,7 +31,7 @@ public class UIManager : Singleton<UIManager>
         if (GameObject.Find("MainMenuCanvas"))
         {
             _inMainMenu = true;
-            _mainMenuAnimator = GameObject.Find("MainMenu").GetComponent<Animator>();
+            _mainMenuAnimator = GameObject.Find("MainMenuCanvas").GetComponent<Animator>();
         }
 
         SceneManager.sceneLoaded += OnNewSceneLoaded;
