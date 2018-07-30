@@ -50,6 +50,7 @@ public class GameManager : Singleton<GameManager>
     public void LoadLevel(int index, bool newLevel)
     {
         SceneManager.LoadScene(index);
+
         if (newLevel) SceneManager.sceneLoaded += OnNewLevelLoaded;
     }
 
@@ -76,11 +77,6 @@ public class GameManager : Singleton<GameManager>
     public void NewGame()
     {
         File.Delete(Application.persistentDataPath + _saveString);
-
-        _numberOfAnimals = _availableAnimals.Length;
-        _collectiblesCount = new int[_numberOfAnimals];
-
-        _pickedUpCollectibles = new List<float>();
         LoadLevel(_levels[0], true);
     }
 
