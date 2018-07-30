@@ -15,7 +15,8 @@ public class AnimalsManager : Singleton<AnimalsManager>
     enum AnimalForm { None, Human, Eagle, Bison };
 
     [SerializeField] private GameObject _humanFormHolder;
-    [SerializeField] private GameObject[] _equippedAnimalsPrefabs = new GameObject[2];
+    [SerializeField] private GameObject[] _equippedAnimalsPrefabs = new GameObject[3];
+    [SerializeField] private Transform _playerSpawnObject;
     private Vector3 _playerSpawnPosition;
 
     private GameObject _currentPlayerForm;
@@ -26,13 +27,10 @@ public class AnimalsManager : Singleton<AnimalsManager>
     private void Start()
     {
         Assert.IsNotNull(_humanFormHolder);
-    }
+        Assert.IsNotNull(_playerSpawnObject);
 
-    public void ResetSpawn()
-    {
-        DestroyCurrentForm();
-        _positionBeforeDestroy = GameManager.Instance.PlayerSpawn;
-        _currentAnimalIdentifier = AnimalForm.None;
+        _playerSpawnPosition = _playerSpawnObject.transform.position;
+        _positionBeforeDestroy = _playerSpawnPosition;
         SpawnHuman();
     }
 
@@ -42,19 +40,14 @@ public class AnimalsManager : Singleton<AnimalsManager>
         {
             _positionBeforeDestroy = _currentPlayerForm.transform.position;
             Destroy(_currentPlayerForm);
-            _currentPlayerForm = null;
-            _currentAnimalIdentifier = AnimalForm.None;
         }
-
     }
     public void SpawnHuman()
     {
         if (PreventSwapForm()) return;
         if (_currentAnimalIdentifier == AnimalForm.Human) return;
-		_positionBeforeDestroy = GameManager.Instance.PlayerSpawn; //currently used to spawn player at correct location because player does not spawn automatically
-
         DestroyCurrentForm();
-		_currentPlayerForm = Instantiate(_humanFormHolder, _positionBeforeDestroy, Quaternion.identity);
+        _currentPlayerForm = Instantiate(_humanFormHolder, _positionBeforeDestroy, Quaternion.identity);
         _currentAnimalIdentifier = AnimalForm.Human;
         EventsManager.Instance.formChangeDelegate();
     }
@@ -74,14 +67,21 @@ public class AnimalsManager : Singleton<AnimalsManager>
         {
             AnimalForm chosenAnimalForm = (AnimalForm)Enum.Parse(typeof(AnimalForm), chosenAnimalPrefab.name);
             if (_currentAnimalIdentifier == chosenAnimalForm) yield return null;
-            _currentPlayerForm.GetComponent<Animator>().SetTrigger("HumanOut");
-            yield return new WaitForSeconds(2.5f);
+            if(chosenAnimalForm==AnimalForm.Bison)
+            _currentPlayerForm.GetComponent<PlayerController>().SetTransformBison(0);
+            else
+                if(_currentPlayerForm.name.Contains(AnimalForm.Bison.ToString()))
+                _currentPlayerForm.GetComponent<PlayerController>().SetTransformBison(1);
+            else
+                _currentPlayerForm.GetComponent<PlayerController>().SetTransformBison(10);
+            _currentPlayerForm.GetComponent<Animator>().SetTrigger("FadeOut");
+
+            yield return new WaitForSeconds(2.5f/4f);
             var x= Instantiate(chosenAnimalPrefab, _currentPlayerForm.transform.position, Quaternion.identity);
             DestroyCurrentForm();
             _currentPlayerForm = x;
             EventsManager.Instance.formChangeDelegate();
-            yield return new WaitForSeconds(1);
-            //_currentPlayerForm.GetComponent<Animator>().SetTrigger("BisonIn");
+            yield return new WaitForSeconds(1/4f);
             _currentAnimalIdentifier = chosenAnimalForm;
         }
         yield return null;

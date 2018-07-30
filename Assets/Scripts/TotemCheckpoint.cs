@@ -11,7 +11,7 @@ public class TotemCheckpoint : MonoBehaviour
     {
         if (!_claimed && other.tag == "Player")
         {
-            GameManager.Instance.SaveGame(this.transform);
+            //GameManager.Instance.SaveGame(this.transform);
             _claimed = true;
         }
     }
