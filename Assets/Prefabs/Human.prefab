@@ -206,10 +206,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae15ef1a4d8da5d4c8d23ea77528d927, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _animalForm: 1
   _maximumMovementSpeed: 4
   _jumpSpeed: 4.8
   _acceleration: 8
   _fallGravityMultiplier: 0.9
+  _pushingSpeedModifier: 0.1
   _crouchingMovementModifier: 0.5
   _ceilingCheckTransform: {fileID: 4994455014101562}
   _ceilingCheckRadius: 0.1
@@ -306,8 +308,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -553205341
+  m_SortingLayer: -2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 0212a5bfe64c2d245b66ceb4df8a7e1e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

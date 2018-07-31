@@ -1,56 +1,106 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 using UnityEngine.Assertions;
 using UnityEngine.UI;
 using UnityEngine;
 
 public class UIManager : Singleton<UIManager>
 {
-    [SerializeField] private Canvas _canvas;
     [Space]
-    [Header("Top left UI")]
-    [SerializeField] private GameObject _buttonPrefab;
-    [SerializeField] private Vector2 _offset = new Vector2(39f, -79f);
-    [SerializeField] private Animal[] _animals;
+    [Header("Collectibles panel")]
+    [SerializeField] private GameObject _collectibleImagePrefab;
 
-    [Header("Panel")]
-    [SerializeField] private GameObject _panelPrefab;
-    private GameObject _currentlyOpenedPanel;
+    [Space]
+    [Header("MainMenu")]
+    [SerializeField] [Tooltip("Name of the scene that contains MainMenu")] private string _mainMenuScene = "MainMenu";
+    [Space]
+    [Header("InGame menu")]
+    [SerializeField] [Tooltip("BuildIndex of a scene that contains Ingame menu")] private int _ingameMenuSceneNumber = 1;
+    [SerializeField] [Tooltip("Name of the object that controls InGame menu")] private string _ingameMenuControl = "InGameMenuControl";
+
+    private bool _inMainMenu = false;
+    private bool _inPlayMenu = false;
+    private bool _ingameMenuOpened = false;
+
+    private Animator _mainMenuAnimator = null;
 
     private void Start()
     {
-        Assert.IsNotNull(_canvas);
-        Assert.IsNotNull(_buttonPrefab);
-        Assert.IsNotNull(_panelPrefab);
+        if (GameObject.Find("MainMenuCanvas"))
+        {
+            _inMainMenu = true;
+            _mainMenuAnimator = GameObject.Find("MainMenuCanvas").GetComponent<Animator>();
+        }
 
-        SpawnButtons();
+        SceneManager.sceneLoaded += OnNewSceneLoaded;
     }
 
-    private void SpawnButtons()
+    void OnNewSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Vector3 buttonPosition = Vector3.zero;
-        buttonPosition.x = _offset.x;
-        buttonPosition.y = -38;
-        foreach (Animal a in _animals)
+        if (SceneManager.GetActiveScene().name != _mainMenuScene && !SceneManager.GetSceneByBuildIndex(_ingameMenuSceneNumber).isLoaded)
         {
-            GameObject b = Instantiate(_buttonPrefab);
-
-            b.GetComponent<Image>().sprite = a.AnimalSprite;
-            b.GetComponent<Button>().onClick.AddListener(delegate { HandleClick(a); });
-            b.transform.position = buttonPosition;
-            b.transform.SetParent(_canvas.transform, false);
-
-            buttonPosition.y += _offset.y;
+            SceneManager.LoadScene(_ingameMenuSceneNumber, LoadSceneMode.Additive);
         }
     }
 
-    private void HandleClick(Animal a)
+    private void Update()
     {
-        if (_currentlyOpenedPanel != null) Destroy(_currentlyOpenedPanel);
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (SceneManager.GetActiveScene().name == _mainMenuScene)
+            {
+                MainMenuGoBack();
+            }
+            else if (SceneManager.GetSceneByBuildIndex(_ingameMenuSceneNumber).isLoaded)
+            {
+                GameObject obj = GameObject.Find(_ingameMenuControl);
+                if (obj.GetComponent<InGameMenuControl>().IsOpened) CloseIngameMenu();
+                else OpenInGameMenu();
+            }
 
-        GameObject panel = Instantiate(_panelPrefab);
-        panel.transform.SetParent(_canvas.transform, false);
-        panel.GetComponent<UIPanelScript>().InitializePanel(a);
-        _currentlyOpenedPanel = panel;
+        }
+    }
+
+    public void OpenInGameMenu()
+    {
+        GameObject obj = GameObject.Find(_ingameMenuControl);
+
+        if (obj != null)
+        {
+            obj.GetComponent<InGameMenuControl>().OpenInGameMenu();
+        }
+
+    }
+
+    public void CloseIngameMenu()
+    {
+        GameObject obj = GameObject.Find(_ingameMenuControl);
+
+        if (obj != null)
+        {
+            obj.GetComponent<InGameMenuControl>().CloseInGameMenu();
+        }
+    }
+
+    public void MainMenuPlay()
+    {
+        if (!_inPlayMenu)
+        {
+            _inPlayMenu = true;
+            _mainMenuAnimator.ResetTrigger("GoBackClicked");
+            _mainMenuAnimator.SetTrigger("PlayClicked");
+        }
+    }
+
+    public void MainMenuGoBack()
+    {
+        if (_inPlayMenu)
+        {
+            _inPlayMenu = false;
+            _mainMenuAnimator.ResetTrigger("PlayClicked");
+            _mainMenuAnimator.SetTrigger("GoBackClicked");
+        }
     }
 }

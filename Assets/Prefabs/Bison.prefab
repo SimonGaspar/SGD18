@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 114852799608415482}
   - component: {fileID: 70493617800926636}
   - component: {fileID: 95739694762951476}
+  - component: {fileID: 61571556588919878}
   m_Layer: 10
   m_Name: Bison
   m_TagString: Player
@@ -54,7 +55,7 @@ Transform:
   m_GameObject: {fileID: 1359729434417512}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.15, y: -1.38, z: 0}
-  m_LocalScale: {x: 0.23142427, y: 0.17676587, z: 0.15626904}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.15626904}
   m_Children:
   - {fileID: 4736560918130672}
   m_Father: {fileID: 0}
@@ -93,13 +94,38 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!61 &61571556588919878
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1359729434417512}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 13.11, y: 8.59}
+    newSize: {x: 13.11, y: 8.59}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 13.11, y: 8.59}
+  m_EdgeRadius: 0
 --- !u!70 &70493617800926636
 CapsuleCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1359729434417512}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -137,10 +163,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae15ef1a4d8da5d4c8d23ea77528d927, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _animalForm: 2
   _maximumMovementSpeed: 10
-  _jumpSpeed: 4
-  _acceleration: 4
+  _jumpSpeed: 0
+  _acceleration: 7
   _fallGravityMultiplier: 2.5
+  _pushingSpeedModifier: 0.1
   _crouchingMovementModifier: 0.5
   _ceilingCheckTransform: {fileID: 0}
   _ceilingCheckRadius: 0.1
@@ -153,6 +181,7 @@ MonoBehaviour:
   _canWalk: 1
   _canJump: 0
   _canCrouch: 0
+<<<<<<< HEAD
   _particle: {fileID: 198395257797616936, guid: daf5bd6c3a34ff34a87aa10618373784,
     type: 2}
   _movingParticle: {fileID: 198365222077465754, guid: d74ec1aad71542741bb8c054c34bdcbb,
@@ -160,6 +189,9 @@ MonoBehaviour:
   movingPositionX: 1.2
   movingPositionY: -0.825041
   movingPositionZ: -0.2
+=======
+  _particle: {fileID: 0}
+>>>>>>> mainmenu_checkpoint_death_respawn
 --- !u!212 &212090531306763536
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -200,7 +232,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 13.11, y: 8.59}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

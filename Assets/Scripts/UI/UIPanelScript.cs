@@ -19,9 +19,6 @@ public class UIPanelScript : MonoBehaviour
 
     public void InitializePanel(Animal animal)
     {
-        _titleText.text = animal.Name;
-        _titleImage.sprite = animal.AnimalSprite;
-
         gameObject.SetActive(true);
     }
 

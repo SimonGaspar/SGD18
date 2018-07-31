@@ -11,6 +11,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13236d622905a2d4da8b10b6a6aa7f53, type: 3}
   m_Name: Human
   m_EditorClassIdentifier: 
-  Name: Human
-  AnimalSprite: {fileID: 21300000, guid: 7aaf80c56f8e5514f9d16c97da7e2586, type: 3}
-  NumberOFRequiredParts: 0
+  AnimalForm: 1
+  RequiredParts: 0
+  AnimalColor: {r: 1, g: 1, b: 1, a: 1}
+  Claimed: 1
+  AnimalSprites:
+  - {fileID: 21300000, guid: 957c1138d5e42d04dadf9ed313ed6814, type: 3}
+  TitleSprite: {fileID: 21300000, guid: 713be8da1e0064949849256add8a64a7, type: 3}
+  KeyBind: I
+  ContentText: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eget
+    leo sit amet ante auctor facilisis. Curabitur nec nunc interdum, consequat odio
+    id, suscipit lacus.
