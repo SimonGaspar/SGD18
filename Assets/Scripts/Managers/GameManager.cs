@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -168,6 +168,7 @@ public class GameManager : Singleton<GameManager>
     }
     public bool IsAnimalAvailable(int number)
     {
+		return true;
         return (CollectiblesCount[number] == AvailableAnimals[number].RequiredParts);
     }
 }
