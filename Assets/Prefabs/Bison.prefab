@@ -181,7 +181,6 @@ MonoBehaviour:
   _canWalk: 1
   _canJump: 0
   _canCrouch: 0
-<<<<<<< HEAD
   _particle: {fileID: 198395257797616936, guid: daf5bd6c3a34ff34a87aa10618373784,
     type: 2}
   _movingParticle: {fileID: 198365222077465754, guid: d74ec1aad71542741bb8c054c34bdcbb,
@@ -189,9 +188,6 @@ MonoBehaviour:
   movingPositionX: 1.2
   movingPositionY: -0.825041
   movingPositionZ: -0.2
-=======
-  _particle: {fileID: 0}
->>>>>>> mainmenu_checkpoint_death_respawn
 --- !u!212 &212090531306763536
 SpriteRenderer:
   m_ObjectHideFlags: 1

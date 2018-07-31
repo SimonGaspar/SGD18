@@ -57,7 +57,8 @@ public class GameManager : Singleton<GameManager>
         _playerSpawn = GameObject.FindGameObjectWithTag("Spawn").transform.position;
         AnimalsManager.Instance.ResetSpawn();
         EventsManager.Instance.formChangeDelegate();
-        SceneManager.sceneLoaded += OnNewLevelLoaded;
+        print("on new level loaded");
+        SceneManager.sceneLoaded -= OnNewLevelLoaded;
     }
 
     public void StartGame()

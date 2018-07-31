@@ -11,12 +11,12 @@ public class Deathzone : MonoBehaviour
         if (!_claimed && other.gameObject.tag == "Player")
         {
             _claimed = true;
-           // GameManager.Instance.LoadGame();
+            GameManager.Instance.LoadGame();
         }
     }
 
-	private void OnDrawGizmos()
-	{
-		Gizmos.DrawIcon(transform.position, "death");
-	}
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawIcon(transform.position, "death");
+    }
 }

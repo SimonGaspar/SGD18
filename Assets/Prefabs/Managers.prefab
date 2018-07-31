@@ -55,8 +55,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _collectibleImagePrefab: {fileID: 1796405650782270, guid: 8ece2ed7c8147b4409411061f3bc4496,
     type: 2}
-  _ingameMenuScene: 1
-  _ingameMenuRootObj: InGameMenu
+  _mainMenuScene: MainMenu
+  _ingameMenuSceneNumber: 1
+  _ingameMenuControl: InGameMenuControl
 --- !u!114 &114173658677840070
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -73,6 +74,7 @@ MonoBehaviour:
   _equippedAnimalsPrefabs:
   - {fileID: 1830434057732246, guid: 4dc65af3959408f468ca40bb44adba8c, type: 2}
   - {fileID: 1359729434417512, guid: 8b2ee6ad7887955478bf16ac886cf10d, type: 2}
+  _playerSpawnObject: {fileID: 0}
 --- !u!114 &114498324702214814
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -91,5 +93,5 @@ MonoBehaviour:
   _saveString: /gameSave.dat
   _maximumCollectibles: 0500000005000000
   _collectibleTag: Collectible
-  _levels: 0200000003000000
+  _levels: 02000000
   _pickedUpCollectibles: []
