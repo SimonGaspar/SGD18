@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] [Tooltip("Layers to act as a ground")] private LayerMask _groundLayerMask;
 
     [Space]
-    [Header("Player contrains")]
+    [Header("Player constrains")]
     [SerializeField]
     private bool _canFly = false;
     [SerializeField] private bool _canWalk = true;
@@ -63,7 +63,14 @@ public class PlayerController : MonoBehaviour
     ParticleSystem movingParticle;
     bool canMove = false;
 
-    public bool IsMoving { get { return (_rb2d.velocity.x != 0 || _rb2d.velocity.y != 0); } }
+    public bool IsMoving
+    {
+        get
+        {
+            return false;
+            //    return (_rb2d.velocity.x != 0 || _rb2d.velocity.y != 0);
+        }
+    }
     public bool CanDestroy { get { return (_animalForm.Equals(AnimalForm.Bison) && (Mathf.Abs(_currentHorizontalSpeed) == _maximumMovementSpeed)); } }
 
     private bool _grounded = false;
