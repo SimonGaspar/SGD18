@@ -55,12 +55,12 @@ public class AnimalsManager : Singleton<AnimalsManager>
 
     public void SwapToAnimalNumber(int index)
     {
-        if (GameManager.Instance.IsAnimalAvailable(index)) StartCoroutine(Swap(index));
+        StartCoroutine(Swap(index));
     }
 
     public IEnumerator Swap(int index)
     {
-        if (PreventSwapForm()) yield return null;
+        if (PreventSwapForm() || !GameManager.Instance.IsAnimalAvailable(index + 1)) yield break;
         GameObject chosenAnimalPrefab = null;
         if (index < _equippedAnimalsPrefabs.Length)
             chosenAnimalPrefab = _equippedAnimalsPrefabs[index];

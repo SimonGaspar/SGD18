@@ -216,4 +216,9 @@ public class InGameMenuControl : MonoBehaviour
     {
         AnimalsManager.Instance.SwapToAnimalNumber(index);
     }
+
+    public void ChangeToHuman()
+    {
+        AnimalsManager.Instance.SpawnHuman();
+    }
 }

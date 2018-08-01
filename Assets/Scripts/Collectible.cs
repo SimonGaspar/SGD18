@@ -19,7 +19,7 @@ public class Collectible : MonoBehaviour
         {
             GameManager.Instance.CollectiblePickup(this.gameObject, _collectibleFor);
             _picked = true;
-            _animator.SetTrigger("isPicked");
+            if (_animator) _animator.SetTrigger("isPicked");
         }
     }
 

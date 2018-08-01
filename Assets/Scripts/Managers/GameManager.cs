@@ -172,6 +172,7 @@ public class GameManager : Singleton<GameManager>
     {
         _pickedUpCollectibles.Add(collectible.transform.position.sqrMagnitude);
         _collectiblesCount[(int)type - 1]++;
+        print(type + " -> " + _collectiblesCount[(int)type - 1]);
         EventsManager.Instance.collectibleChangeDelegate();
     }
 
@@ -181,8 +182,7 @@ public class GameManager : Singleton<GameManager>
     }
     public bool IsAnimalAvailable(int number)
     {
-        return true;
-        //return (CollectiblesCount[number] == AvailableAnimals[number].RequiredParts);
+        return (_collectiblesCount[number] == AvailableAnimals[number].RequiredParts);
     }
 }
 

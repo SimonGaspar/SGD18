@@ -214,6 +214,7 @@ public class PlayerController : MonoBehaviour
         // jump
         if (_rb2d.velocity.y <= 0) _jumping = false;
 
+        // because animator.SetBool("IsJumping", _jumping); is too mainstream 4Head
         if (_jumping) animator.SetBool("IsJumping", true);
         else animator.SetBool("IsJumping", false);
 
