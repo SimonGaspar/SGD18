@@ -111,8 +111,9 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+                                            //V niektorych situaciach treba vediet ci je pevne na zemi kvoli animaciam
         _grounded = Physics2D.OverlapCircle(_groundCheckTransform.position, _groundCheckRadius, _groundLayerMask);
-
+        animator.SetBool("IsGrounded", _grounded);
         // I know physics calculations shouldn't be done in `Update()`, but putting them into `FixedUpdate()` creates an awful input lag
         // Just leave it here (╯°□°）╯︵ ┻━┻
         //HandleCrouching();
@@ -180,8 +181,15 @@ public class PlayerController : MonoBehaviour
 
         _currentHorizontalSpeed = Mathf.Clamp(_currentHorizontalSpeed, -_maximumMovementSpeed * _movementModifier, _maximumMovementSpeed * _movementModifier);
 
-        // horizontal movement
-        if ((_currentHorizontalSpeed > 0 || _currentHorizontalSpeed < 0) && _grounded)
+                                                    //Ked si zmysli pocas padu ze chce utekat
+        if ((_currentHorizontalSpeed > 0 || _currentHorizontalSpeed < 0))
+        {
+            animator.SetBool("IsRunning", true);
+        }
+
+
+            // horizontal movement
+            if ((_currentHorizontalSpeed > 0 || _currentHorizontalSpeed < 0) && _grounded)
         {
 
 
@@ -214,8 +222,8 @@ public class PlayerController : MonoBehaviour
         // jump
         if (_rb2d.velocity.y <= 0) _jumping = false;
 
-        if (_jumping) animator.SetBool("IsJumping", true);
-        else animator.SetBool("IsJumping", false);
+        if (_jumping ) animator.SetBool("IsJumping", true);
+        else /*if (!_jumping && _rb2d.velocity.y == 0)*/ animator.SetBool("IsJumping", false);
 
         if (Input.GetButtonDown("Jump") && (_grounded || _canFly) && _canJump)
         {
