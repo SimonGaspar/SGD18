@@ -16,7 +16,6 @@ public class DestroyableObject : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             PlayerController playerController = other.gameObject.GetComponent<PlayerController>();
-            print(playerController.CanDestroy);
             if (playerController.CanDestroy)
             {
                 playerController.SetMovingToFalse();

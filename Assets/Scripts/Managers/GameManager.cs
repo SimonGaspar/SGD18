@@ -57,7 +57,6 @@ public class GameManager : Singleton<GameManager>
         _playerSpawn = GameObject.FindGameObjectWithTag("Spawn").transform.position;
         AnimalsManager.Instance.ResetSpawn();
         EventsManager.Instance.formChangeDelegate();
-        print("on new level loaded");
         SceneManager.sceneLoaded -= OnNewLevelLoaded;
     }
 
@@ -182,8 +181,8 @@ public class GameManager : Singleton<GameManager>
     }
     public bool IsAnimalAvailable(int number)
     {
-        //return true;
-        return (CollectiblesCount[number] == AvailableAnimals[number].RequiredParts);
+        return true;
+        //return (CollectiblesCount[number] == AvailableAnimals[number].RequiredParts);
     }
 }
 

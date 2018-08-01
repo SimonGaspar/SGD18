@@ -211,4 +211,9 @@ public class InGameMenuControl : MonoBehaviour
         _ingameMenuAnimator.SetTrigger("ButtonClicked");
         //GameManager.Instance.QuitGame();
     }
+
+    public void ChangeToAnimal(int index)
+    {
+        AnimalsManager.Instance.SwapToAnimalNumber(index);
+    }
 }

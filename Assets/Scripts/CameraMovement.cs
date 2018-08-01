@@ -113,7 +113,6 @@ public class CameraMovement : MonoBehaviour
 
     public void OnFormChange()
     {
-        print("on form change delegate");
         followTarget = AnimalsManager.Instance.GetCurrentAnimalTransformComponent();
     }
     private void Update()

@@ -26,8 +26,6 @@ public class AnimalsManager : Singleton<AnimalsManager>
     private void Start()
     {
         Assert.IsNotNull(_humanFormHolder);
-        Assert.IsNotNull(_playerSpawnObject);
-
     }
     public void ResetSpawn()
     {
