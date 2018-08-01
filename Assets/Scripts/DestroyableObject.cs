@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class DestroyableObject : MonoBehaviour
 {
+    private Animation _destroyAnimation;
+
+    private void Start()
+    {
+        _destroyAnimation = GetComponent<Animation>();
+    }
 
     private void OnCollisionEnter2D(Collision2D other)
     {
@@ -14,7 +20,11 @@ public class DestroyableObject : MonoBehaviour
             if (playerController.CanDestroy)
             {
                 playerController.SetMovingToFalse();
-                Destroy(gameObject);
+                if (_destroyAnimation != null)
+                {
+                    _destroyAnimation.Play();
+                }
+                else Destroy(gameObject);
             }
         }
     }
