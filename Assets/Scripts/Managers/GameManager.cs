@@ -146,6 +146,19 @@ public class GameManager : Singleton<GameManager>
         _playerSpawn = new Vector3(_currentLoadObject.currentPlayerCheckpoint.x, _currentLoadObject.currentPlayerCheckpoint.y, _currentLoadObject.currentPlayerCheckpoint.z);
         _collectiblesCount = _currentLoadObject.collectiblesCounts;
         AnimalsManager.Instance.ResetSpawn();
+        // Remove already collected collectibles
+
+        GameObject[] allCollectibles = GameObject.FindGameObjectsWithTag(_collectibleTag);
+
+        foreach (GameObject obj in allCollectibles)
+        {
+            if (_currentLoadObject.pickedUpCollectiblesID.Contains(obj.transform.position.sqrMagnitude))
+            {
+                Destroy(obj);
+            }
+        }
+
+
         SceneManager.sceneLoaded -= OnSaveLoaded;
         EventsManager.Instance.formChangeDelegate();
     }
@@ -169,7 +182,7 @@ public class GameManager : Singleton<GameManager>
     }
     public bool IsAnimalAvailable(int number)
     {
-		return true;
+        return true;
         return (CollectiblesCount[number] == AvailableAnimals[number].RequiredParts);
     }
 }
