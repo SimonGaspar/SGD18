@@ -25,7 +25,6 @@ public class PushableObject : MonoBehaviour
             if (touchingController.CurrentAnimalForm == AnimalForm.Bison)
             {
                 _rb2d.bodyType = RigidbodyType2D.Dynamic;
-                return;
             }
         }
     }
