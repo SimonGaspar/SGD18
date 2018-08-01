@@ -22,7 +22,7 @@ public class CameraMovement : MonoBehaviour
 
     //our player or other focus point, can be set
     [SerializeField]
-    private Transform followTarget;
+    public Transform followTarget;
 
 
     //empty bubble image above player

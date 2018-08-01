@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 61340117164090832}
   m_Layer: 11
   m_Name: Totem_checkpoint
-  m_TagString: Spawn
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -30,12 +30,21 @@ public class TiltingObject : MonoBehaviour
 	{
 		if (collision.tag == "Player")
 			return;
-		inTrigger = true;
+		Rigidbody2D rigid = collision.gameObject.GetComponent<Rigidbody2D>();
+		rigid.gravityScale = 12f;
+		rigid.velocity = Vector2.zero;
+		//rigid.constraints = RigidbodyConstraints2D.FreezePositionX;
+		rigid.bodyType = RigidbodyType2D.Dynamic;
+		StartCoroutine(RotateObject(collision));
+		Destroy(collision.gameObject.GetComponent<PushableObject>());
 	}
-	IEnumerator RotateObject(Vector3 targetRot)
+	IEnumerator RotateObject(Collider2D collision)
 	{
-		yield return new WaitForSeconds(0.5f);
-		transform.eulerAngles = Vector3.Lerp(transform.rotation.eulerAngles, targetRot, rotationsSpeed);
+		yield return new WaitForSeconds(0.8f);
+		//transform.eulerAngles = Vector3.Lerp(transform.rotation.eulerAngles, targetRot, rotationsSpeed);
+
+		//collision.gameObject.transform.parent = transform;
+		inTrigger = true;
 	}
 	private void Update()
 	{

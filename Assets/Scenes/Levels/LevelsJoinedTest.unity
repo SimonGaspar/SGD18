@@ -15138,6 +15138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28a46e0868a23e64883f4b39827a64dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bubbleTrigger: {fileID: 0}
   endPoint: {fileID: 1982409526}
   stone: {fileID: 1153493120}
   dropSpeed: 0.8
@@ -22147,7 +22148,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1007323309
 Transform:
   m_ObjectHideFlags: 0
@@ -27543,7 +27544,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1202818343
 Transform:
   m_ObjectHideFlags: 0
@@ -29594,7 +29595,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1343138620
 Transform:
   m_ObjectHideFlags: 0
