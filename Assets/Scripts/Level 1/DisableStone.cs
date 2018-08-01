@@ -20,7 +20,7 @@ public class DisableStone : MonoBehaviour
         if (collision.tag == "Player")
             return;
 
-        tunelRollingStone.stone.GetComponent<Deathzone>().enabled = false;
+        tunelRollingStone.stone.GetComponent<Collider2D>().enabled = false;
         tunelRollingStone.stone.bodyType = RigidbodyType2D.Static;
         tunelRollingStone.childStone.sharedMaterial = physicsMat;
         return;
