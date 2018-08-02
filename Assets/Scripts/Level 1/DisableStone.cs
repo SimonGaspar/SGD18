@@ -12,7 +12,9 @@ public class DisableStone : MonoBehaviour
 
     private void Start()
     {
-        Assert.IsNotNull(tunelRollingStone, "disableStone not assigned to TunnelRollingStone script!");
+
+		tunelRollingStone.stone.GetComponent<Collider2D>().enabled = false;
+		Assert.IsNotNull(tunelRollingStone, "disableStone not assigned to TunnelRollingStone script!");
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

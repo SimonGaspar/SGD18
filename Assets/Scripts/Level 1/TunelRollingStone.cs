@@ -10,6 +10,7 @@ public class TunelRollingStone : MonoBehaviour
 	[SerializeField] Animator anim;
 	[SerializeField] AnimationClip animClip;
 	public CircleCollider2D col;
+	//public BoxCollider2D preventFromJumpGroundOff;  just incase someone wants to jump back up
 	public bool disabled;
 	public CircleCollider2D childStone;
 
@@ -37,8 +38,12 @@ public class TunelRollingStone : MonoBehaviour
 	{
 
 		anim.Play(animClip.name);
-		yield return new WaitForSeconds(0.1f);
+		//preventFromJumpGroundOff.enabled = false;
+		yield return new WaitForSeconds(0.12f);
 		stone.isKinematic = false;
+
+		yield return new WaitForSeconds(1f);
+		stone.GetComponent<Collider2D>().enabled = true;
 	}
 	private void OnDrawGizmos()
 	{

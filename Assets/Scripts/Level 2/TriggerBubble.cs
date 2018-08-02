@@ -8,11 +8,6 @@ public class TriggerBubble : MonoBehaviour {
 	CameraMovement cameraMovement;
 	[SerializeField] Sprite spriteToShow;
 	Animator anim;
-	/*public Transform player;
-		public void OnFormChange()
-	{
-		player = AnimalsManager.Instance.GetCurrentAnimalTransformComponent();
-	}*/
 
 	private void Start()
 	{
