@@ -50,7 +50,10 @@ public class AnimalsManager : Singleton<AnimalsManager>
         DestroyCurrentForm();
         _currentPlayerForm = Instantiate(_humanFormHolder, _positionBeforeDestroy, Quaternion.identity);
         _currentAnimalIdentifier = AnimalForm.Human;
-        EventsManager.Instance.formChangeDelegate();
+
+		Vector3 prevScale;
+		prevScale = _currentPlayerForm.GetComponent<PlayerController>().defLocalScale;
+		EventsManager.Instance.formChangeDelegate();
     }
 
     public void SwapToAnimalNumber(int index)
@@ -78,11 +81,19 @@ public class AnimalsManager : Singleton<AnimalsManager>
                 _currentPlayerForm.GetComponent<PlayerController>().SetTransformBison(10);
             _currentPlayerForm.GetComponent<Animator>().SetTrigger("FadeOut");
 
-            yield return new WaitForSeconds(2.5f / 4f);
+			Vector3 prevScale;
+			prevScale = _currentPlayerForm.GetComponent<PlayerController>().defLocalScale;
+			yield return new WaitForSeconds(2.5f / 4f);
             var x = Instantiate(chosenAnimalPrefab, _currentPlayerForm.transform.position, Quaternion.identity);
-            DestroyCurrentForm();
+
+			var _currentTransform = x.transform;
+			if (_currentPlayerForm.transform.localScale.x < -0.1)
+				_currentTransform.localScale = new Vector3(-x.transform.localScale.x ,x.transform.localScale.y, x.transform.localScale.z);
+
+			DestroyCurrentForm();
             _currentPlayerForm = x;
-            EventsManager.Instance.formChangeDelegate();
+			
+			EventsManager.Instance.formChangeDelegate();
             yield return new WaitForSeconds(1 / 4f);
 
             _currentAnimalIdentifier = chosenAnimalForm;

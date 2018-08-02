@@ -111,10 +111,7 @@ public class GameManager : Singleton<GameManager>
         saveObject.collectiblesCounts = this.CollectiblesCount;
         saveObject.currentPlayerCheckpoint = new Vector3Ser(newSpawn.position.x, newSpawn.position.y, newSpawn.position.z);
         saveObject.pickedUpCollectiblesID = new List<float>();
-        foreach (float c in _pickedUpCollectibles)
-        {
-            saveObject.pickedUpCollectiblesID.Add(c);
-        }
+        foreach (float c in _pickedUpCollectibles) saveObject.pickedUpCollectiblesID.Add(c);
 
         // ------------
         bf.Serialize(file, saveObject);
@@ -129,6 +126,9 @@ public class GameManager : Singleton<GameManager>
             FileStream file = File.Open(Application.persistentDataPath + _saveString, FileMode.Open);
             Save loadObject = (Save)bf.Deserialize(file);
 
+			_pickedUpCollectibles = new List<float>();
+			foreach (float c in loadObject.pickedUpCollectiblesID) _pickedUpCollectibles.Add(c);
+			
             // Loading data
             LoadLevel(loadObject.currentLevelNumber, false);
 

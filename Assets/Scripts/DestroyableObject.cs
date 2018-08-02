@@ -19,11 +19,15 @@ public class DestroyableObject : MonoBehaviour
             if (playerController.CanDestroy)
             {
                 playerController.SetMovingToFalse();
-                if (_destroyAnimation != null)
-                {
-                    _destroyAnimation.Play();
-                }
-                else Destroy(gameObject);
+				if (_destroyAnimation != null)
+				{
+					_destroyAnimation.Play();
+
+					Destroy(GetComponent<DestroyableObject>());
+				}
+				else
+				{ Destroy(gameObject);
+				}
             }
         }
     }

@@ -85,7 +85,7 @@ public class PlayerController : MonoBehaviour
 
     private Vector2 _defaultColliderSize;
     private Vector2 _defaultColliderOffset;
-    private Vector3 _defLocalScale;
+    public Vector3 defLocalScale;
 
     // Use this for initialization
     void Start()
@@ -93,7 +93,6 @@ public class PlayerController : MonoBehaviour
         _rb2d = GetComponent<Rigidbody2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
-        _defLocalScale = transform.localScale;
 
         Assert.IsNotNull(_groundCheckTransform);
         Assert.IsNotNull(_rb2d);
@@ -107,12 +106,15 @@ public class PlayerController : MonoBehaviour
         movingParticle = Instantiate<ParticleSystem>(_movingParticle);
         movingParticle.Stop();
         movingParticle.transform.position = transform.position;
-    }
+
+		defLocalScale = transform.localScale;
+		//	transform.localScale = _defLocalScale;
+	}
 
     private void Update()
     {
         _grounded = Physics2D.OverlapCircle(_groundCheckTransform.position, _groundCheckRadius, _groundLayerMask);
-
+		animator.SetBool("IsGrounded", _grounded);
         // I know physics calculations shouldn't be done in `Update()`, but putting them into `FixedUpdate()` creates an awful input lag
         // Just leave it here (╯°□°）╯︵ ┻━┻
         //HandleCrouching();
@@ -203,9 +205,9 @@ public class PlayerController : MonoBehaviour
         }
 
         if (inputHorizontal > 0)
-            transform.localScale = _defLocalScale;
+            transform.localScale = defLocalScale;
         if (inputHorizontal < -0.1)
-            transform.localScale = new Vector3(-_defLocalScale.x, _defLocalScale.y, _defLocalScale.z);
+            transform.localScale = new Vector3(-defLocalScale.x, defLocalScale.y, defLocalScale.z);
 
         if (_canWalk || (!_canWalk && !_grounded && _canFly))
             //_rb2d.velocity = new Vector2(((inputHorizontal>0)?_currentHorizontalSpeed:-_currentHorizontalSpeed), _rb2d.velocity.y);

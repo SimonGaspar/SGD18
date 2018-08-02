@@ -42,6 +42,7 @@ public class StoneDrop : MonoBehaviour
 			{
 				timer = 0.03f;
 				Destroy(stone.GetComponent<PushableObject>());
+				if(anim !=null)
 				anim.Play();
 			}
 			if (bubbleTrigger)
