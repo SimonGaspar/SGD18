@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float movingPositionY;
     [SerializeField] private float movingPositionZ;
     ParticleSystem movingParticle;
-    bool canMove = false;
+    public bool canMove = false;
 
     public bool IsMoving
     {
@@ -121,6 +121,11 @@ public class PlayerController : MonoBehaviour
         {
             CalculateMovement();
         }
+		else
+		{
+			_rb2d.velocity = Vector2.zero;
+			animator.SetBool("IsRunning", false);
+		}
 
         if (_currentParticle != null)
             _currentParticle.transform.position = transform.position;

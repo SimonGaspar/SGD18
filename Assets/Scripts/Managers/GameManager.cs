@@ -35,7 +35,10 @@ public class GameManager : Singleton<GameManager>
 
     private Save _currentLoadObject = null;
 
-    private int _numberOfAnimals = 0;
+	
+	public bool InPauseMenu = false;
+
+	private int _numberOfAnimals = 0;
     private void Start()
     {
         _numberOfAnimals = _availableAnimals.Length;
@@ -87,6 +90,10 @@ public class GameManager : Singleton<GameManager>
     {
         LoadGame();
     }
+	public void FinishGame()
+	{
+		Finish();
+	}
 
     public void NextLevel()
     {
@@ -184,6 +191,11 @@ public class GameManager : Singleton<GameManager>
     {
         return (_collectiblesCount[number] == AvailableAnimals[number].RequiredParts);
     }
+
+	void Finish()
+	{
+
+	}
 }
 
 [System.Serializable]

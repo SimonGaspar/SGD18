@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -97,7 +97,9 @@ public class InGameMenuControl : MonoBehaviour
         _canvasGroup.interactable = false;
 
         EventsManager.Instance.collectibleChangeDelegate += collectibleCountChanged;
-    }
+
+		EventsManager.Instance.openPauseMenuDelegate += SetPlayerMovement;
+	}
 
     private void OnDestroy()
     {
@@ -159,7 +161,8 @@ public class InGameMenuControl : MonoBehaviour
         CloseTopLeftPanel();
         _ingameMenuAnimator.ResetTrigger("CloseMenu");
         _ingameMenuAnimator.SetTrigger("OpenMenu");
-        _isOpened = true;
+		EventsManager.Instance.openPauseMenuDelegate();
+		_isOpened = true;
     }
 
     public void CloseInGameMenu()
@@ -167,8 +170,10 @@ public class InGameMenuControl : MonoBehaviour
         OpenTopLeftPanel();
         _ingameMenuAnimator.ResetTrigger("OpenMenu");
         _ingameMenuAnimator.SetTrigger("CloseMenu");
-        _isOpened = false;
-    }
+		EventsManager.Instance.openPauseMenuDelegate();
+		_isOpened = false;
+
+	}
 
     public void OpenTopLeftPanel()
     {
@@ -212,7 +217,14 @@ public class InGameMenuControl : MonoBehaviour
         //GameManager.Instance.QuitGame();
     }
 
-    public void ChangeToAnimal(int index)
+
+	public void SetPlayerMovement()
+	{
+		AnimalsManager.Instance.GetCurrentPlayerController().canMove = _isOpened;
+	}
+
+
+	public void ChangeToAnimal(int index)
     {
         AnimalsManager.Instance.SwapToAnimalNumber(index);
     }

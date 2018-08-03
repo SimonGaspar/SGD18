@@ -231,6 +231,8 @@ MonoBehaviour:
   movingPositionX: 0.24
   movingPositionY: -0.825041
   movingPositionZ: -0.2
+  canMove: 0
+  defLocalScale: {x: 0, y: 0, z: 0}
 --- !u!212 &212273607341155342
 SpriteRenderer:
   m_ObjectHideFlags: 1

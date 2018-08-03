@@ -113,83 +113,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &1645235
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1604449431}
-    m_Modifications:
-    - target: {fileID: 4591158020412856, guid: 315ebc730bfcc4044b1fa13ba1593d72, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4591158020412856, guid: 315ebc730bfcc4044b1fa13ba1593d72, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4591158020412856, guid: 315ebc730bfcc4044b1fa13ba1593d72, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4591158020412856, guid: 315ebc730bfcc4044b1fa13ba1593d72, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4591158020412856, guid: 315ebc730bfcc4044b1fa13ba1593d72, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4591158020412856, guid: 315ebc730bfcc4044b1fa13ba1593d72, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4591158020412856, guid: 315ebc730bfcc4044b1fa13ba1593d72, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4591158020412856, guid: 315ebc730bfcc4044b1fa13ba1593d72, type: 2}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114173658677840070, guid: 315ebc730bfcc4044b1fa13ba1593d72,
-        type: 2}
-      propertyPath: _playerSpawnObject
-      value: 
-      objectReference: {fileID: 2117716054}
-    - target: {fileID: 114173658677840070, guid: 315ebc730bfcc4044b1fa13ba1593d72,
-        type: 2}
-      propertyPath: _equippedAnimalsPrefabs.Array.data[1]
-      value: 
-      objectReference: {fileID: 1359729434417512, guid: 8b2ee6ad7887955478bf16ac886cf10d,
-        type: 2}
-    - target: {fileID: 114498324702214814, guid: 315ebc730bfcc4044b1fa13ba1593d72,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1457559181296134, guid: 315ebc730bfcc4044b1fa13ba1593d72, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114498324702214814, guid: 315ebc730bfcc4044b1fa13ba1593d72,
-        type: 2}
-      propertyPath: _maximumCollectibles.Array.data[0]
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114498324702214814, guid: 315ebc730bfcc4044b1fa13ba1593d72,
-        type: 2}
-      propertyPath: _maximumCollectibles.Array.data[1]
-      value: 3
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 315ebc730bfcc4044b1fa13ba1593d72, type: 2}
-  m_IsPrefabParent: 0
---- !u!4 &1645236 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4591158020412856, guid: 315ebc730bfcc4044b1fa13ba1593d72,
-    type: 2}
-  m_PrefabInternal: {fileID: 1645235}
 --- !u!1 &4163810
 GameObject:
   m_ObjectHideFlags: 0
@@ -8956,7 +8879,7 @@ Transform:
   m_Children:
   - {fileID: 1403747567}
   m_Father: {fileID: 1604449431}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &430020561
 GameObject:
@@ -30382,7 +30305,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4835771437367086, guid: 765a3c172336bfd46949802520b33918, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1617513134617990, guid: 765a3c172336bfd46949802520b33918, type: 2}
       propertyPath: m_Name
@@ -35247,7 +35170,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2117716054}
-  - {fileID: 1645236}
   - {fileID: 1820278526}
   - {fileID: 429595146}
   - {fileID: 1659156539}
@@ -36676,7 +36598,7 @@ Transform:
   - {fileID: 1355088464}
   - {fileID: 1931484936}
   m_Father: {fileID: 1604449431}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1659357222
 GameObject:
@@ -40401,7 +40323,7 @@ Transform:
   - {fileID: 663581318}
   - {fileID: 1584678445}
   m_Father: {fileID: 1604449431}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1820965142
 GameObject:

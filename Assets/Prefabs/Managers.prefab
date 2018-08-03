@@ -72,6 +72,7 @@ MonoBehaviour:
   _humanFormHolder: {fileID: 1278056700385104, guid: aa37f99a60181b14bad88e6ba5d2676d,
     type: 2}
   _equippedAnimalsPrefabs:
+  - {fileID: 1278056700385104, guid: aa37f99a60181b14bad88e6ba5d2676d, type: 2}
   - {fileID: 1359729434417512, guid: 8b2ee6ad7887955478bf16ac886cf10d, type: 2}
   _playerSpawnObject: {fileID: 0}
 --- !u!114 &114498324702214814
@@ -94,3 +95,4 @@ MonoBehaviour:
   _collectibleTag: Collectible
   _levels: 02000000
   _pickedUpCollectibles: []
+  InPauseMenu: 0

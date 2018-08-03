@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -77,10 +78,18 @@ public class AnimalsManager : Singleton<AnimalsManager>
 	public IEnumerator Swap(int index)
 	{
 
-		if((AnimalForm)Enum.Parse(typeof(AnimalForm), _equippedAnimalsPrefabs[index].name) != AnimalForm.Human)
-		if ((PreventSwapForm() || !GameManager.Instance.IsAnimalAvailable(index + 1))) yield break;
+		if (index != 0)
+		{
+			if (PreventSwapForm() || !GameManager.Instance.IsAnimalAvailable(index + 1)) yield break;
+		}
+		else
+		{
+			Debug.Log("else");
+			if (PreventSwapForm())  yield break;
+		}
 		GameObject chosenAnimalPrefab = null;
 		if (index < _equippedAnimalsPrefabs.Length)
+			Debug.Log(_equippedAnimalsPrefabs[index]);
 			chosenAnimalPrefab = _equippedAnimalsPrefabs[index];
 		if (chosenAnimalPrefab != null)
 		{
@@ -96,11 +105,11 @@ public class AnimalsManager : Singleton<AnimalsManager>
 				_currentPlayerForm.GetComponent<PlayerController>().SetTransformBison(10);
 			_currentPlayerForm.GetComponent<Animator>().SetTrigger("FadeOut");
 
-			
+
 			yield return new WaitForSeconds(2.5f / 4f);
 			var x = Instantiate(chosenAnimalPrefab, _currentPlayerForm.transform.position, Quaternion.identity);
 
-			
+
 			DestroyCurrentForm();
 			_currentPlayerForm = x;
 
@@ -123,12 +132,23 @@ public class AnimalsManager : Singleton<AnimalsManager>
 	{
 		return _currentPlayerForm.GetComponent<Transform>();
 	}
-
+	public PlayerController GetCurrentPlayerController()
+	{
+		return _currentPlayerForm.GetComponent<PlayerController>();
+	}
 	private void Update()
 	{
-
+		GetInput();
 	}
-
+	void GetInput()
+	{
+		if (Input.GetKeyUp(KeyCode.I))//human
+			SwapToAnimalNumber(0);
+		if (Input.GetKeyUp(KeyCode.O))//Bison
+			SwapToAnimalNumber(1);
+		if (Input.GetKeyUp(KeyCode.P))//Eagle
+			SwapToAnimalNumber(2);
+	}
 	// Global functions
 
 }
