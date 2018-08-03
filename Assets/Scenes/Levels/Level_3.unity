@@ -8889,7 +8889,6 @@ GameObject:
   m_Component:
   - component: {fileID: 429595146}
   - component: {fileID: 429595145}
-  - component: {fileID: 429595144}
   - component: {fileID: 429595143}
   m_Layer: 0
   m_Name: Main Camera
@@ -8926,13 +8925,6 @@ MonoBehaviour:
   lookAhead: {x: 3, y: 4, z: 0}
   deadZone: {x: 0.5, y: 0.5}
   bubbleOffset: {x: 1.35, y: 1.35, z: 0}
---- !u!81 &429595144
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 429595142}
-  m_Enabled: 1
 --- !u!20 &429595145
 Camera:
   m_ObjectHideFlags: 0
