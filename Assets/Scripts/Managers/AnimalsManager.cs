@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -57,12 +56,12 @@ public class AnimalsManager : Singleton<AnimalsManager>
 
 
 		_currentPlayerForm = Instantiate(_humanFormHolder, _positionBeforeDestroy, Quaternion.identity);
-
+		//_currentPlayerForm.GetComponent<Animator>().SetTrigger("FadeOut");
 		//used to maintain scale between spawns
 		if (_currentPlayerForm != null)
 			_currentPlayerForm.GetComponent<PlayerController>().transform.localScale = _currentScale;
 		_currentAnimalIdentifier = AnimalForm.Human;
-
+		//_currentPlayerForm.GetComponent<PlayerController>().canMove = true;
 
 
 		EventsManager.Instance.formChangeDelegate();
@@ -78,18 +77,10 @@ public class AnimalsManager : Singleton<AnimalsManager>
 	public IEnumerator Swap(int index)
 	{
 
-		if (index != 0)
-		{
-			if (PreventSwapForm() || !GameManager.Instance.IsAnimalAvailable(index + 1)) yield break;
-		}
-		else
-		{
-			Debug.Log("else");
-			if (PreventSwapForm())  yield break;
-		}
+
+		if (PreventSwapForm() || !GameManager.Instance.IsAnimalAvailable(index + 1)) yield break;
 		GameObject chosenAnimalPrefab = null;
 		if (index < _equippedAnimalsPrefabs.Length)
-			Debug.Log(_equippedAnimalsPrefabs[index]);
 			chosenAnimalPrefab = _equippedAnimalsPrefabs[index];
 		if (chosenAnimalPrefab != null)
 		{
@@ -112,7 +103,7 @@ public class AnimalsManager : Singleton<AnimalsManager>
 
 			DestroyCurrentForm();
 			_currentPlayerForm = x;
-
+			_currentPlayerForm.GetComponent<PlayerController>().canMove = true;
 			//used to maintain scale between spawns
 			_currentPlayerForm.GetComponent<PlayerController>().transform.localScale = _currentScale;
 			EventsManager.Instance.formChangeDelegate();
@@ -136,6 +127,7 @@ public class AnimalsManager : Singleton<AnimalsManager>
 	{
 		return _currentPlayerForm.GetComponent<PlayerController>();
 	}
+
 	private void Update()
 	{
 		GetInput();
@@ -143,11 +135,11 @@ public class AnimalsManager : Singleton<AnimalsManager>
 	void GetInput()
 	{
 		if (Input.GetKeyUp(KeyCode.I))//human
-			SwapToAnimalNumber(0);
+			SpawnHuman();
 		if (Input.GetKeyUp(KeyCode.O))//Bison
-			SwapToAnimalNumber(1);
-		if (Input.GetKeyUp(KeyCode.P))//Eagle
-			SwapToAnimalNumber(2);
+			SwapToAnimalNumber(0);
+		//if (Input.GetKeyUp(KeyCode.P))//Eagle
+			//SwapToAnimalNumber(2);
 	}
 	// Global functions
 
