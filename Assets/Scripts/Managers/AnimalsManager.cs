@@ -56,7 +56,7 @@ public class AnimalsManager : Singleton<AnimalsManager>
 
 
 		_currentPlayerForm = Instantiate(_humanFormHolder, _positionBeforeDestroy, Quaternion.identity);
-		_currentPlayerForm.GetComponent<Animator>().SetTrigger("FadeOut");
+
 		//used to maintain scale between spawns
 		if (_currentPlayerForm != null)
 			_currentPlayerForm.GetComponent<PlayerController>().transform.localScale = _currentScale;
@@ -77,8 +77,8 @@ public class AnimalsManager : Singleton<AnimalsManager>
 	public IEnumerator Swap(int index)
 	{
 
-
-		if (PreventSwapForm() || !GameManager.Instance.IsAnimalAvailable(index + 1)) yield break;
+		if((AnimalForm)Enum.Parse(typeof(AnimalForm), _equippedAnimalsPrefabs[index].name) != AnimalForm.Human)
+		if ((PreventSwapForm() || !GameManager.Instance.IsAnimalAvailable(index + 1))) yield break;
 		GameObject chosenAnimalPrefab = null;
 		if (index < _equippedAnimalsPrefabs.Length)
 			chosenAnimalPrefab = _equippedAnimalsPrefabs[index];

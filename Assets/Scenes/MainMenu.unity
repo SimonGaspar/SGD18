@@ -1447,6 +1447,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114173658677840070, guid: 315ebc730bfcc4044b1fa13ba1593d72,
+        type: 2}
+      propertyPath: _equippedAnimalsPrefabs.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4591158020412856, guid: 315ebc730bfcc4044b1fa13ba1593d72, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1489,6 +1494,12 @@ Prefab:
       propertyPath: _maximumCollectibles.Array.data[1]
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 114173658677840070, guid: 315ebc730bfcc4044b1fa13ba1593d72,
+        type: 2}
+      propertyPath: _equippedAnimalsPrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 1278056700385104, guid: aa37f99a60181b14bad88e6ba5d2676d,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 315ebc730bfcc4044b1fa13ba1593d72, type: 2}
   m_IsPrefabParent: 0

@@ -285,7 +285,7 @@ public class PlayerController : MonoBehaviour
         {
             canMove = false;
             if (_currentParticle == null) _currentParticle = Instantiate<ParticleSystem>(_particle);
-
+			Debug.Log(_currentParticle);
             _currentParticle.transform.position = transform.position;
             StartCoroutine(Particle());
         }
