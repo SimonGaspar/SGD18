@@ -1479,6 +1479,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 114498324702214814, guid: 315ebc730bfcc4044b1fa13ba1593d72,
+        type: 2}
+      propertyPath: _maximumCollectibles.Array.data[0]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114498324702214814, guid: 315ebc730bfcc4044b1fa13ba1593d72,
+        type: 2}
+      propertyPath: _maximumCollectibles.Array.data[1]
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 315ebc730bfcc4044b1fa13ba1593d72, type: 2}
   m_IsPrefabParent: 0
