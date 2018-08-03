@@ -56,7 +56,7 @@ public class AnimalsManager : Singleton<AnimalsManager>
 
 
 		_currentPlayerForm = Instantiate(_humanFormHolder, _positionBeforeDestroy, Quaternion.identity);
-
+		_currentPlayerForm.GetComponent<Animator>().SetTrigger("FadeOut");
 		//used to maintain scale between spawns
 		if (_currentPlayerForm != null)
 			_currentPlayerForm.GetComponent<PlayerController>().transform.localScale = _currentScale;
