@@ -97,7 +97,7 @@ public class PlayerController : MonoBehaviour
         Assert.IsNotNull(_groundCheckTransform);
         Assert.IsNotNull(_rb2d);
         Assert.IsNotNull(_spriteRenderer);
-
+		canMove = true;
         _defaultMovementModifier = _movementModifier;
     }
 
