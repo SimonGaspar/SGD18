@@ -1458,6 +1458,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114498324702214814, guid: 315ebc730bfcc4044b1fa13ba1593d72,
+        type: 2}
+      propertyPath: _availableAnimals.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 114173658677840070, guid: 315ebc730bfcc4044b1fa13ba1593d72,
         type: 2}
       propertyPath: _equippedAnimalsPrefabs.Array.size
@@ -1517,6 +1522,11 @@ Prefab:
       value: 
       objectReference: {fileID: 1359729434417512, guid: 8b2ee6ad7887955478bf16ac886cf10d,
         type: 2}
+    - target: {fileID: 114498324702214814, guid: 315ebc730bfcc4044b1fa13ba1593d72,
+        type: 2}
+      propertyPath: _availableAnimals.Array.data[2]
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 315ebc730bfcc4044b1fa13ba1593d72, type: 2}
   m_IsPrefabParent: 0
