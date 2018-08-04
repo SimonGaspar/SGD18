@@ -42,7 +42,7 @@ public class UIManager : Singleton<UIManager>
 	{
 		if ((SceneManager.GetActiveScene().name != _mainMenuScene || SceneManager.GetActiveScene().name != "Credits") && !SceneManager.GetSceneByBuildIndex(_ingameMenuSceneNumber).isLoaded)
 		{
-			if (SceneManager.GetActiveScene().name == "Credits")
+			if (SceneManager.GetActiveScene().name == "Credits" || SceneManager.GetActiveScene().name == _mainMenuScene)
 				return;
 			SceneManager.LoadScene(_ingameMenuSceneNumber, LoadSceneMode.Additive);
 			Debug.Log(SceneManager.GetActiveScene().name);
