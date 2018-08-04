@@ -50,6 +50,8 @@ public class UIManager : Singleton<UIManager>
 		{
 			if (SceneManager.GetActiveScene().name == "Credits" || SceneManager.GetActiveScene().name == _mainMenuScene)
 				return;
+			if (SceneManager.GetActiveScene().name == "Intro" || SceneManager.GetActiveScene().name == _mainMenuScene)
+				return;
 			SceneManager.LoadScene(_ingameMenuSceneNumber, LoadSceneMode.Additive);
 			Debug.Log(SceneManager.GetActiveScene().name);
 			Debug.Log(SceneManager.GetSceneByBuildIndex(_ingameMenuSceneNumber).isLoaded);
@@ -61,7 +63,10 @@ public class UIManager : Singleton<UIManager>
 
 		if (SceneManager.GetActiveScene().name != "Credits")
 		{
-			if (_mainMenuAnimator == null)
+
+			if (SceneManager.GetActiveScene().name == "Intro")
+			return;
+				if (_mainMenuAnimator != null)
 				_mainMenuAnimator = GameObject.Find("MainMenuCanvas").GetComponent<Animator>();
 		}
 		if (Input.GetKeyDown(KeyCode.Escape))
@@ -84,13 +89,16 @@ public class UIManager : Singleton<UIManager>
     {
         GameObject obj = GameObject.Find(_ingameMenuControl);
 
-		if (SceneManager.GetActiveScene().name == "Credits")
+		if (SceneManager.GetActiveScene().name == "Credits" || SceneManager.GetActiveScene().name == "Intro")
 			return;
 		_mainMenuAnimator = GameObject.Find("MainMenuCanvas").GetComponent<Animator>();
 
 		if (obj != null)
         {
-            obj.GetComponent<InGameMenuControl>().OpenInGameMenu();
+
+			if(SceneManager.GetActiveScene().name == "Intro")
+				return;
+			obj.GetComponent<InGameMenuControl>().OpenInGameMenu();
         }
 
     }
