@@ -66,8 +66,11 @@ public class UIManager : Singleton<UIManager>
 
 			if (SceneManager.GetActiveScene().name == "Intro")
 			return;
-				if (_mainMenuAnimator != null)
+			if (_mainMenuAnimator != null)
+			{
+				if (GameObject.Find("MainMenuCanvas") != null)
 				_mainMenuAnimator = GameObject.Find("MainMenuCanvas").GetComponent<Animator>();
+			}
 		}
 		if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -91,7 +94,7 @@ public class UIManager : Singleton<UIManager>
 
 		if (SceneManager.GetActiveScene().name == "Credits" || SceneManager.GetActiveScene().name == "Intro")
 			return;
-		_mainMenuAnimator = GameObject.Find("MainMenuCanvas").GetComponent<Animator>();
+		_mainMenuAnimator = GameObject.Find("InGameMenu").GetComponent<Animator>();
 
 		if (obj != null)
         {
