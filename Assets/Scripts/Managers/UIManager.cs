@@ -27,7 +27,13 @@ public class UIManager : Singleton<UIManager>
 
     private Animator _mainMenuAnimator = null;
 
-    private void Start()
+
+	private void Awake()
+	{
+		if (SceneManager.GetActiveScene().name != "Credits")
+		_mainMenuAnimator = GameObject.Find("MainMenuCanvas").GetComponent<Animator>(); 
+	}
+	private void Start()
     {
         if (GameObject.Find("MainMenuCanvas"))
         {
@@ -52,7 +58,13 @@ public class UIManager : Singleton<UIManager>
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+
+		if (SceneManager.GetActiveScene().name != "Credits")
+		{
+			if (_mainMenuAnimator == null)
+				_mainMenuAnimator = GameObject.Find("MainMenuCanvas").GetComponent<Animator>();
+		}
+		if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (SceneManager.GetActiveScene().name == _mainMenuScene)
             {
@@ -72,7 +84,11 @@ public class UIManager : Singleton<UIManager>
     {
         GameObject obj = GameObject.Find(_ingameMenuControl);
 
-        if (obj != null)
+		if (SceneManager.GetActiveScene().name == "Credits")
+			return;
+		_mainMenuAnimator = GameObject.Find("MainMenuCanvas").GetComponent<Animator>();
+
+		if (obj != null)
         {
             obj.GetComponent<InGameMenuControl>().OpenInGameMenu();
         }
