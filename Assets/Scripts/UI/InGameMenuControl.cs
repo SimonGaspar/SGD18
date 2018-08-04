@@ -79,7 +79,6 @@ public class InGameMenuControl : MonoBehaviour
 			temp.transform.SetParent(_leftPanelTransform, false);
 
 			temp.GetComponent<Image>().sprite = (GameManager.Instance.IsAnimalAvailable(i)) ? _buttonClaimed : _buttonNotClaimed;
-
 			temp.GetComponent<Button>().onClick.AddListener(delegate { HandleLeftButtonClick(int.Parse(temp.name)); });
 
 			_leftPanelButtons.Add(temp);
