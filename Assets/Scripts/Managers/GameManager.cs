@@ -92,7 +92,7 @@ public class GameManager : Singleton<GameManager>
     }
 	public void FinishGame()
 	{
-		Finish();
+		Credits(3);
 	}
 
     public void NextLevel()
@@ -105,6 +105,11 @@ public class GameManager : Singleton<GameManager>
     {
         Application.Quit();
     }
+	public void DeleteSavedGame()
+	{
+
+		File.Delete(Application.persistentDataPath + _saveString);
+	}
 
     public void SaveGame(Transform newSpawn)
     {
@@ -192,9 +197,9 @@ public class GameManager : Singleton<GameManager>
         return (_collectiblesCount[number] == AvailableAnimals[number].RequiredParts);
     }
 
-	void Finish()
+	public void Credits(int index)
 	{
-
+		LoadLevel(index, false);
 	}
 }
 

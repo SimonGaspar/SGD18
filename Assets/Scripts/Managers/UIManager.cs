@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine.Events;
@@ -15,7 +15,8 @@ public class UIManager : Singleton<UIManager>
     [Space]
     [Header("MainMenu")]
     [SerializeField] [Tooltip("Name of the scene that contains MainMenu")] private string _mainMenuScene = "MainMenu";
-    [Space]
+	[SerializeField] [Tooltip("Name of the scene that contains MainMenu")] private string _creditsScene = "Credits";
+	[Space]
     [Header("InGame menu")]
     [SerializeField] [Tooltip("BuildIndex of a scene that contains Ingame menu")] private int _ingameMenuSceneNumber = 1;
     [SerializeField] [Tooltip("Name of the object that controls InGame menu")] private string _ingameMenuControl = "InGameMenuControl";
@@ -38,10 +39,14 @@ public class UIManager : Singleton<UIManager>
     }
 
     void OnNewSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        if (SceneManager.GetActiveScene().name != _mainMenuScene && !SceneManager.GetSceneByBuildIndex(_ingameMenuSceneNumber).isLoaded)
-        {
-            SceneManager.LoadScene(_ingameMenuSceneNumber, LoadSceneMode.Additive);
+	{
+		if ((SceneManager.GetActiveScene().name != _mainMenuScene || SceneManager.GetActiveScene().name != "Credits") && !SceneManager.GetSceneByBuildIndex(_ingameMenuSceneNumber).isLoaded)
+		{
+			if (SceneManager.GetActiveScene().name == "Credits")
+				return;
+			SceneManager.LoadScene(_ingameMenuSceneNumber, LoadSceneMode.Additive);
+			Debug.Log(SceneManager.GetActiveScene().name);
+			Debug.Log(SceneManager.GetSceneByBuildIndex(_ingameMenuSceneNumber).isLoaded);
         }
     }
 

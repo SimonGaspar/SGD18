@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -31,4 +31,8 @@ public class MainMenuControl : MonoBehaviour
     {
         GameManager.Instance.NewGame();
     }
+	public void Credits(int index)
+	{
+		GameManager.Instance.Credits(index);
+	}
 }
