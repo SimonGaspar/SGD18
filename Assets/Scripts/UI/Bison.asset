@@ -22,7 +22,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 5a105c92770d94b41bf5e8b555d8a057, type: 3}
   - {fileID: 21300000, guid: ac28ce8dbae3fcf4f8aee18c0f61544e, type: 3}
   TitleSprite: {fileID: 21300000, guid: 71abaade7f78c1a429fa368de3a80762, type: 3}
-  KeyBind: P
-  ContentText: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eget
-    leo sit amet ante auctor facilisis. Curabitur nec nunc interdum, consequat odio
-    id, suscipit lacus.
+  KeyBind: O
+  ContentText: Using it's weight and power, bison can push obstacles and upon gaining
+    speed, bison is able to destroy objects. However, it's weight prevents him from
+    jumping

@@ -75,8 +75,7 @@ public class GameManager : Singleton<GameManager>
 		}
 		else
 		{
-			PlayIntro();
-
+			NewGame();
 		}
 	}
 	void PlayIntro()
@@ -92,7 +91,10 @@ public class GameManager : Singleton<GameManager>
 		_collectiblesCount = new int[_numberOfAnimals];
 
 		_pickedUpCollectibles = new List<float>();
-		LoadLevel(_levels[0], true);
+
+		PlayIntro();
+
+		//LoadLevel(_levels[0], true);
 	}
 
 	public void Continue()
