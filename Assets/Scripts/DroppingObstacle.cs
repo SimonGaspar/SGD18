@@ -37,5 +37,4 @@ public class DroppingObstacle : MonoBehaviour
     {
         Gizmos.DrawIcon(transform.position, "drop", true);
     }
-
 }

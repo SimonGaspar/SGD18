@@ -193,13 +193,15 @@ public class GameManager : Singleton<GameManager>
 
 	public void CollectiblePickup(GameObject collectible, AnimalForm type)
 	{
-		_pickedUpCollectibles.Add(collectible.transform.position.sqrMagnitude);
-
-		//fixed to ommit eagle collectibles error because now we dont have him in gamemanager 
-		if (type == AnimalForm.Eagle)
+		if (_collectiblesCount[(int)type - 1] > 3)
 			return;
+		//-2 TO NOT COUNT NONE AND HUMAN
+		_pickedUpCollectibles.Add(collectible.transform.position.sqrMagnitude);
+		
+	
 		_collectiblesCount[(int)type - 1]++;
 		print(type + " -> " + _collectiblesCount[(int)type - 1]);
+		
 		EventsManager.Instance.collectibleChangeDelegate();
 	}
 

@@ -80,7 +80,8 @@ public class InGameMenuControl : MonoBehaviour
 
 			temp.GetComponent<Image>().sprite = (GameManager.Instance.IsAnimalAvailable(i)) ? _buttonClaimed : _buttonNotClaimed;
 			temp.GetComponent<Button>().onClick.AddListener(delegate { HandleLeftButtonClick(int.Parse(temp.name)); });
-
+			if (i == 1)//ommit eagle in pause menu
+				break; //doesnt work shit
 			_leftPanelButtons.Add(temp);
 		}
 
