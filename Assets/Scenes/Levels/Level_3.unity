@@ -5593,11 +5593,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4488745184361870, guid: 71492e4002dedb34d839296788fde822, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 23.25
+      value: 23.186
       objectReference: {fileID: 0}
     - target: {fileID: 4488745184361870, guid: 71492e4002dedb34d839296788fde822, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -41.299
+      value: -41.398
       objectReference: {fileID: 0}
     - target: {fileID: 4488745184361870, guid: 71492e4002dedb34d839296788fde822, type: 2}
       propertyPath: m_LocalPosition.z
@@ -28792,11 +28792,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4488745184361870, guid: 71492e4002dedb34d839296788fde822, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 22.45
+      value: 22.423
       objectReference: {fileID: 0}
     - target: {fileID: 4488745184361870, guid: 71492e4002dedb34d839296788fde822, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -19.81
+      value: -19.9
       objectReference: {fileID: 0}
     - target: {fileID: 4488745184361870, guid: 71492e4002dedb34d839296788fde822, type: 2}
       propertyPath: m_LocalPosition.z
@@ -29621,7 +29621,6 @@ GameObject:
   - component: {fileID: 1008093039}
   - component: {fileID: 1008093037}
   - component: {fileID: 1008093035}
-  - component: {fileID: 1008093036}
   m_Layer: 11
   m_Name: Totem_checkpoint
   m_TagString: Untagged
@@ -29655,19 +29654,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &1008093036
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1008093034}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4015d870bd5116145875dbd8a9d2506d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _ingameMenuControl: InGameMenuControl
-  _collectibleMenuFor: 2
 --- !u!114 &1008093037
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33954,7 +33940,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4488745184361870, guid: 71492e4002dedb34d839296788fde822, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 119.77
+      value: 119.713
       objectReference: {fileID: 0}
     - target: {fileID: 4488745184361870, guid: 71492e4002dedb34d839296788fde822, type: 2}
       propertyPath: m_LocalPosition.y
@@ -56050,11 +56036,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4488745184361870, guid: 71492e4002dedb34d839296788fde822, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 13.67
+      value: 13.65
       objectReference: {fileID: 0}
     - target: {fileID: 4488745184361870, guid: 71492e4002dedb34d839296788fde822, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -1.87
+      value: -1.47
       objectReference: {fileID: 0}
     - target: {fileID: 4488745184361870, guid: 71492e4002dedb34d839296788fde822, type: 2}
       propertyPath: m_LocalPosition.z
@@ -56086,7 +56072,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4488745184361870, guid: 71492e4002dedb34d839296788fde822, type: 2}
       propertyPath: m_LocalScale.y
-      value: 0.56842613
+      value: 1.4698669
       objectReference: {fileID: 0}
     - target: {fileID: 1119378886092836, guid: 71492e4002dedb34d839296788fde822, type: 2}
       propertyPath: m_TagString
@@ -56137,6 +56123,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _collectibleFor: 2
+--- !u!114 &1818612571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1818612569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4015d870bd5116145875dbd8a9d2506d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ingameMenuControl: InGameMenuControl
+  _collectibleMenuFor: 2
 --- !u!1 &1820278525
 GameObject:
   m_ObjectHideFlags: 0
@@ -59771,11 +59770,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4488745184361870, guid: 71492e4002dedb34d839296788fde822, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 42.01
+      value: 42.078
       objectReference: {fileID: 0}
     - target: {fileID: 4488745184361870, guid: 71492e4002dedb34d839296788fde822, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 5.75
+      value: 6.011
       objectReference: {fileID: 0}
     - target: {fileID: 4488745184361870, guid: 71492e4002dedb34d839296788fde822, type: 2}
       propertyPath: m_LocalPosition.z
@@ -59816,11 +59815,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4488745184361870, guid: 71492e4002dedb34d839296788fde822, type: 2}
       propertyPath: m_LocalScale.x
-      value: 0.43824
+      value: 0.19635028
       objectReference: {fileID: 0}
     - target: {fileID: 4488745184361870, guid: 71492e4002dedb34d839296788fde822, type: 2}
       propertyPath: m_LocalScale.y
-      value: 1.74901
+      value: 0.5751424
+      objectReference: {fileID: 0}
+    - target: {fileID: 4488745184361870, guid: 71492e4002dedb34d839296788fde822, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 0.32883886
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114639968689931568, guid: 71492e4002dedb34d839296788fde822, type: 2}
